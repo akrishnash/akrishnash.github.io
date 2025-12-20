@@ -15,26 +15,11 @@ layout: null
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
     <style>
-        /* Deep Space Blue Background */
-        body { 
-            background: radial-gradient(circle at center, #000814 0%, #000000 100%); 
-            color: #a1a1aa; 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden; 
-        }
+        body { background: radial-gradient(circle at center, #000814 0%, #000000 100%); color: #a1a1aa; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .serif { font-family: 'Playfair Display', serif; }
         
-        #constellation-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.3;
-        }
+        #constellation-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.3; }
 
         .name-header {
             font-family: 'Futura PT', 'Futura', sans-serif;
@@ -45,15 +30,8 @@ layout: null
             color: #ffffff;
             margin-right: -0.5em;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
-            transition: letter-spacing 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .name-header:hover {
-            letter-spacing: 0.6em;
-            opacity: 0.9;
-        }
-
-        /* Unified Section Headers - Optimized for Visibility */
         .section-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
@@ -65,22 +43,13 @@ layout: null
             text-align: center;
         }
 
-        .glass { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px);
-        }
+        .glass { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
 
         .project-row {
             border-bottom: 1px solid rgba(255,255,255,0.05);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .project-row:hover { 
-            background: rgba(99, 102, 241, 0.05); 
-            border-color: #6366f1; 
-            color: #fff;
-            padding-left: 1rem;
-        }
+        .project-row:hover { background: rgba(99, 102, 241, 0.05); border-color: #6366f1; color: #fff; padding-left: 1rem; }
     </style>
 </head>
 <body>
@@ -88,7 +57,6 @@ layout: null
     <canvas id="constellation-canvas"></canvas>
 
     <main class="relative z-10">
-        
         <section class="min-h-[70vh] flex flex-col justify-center items-center text-center px-6 relative">
             <h1 class="name-header mb-6" data-aos="fade-down">Anurag K. Sharma</h1>
             <div class="mono text-indigo-400/80 tracking-[0.5em] text-[10px] uppercase h-6">
@@ -105,9 +73,9 @@ layout: null
                         Formerly architecting mission-critical infrastructure at AIIMS New Delhi.
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase bg-indigo-500/5">Quantum Internet</span>
-                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase bg-indigo-500/5">PQC Security</span>
-                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase bg-indigo-500/5">Federated Learning</span>
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">Quantum Internet</span>
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">PQC Security</span>
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">Federated Learning</span>
                     </div>
                 </div>
                 <div class="md:col-span-4 space-y-6" data-aos="fade-left">
@@ -126,6 +94,7 @@ layout: null
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
             <span class="section-label">System_Architecture_Index</span>
             <div class="space-y-0">
+                
                 <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
                     <div class="flex items-start gap-12">
                         <div class="flex flex-col items-center">
@@ -134,31 +103,89 @@ layout: null
                         </div>
                         <div>
                             <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">Sat Annotator & YOLOv8 Pipeline</h4>
-                            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-6">A comprehensive geospatial analysis platform for automatic detection and annotation.</p>
-                            <div class="grid grid-cols-3 gap-8 border-l border-white/10 pl-6">
-                                <div><p class="mono text-[8px] text-gray-600 uppercase mb-1">Engine</p><p class="text-[10px] text-gray-300 mono">YOLOv8 / GPU</p></div>
-                                <div><p class="mono text-[8px] text-gray-600 uppercase mb-1">Output</p><p class="text-[10px] text-gray-300 mono">GeoJSON</p></div>
-                                <div><p class="mono text-[8px] text-gray-600 uppercase mb-1">Type</p><p class="text-[10px] text-gray-300 mono">Watcher</p></div>
+                            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-6">
+                                Headless GPU-accelerated geospatial platform for automated satellite imagery tiling and YOLOv8 inference. Features GeoJSON output stream and interactive annotation tools.
+                            </p>
+                            <div class="flex gap-4 text-[9px] mono text-indigo-400/70 uppercase">
+                                <span>[ Geospatial ]</span> <span>[ YOLOv8 ]</span> <span>[ GPU Inference ]</span>
                             </div>
                         </div>
                     </div>
-                    <a href="https://github.com/akrishnash/sat-annotate" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] uppercase">Access_Log</a>
+                    <a href="https://github.com/akrishnash/sat-annotate" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
                 </div>
 
                 <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
                     <div class="flex items-start gap-12">
                         <span class="mono text-xs text-indigo-500 mt-2">SYS_02</span>
-                        <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white" style="font-family: 'Futura PT', sans-serif;">5G Latency Analysis & Caching</h4>
+                        <div>
+                            <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">5G Latency Analysis & Caching</h4>
+                            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">Analysis of Free5GC core functions. Proposed caching mechanisms to reduce function-to-function resource bottlenecks.</p>
+                            <div class="flex gap-4 text-[9px] mono text-indigo-400/70 uppercase">
+                                <span>[ 5G Core ]</span> <span>[ Network Optimization ]</span> <span>[ Research ]</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="https://github.com/momus-s/Free5Gc_IITD" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] uppercase">Source_Log</a>
+                    <a href="https://github.com/momus-s/Free5Gc_IITD" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
+                </div>
+
+                <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+                    <div class="flex items-start gap-12">
+                        <span class="mono text-xs text-indigo-500 mt-2">SYS_03</span>
+                        <div>
+                            <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">PQC Wireguard Simulator</h4>
+                            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">Post-Quantum Cryptography based VPN connectivity simulator built on the Wireguard protocol.</p>
+                            <div class="flex gap-4 text-[9px] mono text-indigo-400/70 uppercase">
+                                <span>[ Cryptography ]</span> <span>[ Security ]</span> <span>[ VPN ]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://github.com/akrishnash/wireguard-connect-simulator" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
+                </div>
+
+                <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+                    <div class="flex items-start gap-12">
+                        <span class="mono text-xs text-indigo-500 mt-2">SYS_04</span>
+                        <div>
+                            <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">OrbitWall Android</h4>
+                            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">Satellite-based dynamic wallpaper application for real-time geospatial mobile aesthetics.</p>
+                        </div>
+                    </div>
+                    <a href="https://github.com/akrishnash/OrbitWall" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
                 </div>
             </div>
         </section>
 
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
-            <span class="section-label">Extended_Archives</span>
-            <div id="external-projects" class="space-y-0">
-                <p class="text-center mono text-xs text-gray-700 uppercase animate-pulse">Scanning Secondary Node...</p>
+            <span class="section-label" style="font-size: 10px; color: #4b5563;">Auxiliary_Subsystems</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://github.com/momus-s/flower" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+                    <div>
+                        <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">Flower FL</h5>
+                        <p class="text-xs text-gray-500 uppercase tracking-tighter">Federated Learning security testing on MNIST</p>
+                    </div>
+                    <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+                </a>
+                <a href="https://github.com/akrishnash/hole-in-one-" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+                    <div>
+                        <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">GrocTrack</h5>
+                        <p class="text-xs text-gray-500 uppercase tracking-tighter">Grocery tracking and expiry notification system</p>
+                    </div>
+                    <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+                </a>
+                <a href="https://github.com/akrishnash/hole-in-one-" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+                    <div>
+                        <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">Hole In One</h5>
+                        <p class="text-xs text-gray-500 uppercase tracking-tighter">Multiplayer physics-based competitive game</p>
+                    </div>
+                    <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+                </a>
+                <a href="https://github.com/momus-s/Markdown_parser" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+                    <div>
+                        <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">MD Parser</h5>
+                        <p class="text-xs text-gray-500 uppercase tracking-tighter">Custom markdown rendering engine</p>
+                    </div>
+                    <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+                </a>
             </div>
         </section>
 
@@ -172,7 +199,7 @@ layout: null
                 </div>
                 <div class="space-y-12 flex flex-col justify-center">
                     <div>
-                        <h4 class="mono text-indigo-400 text-[11px] mb-4 uppercase tracking-[0.3em]">Core Library</h4>
+                        <h4 class="mono text-indigo-400 text-[11px] mb-4 uppercase tracking-[0.3em]">Library</h4>
                         <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-loose">Hegel • Chomsky • Foucault • Schopenhauer • Huxley • Socrates</p>
                     </div>
                     <div>
@@ -220,7 +247,6 @@ layout: null
     <script>
         AOS.init({ duration: 1200, once: true });
         
-        // Typed.js Initialization
         new Typed('#typed-header', {
             strings: ['Scientist @ ISRO', 'IIT Delhi Alumnus', 'Theoretical Computer Science', 'Security Architect'],
             typeSpeed: 70, backSpeed: 30, backDelay: 3000, loop: true
@@ -235,7 +261,6 @@ layout: null
             typeSpeed: 50, backSpeed: 20, backDelay: 5000, loop: true
         });
 
-        // Fixed Clock Logic
         function updateClock() {
             const now = new Date();
             const istTime = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
@@ -244,34 +269,6 @@ layout: null
         setInterval(updateClock, 1000);
         updateClock();
 
-        // GitHub API Fetch
-        async function fetchSecondaryProjects() {
-            const username = 'akrishnash'; 
-            const container = document.getElementById('external-projects');
-            try {
-                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
-                const repos = await response.json();
-                container.innerHTML = '';
-                repos.forEach((repo, index) => {
-                    if (!repo.fork) {
-                        const row = document.createElement('div');
-                        row.className = 'project-row py-10 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer';
-                        row.onclick = () => window.open(repo.html_url, '_blank');
-                        row.innerHTML = `
-                            <div class="flex items-center gap-12">
-                                <span class="mono text-xs text-indigo-500">EXT_${(index + 1).toString().padStart(2, '0')}</span>
-                                <h4 class="text-2xl font-light uppercase tracking-widest text-white">${repo.name.replace(/-/g, ' ')}</h4>
-                            </div>
-                            <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider">${repo.description || 'Source code documentation.'}</p>
-                        `;
-                        container.appendChild(row);
-                    }
-                });
-            } catch (e) { container.innerHTML = '<p class="text-center mono text-xs text-gray-800 uppercase">External node offline</p>'; }
-        }
-        fetchSecondaryProjects();
-
-        // Constellation Canvas Animation
         const canvas = document.getElementById('constellation-canvas');
         const ctx = canvas.getContext('2d');
         let points = [];
