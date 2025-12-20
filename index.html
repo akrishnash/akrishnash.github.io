@@ -6,10 +6,10 @@ layout: null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anurag Sharma | Scientist</title>
+    <title>Anurag K. Sharma | Scientist</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400&family=Playfair+Display:italic,wght@400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
@@ -19,121 +19,182 @@ layout: null
         .mono { font-family: 'JetBrains Mono', monospace; }
         .serif { font-family: 'Playfair Display', serif; }
         
+        /* Starfield Canvas Background */
+        #constellation-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
         .name-header {
-            font-size: clamp(1.8rem, 4vw, 2.8rem); /* Precise, non-bulky size */
-            letter-spacing: 0.1em;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.15em;
             color: #fff;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
+            filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+        }
+
+        /* Improved Header Visibility */
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px; /* Increased from 8px */
+            letter-spacing: 0.8em;
+            color: #e5e7eb; /* Brighter */
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 3rem;
         }
 
         .glass { 
-            background: rgba(255, 255, 255, 0.01); 
-            border: 1px solid rgba(255, 255, 255, 0.03); 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px);
         }
 
         .project-row {
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .project-row:hover { background: rgba(255, 255, 255, 0.015); border-color: #6366f1; color: #fff; }
+        .project-row:hover { 
+            background: rgba(99, 102, 241, 0.05); 
+            border-color: #6366f1; 
+            color: #fff;
+            padding-left: 1rem;
+        }
     </style>
 </head>
 <body>
 
+    <canvas id="constellation-canvas"></canvas>
+
     <main class="relative z-10">
         
-        <section class="min-h-[60vh] flex flex-col justify-center items-center text-center px-6">
-            <h1 class="name-header mb-4">Anurag K. Sharma</h1>
-            <div class="mono text-indigo-500 tracking-[0.4em] text-[9px] uppercase h-6">
+        <!-- <section class="min-h-[70vh] flex flex-col justify-center items-center text-center px-6">
+            <h1 class="name-header mb-6">Anurag K. Sharma</h1>
+            <div class="mono text-indigo-400 tracking-[0.4em] text-[11px] uppercase h-6">
                 <span id="typed-header"></span>
             </div>
-        </section>
+        </section> -->
+        <section class="min-h-[70vh] flex flex-col justify-center items-center text-center px-6 relative">
+    <h1 class="name-header mb-6">
+        Anurag K. Sharma
+    </h1>
+    
+    <div class="mono text-indigo-500/80 tracking-[0.5em] text-[10px] uppercase h-6">
+        <span id="typed-header"></span>
+    </div>
+</section>
 
-        <section class="max-w-[1400px] mx-auto px-8 mb-32">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
-                <div class="md:col-span-8">
-                    <h2 class="mono text-[8px] text-gray-600 uppercase tracking-[0.5em] mb-6">Classification</h2>
-                    <p class="text-gray-300 text-lg font-light leading-relaxed mb-10 max-w-3xl">
-                        Scientist at the Department of Space. Specialized in Deep Learning, Quantum Computing, VPN Security, and Networks. 
-                        Formerly architecting critical infrastructure at AIIMS New Delhi.
+<style>
+    .name-header {
+        font-family: 'Futura PT', 'Futura', sans-serif;
+        /* Using a smaller, more 'expensive' scale */
+        font-size: clamp(1.8rem, 4.5vw, 3rem); 
+        font-weight: 700;
+        text-transform: uppercase;
+        /* Wide tracking is the key to the Futura futuristic look */
+        letter-spacing: 0.5em; 
+        color: #ffffff;
+        margin-right: -0.5em; /* Offsets the tracking to keep it perfectly centered */
+        
+        /* Subtle 'HUD' glow */
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        transition: letter-spacing 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .name-header:hover {
+        letter-spacing: 0.6em;
+        opacity: 0.9;
+    }
+</style>
+
+        <section class="max-w-[1400px] mx-auto px-8 mb-40">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+                <div class="md:col-span-8" data-aos="fade-up">
+                    <span class="section-label">Classification</span>
+                    <p class="text-gray-200 text-2xl font-light leading-relaxed mb-10 max-w-4xl">
+                        Scientist at the Department of Space. Specialized in Deep Learning architectures, Quantum Computing, VPN Security, and high-performance Networks. 
+                        Formerly architecting mission-critical infrastructure at AIIMS New Delhi.
                     </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 border border-white/5 text-[8px] mono text-gray-500 uppercase tracking-widest">Quantum Internet</span>
-                        <span class="px-3 py-1 border border-white/5 text-[8px] mono text-gray-500 uppercase tracking-widest">PQC Security</span>
-                        <span class="px-3 py-1 border border-white/5 text-[8px] mono text-gray-500 uppercase tracking-widest">Federated Learning</span>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">Quantum Internet</span>
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">PQC Security</span>
+                        <span class="px-5 py-2 border border-white/10 text-[10px] mono text-indigo-300 uppercase tracking-widest bg-indigo-500/5">Federated Learning</span>
                     </div>
                 </div>
-                <div class="md:col-span-4 space-y-6">
-                    <div class="glass p-8 rounded-xl border-l border-indigo-500/30">
-                        <p class="mono text-[8px] text-indigo-500 uppercase mb-2">Current Status</p>
-                        <p class="text-white text-xs font-semibold uppercase tracking-widest">Scientist C, ISRO</p>
+                <div class="md:col-span-4 space-y-6" data-aos="fade-left">
+                    <div class="glass p-10 rounded-2xl border-l-2 border-indigo-500">
+                        <p class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-3">Current Node</p>
+                        <p class="text-white text-sm font-bold uppercase tracking-widest">Scientist C, ISRO</p>
                     </div>
-                    <div class="glass p-8 rounded-xl border-l border-indigo-500/30">
-                        <p class="mono text-[8px] text-indigo-500 uppercase mb-2">Academic</p>
-                        <p class="text-white text-xs font-semibold uppercase tracking-widest">IIT Delhi, M.Tech CSE</p>
+                    <div class="glass p-10 rounded-2xl border-l-2 border-indigo-500">
+                        <p class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-3">Academic</p>
+                        <p class="text-white text-sm font-bold uppercase tracking-widest">IIT Delhi, M.Tech CSE</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
-            <h2 class="mono text-gray-700 text-[8px] tracking-[1.2em] uppercase mb-12 text-center">Repository_Index</h2>
-            <div class="space-y-0">
-                
-                <div class="project-row py-8 flex flex-col md:flex-row md:items-center justify-between group">
+            <span class="section-label text-center">Repository_Index</span>
+            <div class="space-y-0" id="main-repo-index">
+                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up">
                     <div class="flex items-center gap-12">
-                        <span class="mono text-[10px] text-gray-600">REF_01</span>
-                        <h4 class="text-lg font-light uppercase tracking-widest">5G Core Infrastructure</h4>
+                        <span class="mono text-xs text-indigo-500">REF_01</span>
+                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">5G Core Infrastructure</h4>
                     </div>
-                    <p class="text-gray-500 text-[10px] mt-2 md:mt-0 max-w-sm uppercase tracking-tighter">Optimized deployment frameworks for tested 5G networks.</p>
+                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Optimization of deployment frameworks for 5G core networks.</p>
                 </div>
 
-                <div class="project-row py-8 flex flex-col md:flex-row md:items-center justify-between group">
+                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center gap-12">
-                        <span class="mono text-[10px] text-gray-600">REF_02</span>
-                        <h4 class="text-lg font-light uppercase tracking-widest">Flower Framework</h4>
+                        <span class="mono text-xs text-indigo-500">REF_02</span>
+                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">Flower Framework</h4>
                     </div>
-                    <p class="text-gray-500 text-[10px] mt-2 md:mt-0 max-w-sm uppercase tracking-tighter">Federated Learning system for high-security distributed data.</p>
+                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Customizable Federated Learning systems for secure datasets.</p>
                 </div>
 
-                <div class="project-row py-8 flex flex-col md:flex-row md:items-center justify-between group">
+                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center gap-12">
-                        <span class="mono text-[10px] text-gray-600">REF_03</span>
-                        <h4 class="text-lg font-light uppercase tracking-widest">Wireguard PQC VPN</h4>
+                        <span class="mono text-xs text-indigo-500">REF_03</span>
+                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">Wireguard PQC VPN</h4>
                     </div>
-                    <p class="text-gray-500 text-[10px] mt-2 md:mt-0 max-w-sm uppercase tracking-tighter">Post-Quantum Cryptography network security services.</p>
+                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Post-Quantum Cryptography network security protocols.</p>
                 </div>
-
-                <div class="project-row py-8 flex flex-col md:flex-row md:items-center justify-between group">
-                    <div class="flex items-center gap-12">
-                        <span class="mono text-[10px] text-gray-600">REF_04</span>
-                        <h4 class="text-lg font-light uppercase tracking-widest">Satellite Analytics</h4>
-                    </div>
-                    <p class="text-gray-500 text-[10px] mt-2 md:mt-0 max-w-sm uppercase tracking-tighter">Sat Annotator: Image annotation and space-borne ML training.</p>
-                </div>
-
             </div>
         </section>
 
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="md:col-span-2 glass p-16 rounded-[2rem] relative overflow-hidden">
-                    <h2 class="mono text-indigo-500 text-[8px] tracking-[0.5em] uppercase mb-10">Theory</h2>
-                    <div class="min-h-[80px]">
-                        <span id="typed-quote" class="serif text-2xl text-gray-300 leading-relaxed italic"></span>
+            <span class="section-label text-center">Extended_Archives</span>
+            <div id="external-projects" class="space-y-0">
+                <p class="text-center mono text-xs text-gray-700 uppercase animate-pulse">Scanning Secondary Node...</p>
+            </div>
+        </section>
+
+        <section class="max-w-[1400px] mx-auto px-8 mb-40">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div class="md:col-span-2 glass p-16 rounded-[3rem] relative overflow-hidden" data-aos="zoom-in">
+                    <span class="section-label !mb-12">Theory</span>
+                    <div class="min-h-[100px]">
+                        <span id="typed-quote" class="serif text-3xl text-gray-100 leading-relaxed italic"></span>
                     </div>
                 </div>
-                <div class="space-y-6 flex flex-col justify-center">
-                    <div>
-                        <h2 class="mono text-violet-500 text-[8px] mb-2 uppercase">Core Library</h2>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest leading-loose">
-                            Hegel • Chomsky • Foucault • Schopenhauer • Huxley • Socrates
+                <div class="space-y-12 flex flex-col justify-center">
+                    <div data-aos="fade-left">
+                        <h4 class="mono text-indigo-400 text-[11px] mb-4 uppercase tracking-[0.3em]">Core Library</h4>
+                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-loose">
+                            Hegel • Chomsky • Foucault • Schopenhauer • Huxley • Socrates • Ulay
                         </p>
                     </div>
-                    <div>
-                        <h2 class="mono text-pink-500 text-[8px] mb-2 uppercase">Media Archives</h2>
-                        <p class="text-[9px] text-gray-600 uppercase tracking-widest leading-loose">
+                    <div data-aos="fade-left" data-aos-delay="100">
+                        <h4 class="mono text-indigo-400 text-[11px] mb-4 uppercase tracking-[0.3em]">Media Archives</h4>
+                        <p class="text-[11px] text-gray-500 uppercase tracking-widest leading-loose">
                             Interstellar • Stalker • Dark • Mindhunter
                         </p>
                     </div>
@@ -141,12 +202,12 @@ layout: null
             </div>
         </section>
 
-        <section class="max-w-[1400px] mx-auto px-8 mb-40 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="overflow-hidden rounded-lg h-[450px] glass">
-                <img src="assets/photography/DSC01549.JPG" class="w-full h-full object-cover opacity-50 hover:opacity-100 transition duration-1000">
+        <section class="max-w-[1400px] mx-auto px-8 mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="overflow-hidden rounded-2xl h-[550px] glass" data-aos="fade-up">
+                <img src="assets/photography/DSC01549.JPG" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition duration-1000">
             </div>
-            <div class="overflow-hidden rounded-lg h-[450px] glass">
-                <img src="assets/photography/DSC01925.JPG" class="w-full h-full object-cover opacity-50 hover:opacity-100 transition duration-1000">
+            <div class="overflow-hidden rounded-2xl h-[550px] glass" data-aos="fade-up" data-aos-delay="200">
+                <img src="assets/photography/DSC01925.JPG" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition duration-1000">
             </div>
         </section>
 
@@ -154,11 +215,12 @@ layout: null
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 1200, once: true });
         
+        // Typed.js
         new Typed('#typed-header', {
             strings: ['Scientist @ ISRO', 'IIT Delhi Alumnus', 'Theoretical Computer Science', 'Security Architect'],
-            typeSpeed: 80, backSpeed: 40, backDelay: 3000, loop: true
+            typeSpeed: 70, backSpeed: 30, backDelay: 3000, loop: true
         });
 
         new Typed('#typed-quote', {
@@ -169,6 +231,82 @@ layout: null
             ],
             typeSpeed: 50, backSpeed: 20, backDelay: 5000, loop: true
         });
+
+        // GitHub API Fetch for Secondary Account
+        async function fetchSecondaryProjects() {
+            const username = 'YOUR_SECOND_USERNAME'; // REPLACE THIS
+            const container = document.getElementById('external-projects');
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
+                const repos = await response.json();
+                container.innerHTML = '';
+                repos.forEach((repo, index) => {
+                    if (!repo.fork) {
+                        const row = document.createElement('div');
+                        row.className = 'project-row py-10 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer';
+                        row.onclick = () => window.open(repo.html_url, '_blank');
+                        row.innerHTML = `
+                            <div class="flex items-center gap-12">
+                                <span class="mono text-xs text-indigo-500">EXT_${(index + 1).toString().padStart(2, '0')}</span>
+                                <h4 class="text-2xl font-light uppercase tracking-widest text-white">${repo.name.replace(/-/g, ' ')}</h4>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">${repo.description || 'Source code documentation.'}</p>
+                        `;
+                        container.appendChild(row);
+                    }
+                });
+            } catch (e) { container.innerHTML = ''; }
+        }
+        fetchSecondaryProjects();
+
+        // Constellation / Plexus Animation
+        const canvas = document.getElementById('constellation-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        const numPoints = 60;
+        const maxDist = 150;
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<numPoints; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            for(let i=0; i<points.length; i++) {
+                let p = points[i];
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                for(let j=i+1; j<points.length; j++) {
+                    let p2 = points[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < maxDist) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist/maxDist})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        draw();
     </script>
 </body>
 </html>
