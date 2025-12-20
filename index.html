@@ -18,7 +18,28 @@ layout: null
         body { background: #000; color: #a1a1aa; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .serif { font-family: 'Playfair Display', serif; }
+    
         
+        /* Futuristic Section Headers */
+.section-label {
+    font-family: 'Futura PT', 'Futura', sans-serif;
+    font-size: 16px; 
+    font-weight: 700;
+    letter-spacing: 1.2em; /* Extreme spacing for the HUD look */
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    margin-bottom: 4rem;
+    opacity: 0.9;
+}
+
+/* Technical Row Detail */
+.mono-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #4b5563;
+    text-transform: uppercase;
+}
         /* Starfield Canvas Background */
         #constellation-canvas {
             position: fixed;
@@ -142,34 +163,133 @@ layout: null
         </section>
 
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
-            <span class="section-label text-center">Repository_Index</span>
-            <div class="space-y-0" id="main-repo-index">
-                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up">
-                    <div class="flex items-center gap-12">
-                        <span class="mono text-xs text-indigo-500">REF_01</span>
-                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">5G Core Infrastructure</h4>
-                    </div>
-                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Optimization of deployment frameworks for 5G core networks.</p>
+    <span class="section-label text-center" style="font-family: 'Futura PT', sans-serif;">System_Architecture_Index</span>
+    
+    <div class="space-y-0">
+<div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+    <div class="flex items-start gap-12">
+        <div class="flex flex-col items-center">
+            <span class="mono text-xs text-indigo-500 mt-2">SYS_01</span>
+            <div class="mt-4 px-2 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-[7px] mono text-indigo-400 animate-pulse uppercase tracking-widest">
+                System_Active
+            </div>
+        </div>
+        <div>
+            <div class="flex items-center gap-4 mb-3">
+                <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white" style="font-family: 'Futura PT', sans-serif;">Sat Annotator & YOLOv8 Pipeline</h4>
+            </div>
+            <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-6">
+                A comprehensive geospatial analysis platform. Features watcher-based headless inference that tiles satellite imagery, runs multiple YOLOv8 models on GPUs, and publishes combined GeoJSON outputs. Includes advanced polygon annotation and real-time resource monitoring.
+            </p>
+            
+            <div class="grid grid-cols-3 gap-8 mb-6 border-l border-white/10 pl-6">
+                <div>
+                    <p class="mono text-[8px] text-gray-600 uppercase mb-1">Inference_Engine</p>
+                    <p class="text-[10px] text-gray-300 mono">YOLOv8 / GPU</p>
                 </div>
-
-                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center gap-12">
-                        <span class="mono text-xs text-indigo-500">REF_02</span>
-                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">Flower Framework</h4>
-                    </div>
-                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Customizable Federated Learning systems for secure datasets.</p>
+                <div>
+                    <p class="mono text-[8px] text-gray-600 uppercase mb-1">Geospatial_Output</p>
+                    <p class="text-[10px] text-gray-300 mono">GeoJSON / TIFF</p>
                 </div>
-
-                <div class="project-row py-10 flex flex-col md:flex-row md:items-center justify-between group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center gap-12">
-                        <span class="mono text-xs text-indigo-500">REF_03</span>
-                        <h4 class="text-2xl font-light uppercase tracking-widest text-white">Wireguard PQC VPN</h4>
-                    </div>
-                    <p class="text-gray-500 text-xs mt-4 md:mt-0 max-w-sm uppercase tracking-wider leading-relaxed">Post-Quantum Cryptography network security protocols.</p>
+                <div>
+                    <p class="mono text-[8px] text-gray-600 uppercase mb-1">Service_Type</p>
+                    <p class="text-[10px] text-gray-300 mono">Watcher_Headless</p>
                 </div>
             </div>
-        </section>
 
+            <div class="flex gap-4 text-[9px] mono text-indigo-400/70">
+                <span>[ GEOSPATIAL ]</span> <span>[ MACHINE LEARNING ]</span> <span>[ INFRASTRUCTURE ]</span>
+            </div>
+        </div>
+    </div>
+    <a href="https://github.com/akrishnash/sat-annotate" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Access_Log</a>
+</div>
+
+        <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+            <div class="flex items-start gap-12">
+                <span class="mono text-xs text-indigo-500 mt-2">SYS_02</span>
+                <div>
+                    <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">5G Latency Analysis & Caching</h4>
+                    <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">
+                        Deep analysis of 5G Core functions (AMF, PCF, NRF) using the Free5GC simulator. Proposed and implemented a caching mechanism to mitigate resource bottlenecks and significantly reduce function-to-function latency.
+                    </p>
+                    <div class="flex gap-4 text-[9px] mono text-indigo-400/70">
+                        <span>[ 5G CORE ]</span> <span>[ NETWORK OPTIMIZATION ]</span> <span>[ RESEARCH ]</span>
+                    </div>
+                </div>
+            </div>
+            <a href="https://github.com/momus-s/Free5Gc_IITD" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
+        </div>
+
+        <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+            <div class="flex items-start gap-12">
+                <span class="mono text-xs text-indigo-500 mt-2">SYS_03</span>
+                <div>
+                    <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">PQC Wireguard Simulator</h4>
+                    <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">
+                        A GUI-based connectivity simulator for VPN services based on the Wireguard protocol, focusing on Post-Quantum Cryptography (PQC) security layers for future-proof networking.
+                    </p>
+                    <div class="flex gap-4 text-[9px] mono text-indigo-400/70">
+                        <span>[ CRYPTOGRAPHY ]</span> <span>[ VPN ]</span> <span>[ NETWORK SECURITY ]</span>
+                    </div>
+                </div>
+            </div>
+            <a href="https://github.com/akrishnash/wireguard-connect-simulator" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
+        </div>
+
+        <div class="project-row py-12 flex flex-col md:flex-row gap-8 justify-between group" data-aos="fade-up">
+            <div class="flex items-start gap-12">
+                <span class="mono text-xs text-indigo-500 mt-2">SYS_04</span>
+                <div>
+                    <h4 class="text-2xl font-bold uppercase tracking-[0.2em] text-white mb-3" style="font-family: 'Futura PT', sans-serif;">OrbitWall Android</h4>
+                    <p class="text-gray-400 text-sm max-w-2xl leading-relaxed mb-4">
+                        A specialized Android application that interfaces with satellite imagery to dynamically update wallpapers, bringing real-time geospatial aesthetics to mobile interfaces.
+                    </p>
+                </div>
+            </div>
+            <a href="https://github.com/akrishnash/OrbitWall" target="_blank" class="self-center px-6 py-2 border border-white/10 hover:bg-white hover:text-black transition-all mono text-[10px] tracking-widest uppercase">Source_Log</a>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-[1400px] mx-auto px-8 mb-40">
+    <span class="section-label text-center" style="font-family: 'Futura PT', sans-serif; font-size: 10px; color: #4b5563;">Auxiliary_Subsystems</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <a href="https://github.com/momus-s/flower" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+            <div>
+                <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">Flower FL</h5>
+                <p class="text-xs text-gray-500 uppercase tracking-tighter">Federated Learning security testing on MNIST</p>
+            </div>
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+        </a>
+
+        <a href="https://github.com/akrishnash/hole-in-one-" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+            <div>
+                <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">GrocTrack</h5>
+                <p class="text-xs text-gray-500 uppercase tracking-tighter">Android grocery tracking and expiry notification</p>
+            </div>
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+        </a>
+
+        <a href="https://github.com/akrishnash/hole-in-one-" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+            <div>
+                <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">Hole In One</h5>
+                <p class="text-xs text-gray-500 uppercase tracking-tighter">Multiplayer game with competitive physics</p>
+            </div>
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+        </a>
+
+        <a href="https://github.com/momus-s/Markdown_parser" target="_blank" class="glass p-6 rounded-lg flex justify-between items-center group hover:bg-white/5 transition-all">
+            <div>
+                <h5 class="mono text-[10px] text-indigo-400 uppercase tracking-widest mb-1">MD Parser</h5>
+                <p class="text-xs text-gray-500 uppercase tracking-tighter">Custom markdown rendering engine</p>
+            </div>
+            <span class="text-xs opacity-0 group-hover:opacity-100 transition-all">→</span>
+        </a>
+
+    </div>
+</section>
         <section class="max-w-[1400px] mx-auto px-8 mb-40">
             <span class="section-label text-center">Extended_Archives</span>
             <div id="external-projects" class="space-y-0">
