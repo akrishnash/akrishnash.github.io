@@ -322,44 +322,55 @@ layout: null
         initCanvas();
         draw();
     </script>
-    <!-- Load Three.js and Vanta.js -->
-<script src="cdnjs.cloudflare.com"></script>
-<script src="cdn.jsdelivr.net"></script>
-    <!-- 1. Load Three.js (Dependency) -->
-    <script src="cdnjs.cloudflare.com"></script>
-    <!-- 2. Load Vanta Net (The Effect) -->
-    <script src="cdn.jsdelivr.net"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script src="unpkg.com"></script>
-<script>
-    // Initialize Vanta Net
-    VANTA.NET({
-      el: "#vanta-canvas", // Target our new div
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x781f3d,       // Your requested plum/red color
-      backgroundColor: 0x0,  // Black background
-      points: 14.00,
-      maxDistance: 27.00,
-      spacing: 16.00
-    });
+    <script>
+        // Ensure the background loads once the page is ready
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Vanta Net
+            VANTA.NET({
+                el: "#vanta-canvas", 
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x781f3d,       // Your plum color
+                backgroundColor: 0x0,  // Black background
+                points: 14.00,
+                maxDistance: 27.00,
+                spacing: 16.00
+            });
 
-    // Initialize your Typed.js (keep your existing logic)
-    new Typed('#typed-header', {
-      strings: ['Secure Infrastructure Architect', 'Quantum Computing Researcher', 'Deep Learning Specialist'],
-      typeSpeed: 50,
-      backSpeed: 30,
-      loop: true
-    });
+            // Initialize Typed.js for the header
+            new Typed('#typed-header', {
+                strings: ['Secure Infrastructure Architect', 'Quantum Computing Researcher', 'Deep Learning Specialist'],
+                typeSpeed: 50,
+                backSpeed: 30,
+                loop: true
+            });
 
-    // Initialize AOS (keep your existing logic)
-    AOS.init({ duration: 1000, once: true });
-</script>
+            // Initialize AOS (Animations)
+            AOS.init({ duration: 1000, once: true });
+        });
+
+        // Your Clock logic (keep this part as is)
+        function updateClock() {
+            const now = new Date();
+            const istTime = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            const clockElement = document.getElementById('system-clock');
+            if (clockElement) clockElement.textContent = `${istTime} IST`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 
 </body>
 </html>
