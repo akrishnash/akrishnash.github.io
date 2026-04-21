@@ -646,6 +646,35 @@ button { cursor: none; }
 }
 
 /* ======================================
+   GITHUB STATS
+   ====================================== */
+.github-stats-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem;
+}
+.github-stat-card {
+  position: relative; overflow: hidden;
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  border-radius: 8px; padding: 1rem;
+  min-height: 220px; display: flex; align-items: center; justify-content: center;
+}
+.github-stat-card.wide { grid-column: 1 / -1; }
+.github-stat-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--accent-cyan-dim), transparent 55%, var(--accent-amber-dim));
+  opacity: 0.7; pointer-events: none;
+}
+.github-stat-card img {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 100%; height: auto;
+  border-radius: 6px;
+}
+.github-stat-light { display: none; }
+.github-note {
+  margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--text-muted); letter-spacing: 0.04em;
+}
+
+/* ======================================
    AUXILIARY PROJECTS
    ====================================== */
 .aux-grid {
@@ -846,6 +875,9 @@ html[data-theme="light"] .project-title { color: #1a1a2e !important; }
 html[data-theme="light"] .project-desc { color: #6b7280 !important; }
 html[data-theme="light"] .blog-card { background: #ffffff !important; }
 html[data-theme="light"] .blog-title { color: #1a1a2e !important; }
+html[data-theme="light"] .github-stat-card { background: #ffffff !important; }
+html[data-theme="light"] .github-stat-dark { display: none !important; }
+html[data-theme="light"] .github-stat-light { display: block !important; }
 html[data-theme="light"] .quote-section { background: #ffffff !important; }
 html[data-theme="light"] .quote-sanskrit { color: #1a1a2e !important; }
 html[data-theme="light"] .loader { background: #f8f9fa !important; }
@@ -909,6 +941,8 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
   .section { padding: 5rem 1.5rem; }
   .project-card.large, .project-card.medium, .project-card.small { grid-column: span 12; }
   .projects-bento { gap: 1rem; }
+  .github-stats-grid { grid-template-columns: 1fr; }
+  .github-stat-card { min-height: auto; }
   .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
 }
 @media (max-width: 480px) {
@@ -961,7 +995,7 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
       <button class='game-close' id='gameClose'>×</button>
     </div>
     <div class='game-status' id='gameStatus'>Your turn (X)</div>
-    <div class='game-score' id='gameScore'>Best streak: 0 | Wins: 0</div>
+    <div class='game-score' id='gameScore'>Device best streak: 0 | Wins: 0</div>
     <div class='game-board' id='gameBoard'>
       <div class='game-cell' data-index='0'></div>
       <div class='game-cell' data-index='1'></div>
@@ -985,7 +1019,7 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
       <button class='game-close' id='snakeClose'>X</button>
     </div>
     <div class='game-status' id='snakeStatus'>Score: 0</div>
-    <div class='game-score' id='snakeHighScore'>High score: 0</div>
+    <div class='game-score' id='snakeHighScore'>Device high score: 0</div>
     <canvas class='snake-canvas' id='snakeCanvas' width='320' height='320'></canvas>
     <div class='snake-controls' aria-label='Snake controls'>
       <button class='snake-control empty' type='button' tabindex='-1'></button>
@@ -1165,6 +1199,27 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
       <a href='#' class='project-link'>View →</a>
     </div>
   </div>
+</section>
+
+<!-- GitHub Stats Section -->
+<section class='section' id='github'>
+  <div class='section-label'>Open Source — GitHub</div>
+  <h2 class='section-title'>Code signals from the public graph.</h2>
+  <div class='github-stats-grid'>
+    <a class='github-stat-card' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
+      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb&icon_color=ff6b00&rank_icon=github' alt='Anurag K. Sharma GitHub stats'>
+      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e&icon_color=d97706&rank_icon=github' alt='Anurag K. Sharma GitHub stats'>
+    </a>
+    <a class='github-stat-card' href='https://github.com/akrishnash?tab=repositories' target='_blank' rel='noopener'>
+      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb' alt='Anurag K. Sharma top GitHub languages'>
+      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e' alt='Anurag K. Sharma top GitHub languages'>
+    </a>
+    <a class='github-stat-card wide' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
+      <img class='github-stat-dark' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=e5e7eb&line=00f5ff&point=ff6b00&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph'>
+      <img class='github-stat-light' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=1a1a2e&line=0891b2&point=d97706&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph'>
+    </a>
+  </div>
+  <p class='github-note'>Live cards generated from GitHub profile data for @akrishnash.</p>
 </section>
 
 <!-- Auxiliary Projects Section -->
@@ -1543,7 +1598,7 @@ function initTicTacToe() {
 
   function saveTicTacToeStats() {
     localStorage.setItem('ticTacToeStats', JSON.stringify(ticTacToeStats));
-    gameScore.textContent = `Best streak: ${ticTacToeStats.bestStreak} | Wins: ${ticTacToeStats.wins} | Draws: ${ticTacToeStats.draws}`;
+    gameScore.textContent = `Device best streak: ${ticTacToeStats.bestStreak} | Wins: ${ticTacToeStats.wins} | Draws: ${ticTacToeStats.draws}`;
   }
 
   function makeMove(index, mark) {
@@ -1688,7 +1743,7 @@ function initSnake() {
       localStorage.setItem('snakeHighScore', String(highScore));
     }
     snakeStatus.textContent = snakeOver ? `Game over - Score: ${score}` : `Score: ${score}`;
-    snakeHighScore.textContent = `High score: ${highScore}`;
+    snakeHighScore.textContent = `Device high score: ${highScore}`;
   }
 
   function resetSnake() {
