@@ -416,6 +416,11 @@ button { cursor: none; }
   background: var(--accent-cyan-dim); color: var(--accent-cyan);
   border-radius: 2px; letter-spacing: 0.05em;
 }
+.project-stats {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--text-muted); margin-top: auto; padding-top: 1rem;
+}
 .project-link {
   position: absolute; bottom: 2rem; right: 2rem;
   font-family: var(--font-mono); font-size: 0.75rem;
@@ -424,6 +429,12 @@ button { cursor: none; }
   transition: gap 0.3s;
 }
 .project-card:hover .project-link { gap: 1rem; }
+.projects-status {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--text-muted); letter-spacing: 0.04em;
+  padding: 1rem 0;
+}
 
 /* ======================================
    SKILLS SECTION
@@ -1137,8 +1148,9 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
 <!-- Projects Section -->
 <section class='section' id='projects'>
   <div class='section-label'>02 — Selected Work</div>
-  <h2 class='section-title'>Projects that push boundaries.</h2>
-  <div class='projects-bento'>
+  <h2 class='section-title'>Live projects from GitHub.</h2>
+  <div class='projects-bento' id='githubProjects' aria-live='polite'>
+    <div class='projects-status'>Fetching public repositories from GitHub...</div>
     <div class='project-card large' data-tilt>
       <div class='project-card-inner'></div>
       <div class='project-meta'>Quantum Security / 2024</div>
@@ -1856,10 +1868,103 @@ function initSnake() {
   resetSnake();
 }
 
+function initGitHubProjects() {
+  const projectsEl = document.getElementById('githubProjects');
+  if (!projectsEl) return;
+
+  const fallbackMarkup = projectsEl.innerHTML;
+  const repoDescriptions = {
+    flower: 'Federated learning experiments built around Flower, focused on distributed model training and security testing workflows.',
+    'hole-in-one-': 'A game project exploring interactive physics, scoring, and browser-based play mechanics.',
+    Markdown_parser: 'A custom Markdown parsing project for converting structured writing into rendered web content.',
+    'akrishnash.github.io': 'The source for this personal portfolio, combining research identity, visual systems, and interactive browser experiments.'
+  };
+
+  function formatName(name) {
+    return name
+      .replace(/[-_]+/g, ' ')
+      .replace(/\b\w/g, char => char.toUpperCase())
+      .trim();
+  }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+  }
+
+  function describeRepo(repo) {
+    if (repo.description) return repo.description;
+    if (repoDescriptions[repo.name]) return repoDescriptions[repo.name];
+
+    const readableName = formatName(repo.name);
+    const language = repo.language || 'software';
+    return `${readableName} is a ${language} repository from my GitHub workspace, shared as part of my ongoing experiments in engineering, tooling, and applied computer science.`;
+  }
+
+  function renderRepo(repo, index) {
+    const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 3) : [];
+    const tags = [repo.language, ...topics].filter(Boolean).slice(0, 4);
+    const cardSize = index === 0 ? 'large' : index < 3 ? 'medium' : 'small';
+    const updated = new Date(repo.pushed_at || repo.updated_at).getFullYear();
+    const meta = `${repo.language || 'Repository'} / ${updated}`;
+    const tagMarkup = tags.length
+      ? tags.map(tag => `<span class='project-tag'>${escapeHTML(tag)}</span>`).join('')
+      : `<span class='project-tag'>GitHub</span>`;
+
+    return `
+      <article class='project-card ${cardSize}' data-tilt>
+        <div class='project-card-inner'></div>
+        <div class='project-meta'>${escapeHTML(meta)}</div>
+        <h3 class='project-title'>${escapeHTML(formatName(repo.name))}</h3>
+        <p class='project-desc'>${escapeHTML(describeRepo(repo))}</p>
+        <div class='project-tags'>${tagMarkup}</div>
+        <div class='project-stats'>
+          <span>${repo.stargazers_count || 0} stars</span>
+          <span>${repo.forks_count || 0} forks</span>
+          <span>${repo.open_issues_count || 0} issues</span>
+        </div>
+        <a href='${escapeHTML(repo.html_url)}' target='_blank' rel='noopener' class='project-link'>View Repo -></a>
+      </article>
+    `;
+  }
+
+  fetch('https://api.github.com/users/akrishnash/repos?sort=pushed&direction=desc&per_page=12', {
+    headers: { Accept: 'application/vnd.github+json' }
+  })
+    .then(response => {
+      if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+      return response.json();
+    })
+    .then(repos => {
+      const visibleRepos = repos
+        .filter(repo => !repo.archived && !repo.fork)
+        .slice(0, 6);
+
+      if (!visibleRepos.length) throw new Error('No public repositories found');
+
+      projectsEl.innerHTML = visibleRepos.map(renderRepo).join('');
+      if (typeof applyProjectTilt === 'function') applyProjectTilt();
+    })
+    .catch(error => {
+      console.warn('Could not load GitHub repositories:', error);
+      projectsEl.innerHTML = fallbackMarkup;
+      const status = projectsEl.querySelector('.projects-status');
+      if (status) {
+        status.textContent = 'Live GitHub projects could not be loaded right now, showing curated highlights instead.';
+      }
+    });
+}
+
 initThemeToggle();
 initTypewriter();
 initTicTacToe();
 initSnake();
+initGitHubProjects();
 
 // ======================================
 // CUSTOM CURSOR
@@ -2106,8 +2211,11 @@ gsap.utils.toArray('.skill-category').forEach((cat, i) => {
 // ======================================
 // PROJECT CARD 3D TILT
 // ======================================
-if (window.matchMedia('(hover: hover)').matches && window.innerWidth > 768) {
+function applyProjectTilt() {
+  if (!window.matchMedia('(hover: hover)').matches || window.innerWidth <= 768) return;
   document.querySelectorAll('[data-tilt]').forEach(card => {
+    if (card.dataset.tiltReady === 'true') return;
+    card.dataset.tiltReady = 'true';
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left; const y = e.clientY - rect.top;
@@ -2118,6 +2226,7 @@ if (window.matchMedia('(hover: hover)').matches && window.innerWidth > 768) {
     card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'; });
   });
 }
+applyProjectTilt();
 
 // ======================================
 // NAV HIGHLIGHT ON SCROLL
