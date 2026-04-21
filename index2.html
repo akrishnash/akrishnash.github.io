@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Anurag K. Sharma | Scientist @ ISRO</title>
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap' rel='stylesheet'>
+<style>
+/* ======================================
+   COSMIC BRUTALIST — CSS CUSTOM PROPERTIES
+   ====================================== */
+:root {
+  --bg-void: #0a0a0f;
+  --bg-surface: #12121a;
+  --bg-elevated: #1a1a24;
+  --accent-cyan: #00f5ff;
+  --accent-amber: #ff6b00;
+  --accent-cyan-dim: rgba(0,245,255,0.15);
+  --accent-amber-dim: rgba(255,107,0,0.15);
+  --text-primary: #e5e7eb;
+  --text-secondary: #71717a;
+  --text-muted: #3f3f46;
+  --grid-line: rgba(255,255,255,0.03);
+  --border-subtle: rgba(255,255,255,0.06);
+  --glow-cyan: 0 0 30px rgba(0,245,255,0.3);
+  --glow-amber: 0 0 30px rgba(255,107,0,0.3);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+/* ======================================
+   RESET & BASE
+   ====================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; font-size: 16px; }
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; cursor: none; }
+button { cursor: none; }
+
+/* ======================================
+   GRAIN OVERLAY
+   ====================================== */
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  opacity: 0.04;
+  background-image: url('data:image/svg+xml,<svg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22noise%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%22></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%22></svg>');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ======================================
+   GRID LINES BACKGROUND
+   ====================================== */
+.grid-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 0%, transparent 100%);
+}
+
+/* ======================================
+   CUSTOM CURSOR
+   ====================================== */
+.cursor-dot {
+  position: fixed; width: 8px; height: 8px;
+  background: var(--accent-cyan);
+  border-radius: 50%; pointer-events: none;
+  z-index: 10000; transform: translate(-50%, -50%);
+  transition: width 0.2s var(--ease-out-expo), height 0.2s var(--ease-out-expo), background 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed; width: 40px; height: 40px;
+  border: 1px solid rgba(0,245,255,0.4); border-radius: 50%;
+  pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+  transition: width 0.4s var(--ease-out-expo), height 0.4s var(--ease-out-expo), border-color 0.3s, opacity 0.3s;
+}
+.cursor-ring.hover { width: 60px; height: 60px; border-color: var(--accent-cyan); }
+.cursor-ring.click { width: 30px; height: 30px; }
+
+/* ======================================
+   LOADING SCREEN
+   ====================================== */
+.loader {
+  position: fixed; inset: 0; z-index: 10001;
+  background: var(--bg-void);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 2rem;
+}
+.loader-logo {
+  font-family: var(--font-display); font-size: 3rem; font-weight: 700;
+  color: var(--accent-cyan); letter-spacing: -0.02em;
+  opacity: 0; animation: fadeIn 0.6s var(--ease-out-expo) 0.2s forwards;
+}
+.loader-bar {
+  width: 200px; height: 2px; background: var(--border-subtle); border-radius: 2px; overflow: hidden;
+}
+.loader-bar-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-amber));
+  animation: loadBar 1.8s var(--ease-out-expo) forwards;
+}
+@keyframes loadBar { to { width: 100%; } }
+@keyframes fadeIn { to { opacity: 1; } }
+.loader.fade-out { animation: loaderFade 0.5s var(--ease-out-expo) forwards; }
+@keyframes loaderFade { to { opacity: 0; pointer-events: none; } }
+
+/* ======================================
+   NAVIGATION
+   ====================================== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop: rgba(10,10,15,0.8); border-bottom: 1px solid var(--border-subtle);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.nav.hidden { transform: translateY(-100%); }
+.nav-logo {
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 600;
+  color: var(--text-primary); letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--accent-cyan); }
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+.nav-link {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--text-secondary); letter-spacing: 0.05em;
+  text-transform: uppercase; position: relative;
+  transition: color 0.3s;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--accent-cyan);
+  transition: width 0.3s var(--ease-out-expo);
+}
+.nav-link:hover, .nav-link.active { color: var(--text-primary); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+.nav-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--text-muted); letter-spacing: 0.05em;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 8px #22c55e;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* ======================================
+   HERO SECTION
+   ====================================== */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#hero-canvas {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-content {
+  position: relative; z-index: 1; text-align: center;
+  padding: 2rem;
+}
+.hero-label {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent-cyan); letter-spacing: 0.3em;
+  text-transform: uppercase; margin-bottom: 2rem;
+  opacity: 0; transform: translateY(20px);
+}
+.hero-name {
+  font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700; line-height: 1.1;
+  color: var(--text-primary); letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.hero-name .char {
+  display: inline-block;
+  opacity: 0; transform: translateY(100%);
+}
+.hero-title {
+  font-family: var(--font-mono); font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: var(--text-secondary); margin-bottom: 3rem;
+  height: 2em;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  padding: 1rem 2rem; border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--text-primary); letter-spacing: 0.1em;
+  text-transform: uppercase; border-radius: 4px;
+  transition: all 0.3s var(--ease-out-expo);
+  background: transparent;
+}
+.hero-cta:hover {
+  background: var(--accent-cyan-dim); border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+}
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--text-muted); letter-spacing: 0.1em;
+}
+.scroll-line {
+  width: 1px; height: 60px; background: linear-gradient(to bottom, var(--accent-cyan), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse { 0% { opacity: 0; transform: scaleY(0); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } 100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; } }
+
+/* ======================================
+   SECTIONS COMMON
+   ====================================== */
+.section {
+  position: relative; z-index: 1;
+  padding: 8rem 3rem;
+  max-width: 1400px; margin: 0 auto;
+}
+.section-label {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent-cyan); letter-spacing: 0.3em;
+  text-transform: uppercase; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.section-label::before {
+  content: ''; width: 40px; height: 1px;
+  background: var(--accent-cyan);
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600; letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+/* ======================================
+   ABOUT SECTION
+   ====================================== */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;
+  align-items: start;
+}
+.about-image {
+  position: relative; aspect-ratio: 3/4;
+  border-radius: 8px; overflow: hidden;
+  background: var(--bg-surface);
+}
+.about-image-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--accent-cyan-dim), var(--accent-amber-dim));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; color: var(--accent-cyan);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.about-image:hover .about-image-inner { transform: scale(1.05); }
+.about-image::after {
+  content: ''; position: absolute; inset: 0;
+  border: 1px solid var(--border-subtle); border-radius: 8px;
+}
+.about-bio {
+  font-size: 1.1rem; line-height: 1.8;
+  color: var(--text-secondary); margin-bottom: 2rem;
+}
+.about-bio strong { color: var(--text-primary); }
+.skills-marquee {
+  overflow: hidden; padding: 2rem 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-top: 2rem;
+}
+.marquee-track {
+  display: flex; gap: 2rem; width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--text-muted); white-space: nowrap;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.marquee-item::before { content: '◆'; color: var(--accent-cyan); font-size: 0.5rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ======================================
+   PROJECTS SECTION
+   ====================================== */
+.projects-bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+.project-card {
+  position: relative; background: var(--bg-surface);
+  border: 1px solid var(--border-subtle); border-radius: 12px;
+  overflow: hidden; padding: 2rem;
+  transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
+  will-change: transform;
+}
+.project-card:hover { border-color: var(--accent-cyan); }
+.project-card.large { grid-column: span 8; grid-row: span 2; }
+.project-card.medium { grid-column: span 6; }
+.project-card.small { grid-column: span 4; }
+.project-card-inner {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--accent-cyan-dim), transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.project-card:hover .project-card-inner { opacity: 1; }
+.project-meta {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--accent-amber); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.project-title {
+  font-size: 1.5rem; font-weight: 600;
+  color: var(--text-primary); margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.project-desc {
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.6; margin-bottom: 1.5rem;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.project-tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent-cyan-dim); color: var(--accent-cyan);
+  border-radius: 2px; letter-spacing: 0.05em;
+}
+.project-link {
+  position: absolute; bottom: 2rem; right: 2rem;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--accent-cyan); letter-spacing: 0.05em;
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: gap 0.3s;
+}
+.project-card:hover .project-link { gap: 1rem; }
+
+/* ======================================
+   SKILLS SECTION
+   ====================================== */
+.skills-radial {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+}
+.skill-orbit {
+  position: relative; aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.skill-orbit-core {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--accent-cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent-cyan); text-align: center;
+  z-index: 1; position: relative;
+}
+.skill-orbit-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  animation: orbit 20s linear infinite;
+}
+.skill-orbit-ring:nth-child(2) { width: 140px; height: 140px; animation-duration: 15s; }
+.skill-orbit-ring:nth-child(3) { width: 200px; height: 200px; animation-duration: 25s; animation-direction: reverse; }
+.skill-orbit-dot {
+  position: absolute; width: 8px; height: 8px;
+  background: var(--accent-cyan); border-radius: 50%;
+  box-shadow: var(--glow-cyan);
+}
+@keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.skill-category-title {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--accent-amber); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.skill-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.skill-item {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.95rem; color: var(--text-secondary);
+}
+.skill-item::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--accent-cyan);
+}
+
+/* ======================================
+   CONTACT SECTION
+   ====================================== */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+}
+.contact-info { display: flex; flex-direction: column; gap: 2rem; }
+.contact-item { display: flex; align-items: center; gap: 1rem; }
+.contact-icon {
+  width: 48px; height: 48px; border-radius: 8px;
+  background: var(--accent-cyan-dim); border: 1px solid var(--accent-cyan);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent-cyan); font-size: 1.2rem;
+}
+.contact-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.contact-value { font-size: 1rem; color: var(--text-primary); }
+.contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.form-input, .form-textarea {
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  padding: 1rem; border-radius: 4px;
+  font-family: var(--font-display); font-size: 0.95rem;
+  color: var(--text-primary); outline: none;
+  transition: border-color 0.3s;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--accent-cyan); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  padding: 1rem 2rem; background: var(--accent-cyan);
+  border: none; border-radius: 4px;
+  font-family: var(--font-mono); font-size: 0.8rem;
+  color: var(--bg-void); font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  transition: all 0.3s var(--ease-out-expo);
+}
+.form-submit:hover { box-shadow: var(--glow-cyan); transform: translateY(-2px); }
+
+/* ======================================
+   FOOTER
+   ====================================== */
+.footer {
+  position: relative; z-index: 1;
+  padding: 3rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.footer-links { display: flex; gap: 2rem; }
+.footer-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); transition: color 0.3s; }
+.footer-link:hover { color: var(--accent-cyan); }
+
+/* ======================================
+   TYPEWRITER CURSOR
+   ====================================== */
+.typewriter-cursor {
+  display: inline-block; width: 2px; height: 1em;
+  background: var(--accent-cyan); margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ======================================
+   REDUCED MOTION
+   ====================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .cursor-dot, .cursor-ring { display: none; }
+  body { cursor: auto; }
+  a, button { cursor: auto; }
+}
+
+/* ======================================
+   RESPONSIVE
+   ====================================== */
+@media (max-width: 1024px) {
+  .project-card.large { grid-column: span 12; }
+  .project-card.medium { grid-column: span 6; }
+  .project-card.small { grid-column: span 6; }
+  .about-grid { grid-template-columns: 1fr; }
+  .skills-radial { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .section { padding: 5rem 1.5rem; }
+  .project-card.large, .project-card.medium, .project-card.small { grid-column: span 12; }
+  .projects-bento { gap: 1rem; }
+  .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+}
+@media (max-width: 480px) {
+  .hero-name { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Grain Overlay -->
+<div class='grain'></div>
+
+<!-- Grid Background -->
+<div class='grid-bg'></div>
+
+<!-- Custom Cursor -->
+<div class='cursor-dot' id='cursorDot'></div>
+<div class='cursor-ring' id='cursorRing'></div>
+
+<!-- Loading Screen -->
+<div class='loader' id='loader'>
+  <div class='loader-logo'>AK</div>
+  <div class='loader-bar'><div class='loader-bar-fill'></div></div>
+</div>
+
+<!-- Navigation -->
+<nav class='nav' id='nav'>
+  <a href='#' class='nav-logo'>Anurag<span>.</span></a>
+  <div class='nav-links'>
+    <a href='#about' class='nav-link' data-section='about'>About</a>
+    <a href='#projects' class='nav-link' data-section='projects'>Projects</a>
+    <a href='#skills' class='nav-link' data-section='skills'>Skills</a>
+    <a href='#contact' class='nav-link' data-section='contact'>Contact</a>
+  </div>
+  <div class='nav-status'>
+    <span class='status-dot'></span>
+    <span id='clock'>--:--:-- IST</span>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class='hero' id='hero'>
+  <canvas id='hero-canvas'></canvas>
+  <div class='hero-content'>
+    <div class='hero-label'>Department of Space, India</div>
+    <h1 class='hero-name' id='heroName'>ANURAG K. SHARMA</h1>
+    <div class='hero-title'>
+      <span id='typewriter'></span><span class='typewriter-cursor'></span>
+    </div>
+    <a href='#about' class='hero-cta'>
+      Explore Work
+      <svg width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>
+    </a>
+  </div>
+  <div class='hero-scroll'>
+    <span>SCROLL</span>
+    <div class='scroll-line'></div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class='section' id='about'>
+  <div class='section-label'>01 — About</div>
+  <h2 class='section-title'>Building the future,<br>one qubit at a time.</h2>
+  <div class='about-grid'>
+    <div class='about-image'>
+      <div class='about-image-inner'>AK</div>
+    </div>
+    <div class='about-content'>
+      <p class='about-bio'>
+        <strong>Scientist at ISRO</strong>, specializing in the intersection of quantum computing, post-quantum cryptography, and mission-critical network infrastructure. Previously architected healthcare systems at <strong>AIIMS New Delhi</strong> and completed my M.Tech at <strong>IIT Delhi</strong>.
+      </p>
+      <p class='about-bio'>
+        My work focuses on making India's space communication infrastructure quantum-resistant, exploring federated learning for satellite data analysis, and pushing the boundaries of what's possible in secure, low-latency networking.
+      </p>
+      <div class='skills-marquee'>
+        <div class='marquee-track'>
+          <span class='marquee-item'>Quantum Computing</span>
+          <span class='marquee-item'>Post-Quantum Cryptography</span>
+          <span class='marquee-item'>5G Core Networks</span>
+          <span class='marquee-item'>Deep Learning</span>
+          <span class='marquee-item'>VPN Security</span>
+          <span class='marquee-item'>Federated Learning</span>
+          <span class='marquee-item'>Qiskit</span>
+          <span class='marquee-item'>PyTorch</span>
+          <span class='marquee-item'>Wireguard</span>
+          <span class='marquee-item'>Quantum Computing</span>
+          <span class='marquee-item'>Post-Quantum Cryptography</span>
+          <span class='marquee-item'>5G Core Networks</span>
+          <span class='marquee-item'>Deep Learning</span>
+          <span class='marquee-item'>VPN Security</span>
+          <span class='marquee-item'>Federated Learning</span>
+          <span class='marquee-item'>Qiskit</span>
+          <span class='marquee-item'>PyTorch</span>
+          <span class='marquee-item'>Wireguard</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section class='section' id='projects'>
+  <div class='section-label'>02 — Selected Work</div>
+  <h2 class='section-title'>Projects that push boundaries.</h2>
+  <div class='projects-bento'>
+    <div class='project-card large' data-tilt>
+      <div class='project-card-inner'></div>
+      <div class='project-meta'>Quantum Security / 2024</div>
+      <h3 class='project-title'>Post-Quantum VPN Architecture</h3>
+      <p class='project-desc'>Designed and implemented a quantum-resistant VPN infrastructure using CRYSTALS-Kyber and CRYSTALS-Dilithium algorithms, integrated with Wireguard for India's space communication channels.</p>
+      <div class='project-tags'>
+        <span class='project-tag'>PQC</span>
+        <span class='project-tag'>Wireguard</span>
+        <span class='project-tag'>Kyber</span>
+        <span class='project-tag'>Dilithium</span>
+      </div>
+      <a href='#' class='project-link'>View Details →</a>
+    </div>
+    <div class='project-card medium' data-tilt>
+      <div class='project-card-inner'></div>
+      <div class='project-meta'>Deep Learning / 2024</div>
+      <h3 class='project-title'>Federated Learning for Satellite Imagery</h3>
+      <p class='project-desc'>Developed a federated learning framework for distributed satellite data analysis, enabling collaborative model training without centralized data collection.</p>
+      <div class='project-tags'>
+        <span class='project-tag'>PyTorch</span>
+        <span class='project-tag'>Federated Learning</span>
+        <span class='project-tag'>Computer Vision</span>
+      </div>
+      <a href='#' class='project-link'>View Details →</a>
+    </div>
+    <div class='project-card medium' data-tilt>
+      <div class='project-card-inner'></div>
+      <div class='project-meta'>5G Networks / 2023</div>
+      <h3 class='project-title'>5G Core Network Optimization</h3>
+      <p class='project-desc'>Research on latency optimization and network slicing for next-generation satellite-ground integrated communication systems.</p>
+      <div class='project-tags'>
+        <span class='project-tag'>5G Core</span>
+        <span class='project-tag'>Network Slicing</span>
+        <span class='project-tag'>SDN</span>
+      </div>
+      <a href='#' class='project-link'>View Details →</a>
+    </div>
+    <div class='project-card small' data-tilt>
+      <div class='project-card-inner'></div>
+      <div class='project-meta'>Quantum / 2023</div>
+      <h3 class='project-title'>Quantum Key Distribution</h3>
+      <p class='project-desc'>Exploring QKD protocols for ultra-secure satellite communication channels.</p>
+      <div class='project-tags'>
+        <span class='project-tag'>QKD</span>
+        <span class='project-tag'>Quantum</span>
+      </div>
+      <a href='#' class='project-link'>View →</a>
+    </div>
+    <div class='project-card small' data-tilt>
+      <div class='project-card-inner'></div>
+      <div class='project-meta'>Healthcare / 2022</div>
+      <h3 class='project-title'>AIIMS Infrastructure</h3>
+      <p class='project-desc'>Architected mission-critical network systems for India's premier medical institute.</p>
+      <div class='project-tags'>
+        <span class='project-tag'>Networking</span>
+        <span class='project-tag'>Security</span>
+      </div>
+      <a href='#' class='project-link'>View →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class='section' id='skills'>
+  <div class='section-label'>03 — Capabilities</div>
+  <h2 class='section-title'>Tools of the trade.</h2>
+  <div class='skills-radial'>
+    <div class='skill-category'>
+      <div class='skill-category-title'>Quantum Computing</div>
+      <div class='skill-list'>
+        <div class='skill-item'>Qiskit</div>
+        <div class='skill-item'>Cirq</div>
+        <div class='skill-item'>QASM</div>
+        <div class='skill-item'>Quantum Algorithms</div>
+        <div class='skill-item'>Quantum Error Correction</div>
+      </div>
+    </div>
+    <div class='skill-category'>
+      <div class='skill-category-title'>Deep Learning</div>
+      <div class='skill-list'>
+        <div class='skill-item'>PyTorch</div>
+        <div class='skill-item'>TensorFlow</div>
+        <div class='skill-item'>YOLOv8</div>
+        <div class='skill-item'>Transformers</div>
+        <div class='skill-item'>Federated Learning</div>
+      </div>
+    </div>
+    <div class='skill-category'>
+      <div class='skill-category-title'>Networks & Security</div>
+      <div class='skill-list'>
+        <div class='skill-item'>5G Core Architecture</div>
+        <div class='skill-item'>Wireguard VPN</div>
+        <div class='skill-item'>Post-Quantum Crypto</div>
+        <div class='skill-item'>Network Security</div>
+        <div class='skill-item'>SDN / NFV</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class='section' id='contact'>
+  <div class='section-label'>04 — Connect</div>
+  <h2 class='section-title'>Let's build something<br>extraordinary.</h2>
+  <div class='contact-grid'>
+    <div class='contact-info'>
+      <div class='contact-item'>
+        <div class='contact-icon'>⊕</div>
+        <div>
+          <div class='contact-label'>Location</div>
+          <div class='contact-value'>India</div>
+        </div>
+      </div>
+      <div class='contact-item'>
+        <div class='contact-icon'>↯</div>
+        <div>
+          <div class='contact-label'>Email</div>
+          <div class='contact-value'>anurag.k.sharma@isro.gov.in</div>
+        </div>
+      </div>
+      <div class='contact-item'>
+        <div class='contact-icon'>⬡</div>
+        <div>
+          <div class='contact-label'>Organization</div>
+          <div class='contact-value'>Indian Space Research Organisation</div>
+        </div>
+      </div>
+    </div>
+    <form class='contact-form' id='contactForm'>
+      <div class='form-group'>
+        <label class='form-label'>Name</label>
+        <input type='text' class='form-input' placeholder='Your name' required>
+      </div>
+      <div class='form-group'>
+        <label class='form-label'>Email</label>
+        <input type='email' class='form-input' placeholder='your@email.com' required>
+      </div>
+      <div class='form-group'>
+        <label class='form-label'>Message</label>
+        <textarea class='form-textarea' placeholder='Your message...' required></textarea>
+      </div>
+      <button type='submit' class='form-submit'>Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class='footer'>
+  <div class='footer-copy'>© <span id='footerYear'></span> Anurag K. Sharma — Built with precision</div>
+  <div class='footer-links'>
+    <a href='#' class='footer-link'>GitHub</a>
+    <a href='#' class='footer-link'>LinkedIn</a>
+    <a href='#' class='footer-link'>Twitter</a>
+  </div>
+</footer>
+
+<!-- Three.js -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js'></script>
+<!-- GSAP + ScrollTrigger -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js'></script>
+<!-- Lenis Smooth Scroll -->
+<script src='https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js'></script>
+
+<script>
+// ======================================
+// INITIALIZATION
+// ======================================
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+// ======================================
+// LOADING SCREEN
+// ======================================
+const loader = document.getElementById('loader');
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    loader.classList.add('fade-out');
+    setTimeout(() => { loader.style.display = 'none'; }, 500);
+  }, 2000);
+});
+
+// ======================================
+// CLOCK
+// ======================================
+function updateClock() {
+  const now = new Date();
+  const ist = now.toLocaleTimeString('en-IN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  document.getElementById('clock').textContent = `${ist} IST`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ======================================
+// CUSTOM CURSOR
+// ======================================
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.1;
+  ringY += (mouseY - ringY) * 0.1;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .project-card, .nav-link').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+});
+
+document.addEventListener('mousedown', () => ring.classList.add('click'));
+document.addEventListener('mouseup', () => ring.classList.remove('click'));
+
+// ======================================
+// LENIS SMOOTH SCROLL
+// ======================================
+const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
+
+// ======================================
+// THREE.JS HERO PARTICLES
+// ======================================
+const canvas = document.getElementById('hero-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 30;
+
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesCount = 1500;
+const posArray = new Float32Array(particlesCount * 3);
+for (let i = 0; i < particlesCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 100; }
+particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.15, color: 0x00f5ff, transparent: true, opacity: 0.6,
+  blending: THREE.AdditiveBlending,
+});
+
+const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particlesMesh);
+
+const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.1 });
+for (let i = 0; i < 50; i++) {
+  const points = [];
+  for (let j = 0; j < 10; j++) {
+    points.push(new THREE.Vector3((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80));
+  }
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(lineGeometry, lineMaterial);
+  scene.add(line);
+}
+
+let time = 0;
+function animateParticles() {
+  time += 0.001;
+  particlesMesh.rotation.y += 0.0003;
+  particlesMesh.rotation.x += 0.0001;
+  const positions = particlesGeometry.attributes.position.array;
+  for (let i = 0; i < particlesCount; i++) {
+    const i3 = i * 3;
+    positions[i3 + 1] += Math.sin(time + i * 0.1) * 0.002;
+  }
+  particlesGeometry.attributes.position.needsUpdate = true;
+  renderer.render(scene, camera);
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ======================================
+// HERO TEXT ANIMATION (Split Text)
+// ======================================
+const heroName = document.getElementById('heroName');
+const nameText = heroName.textContent;
+heroName.innerHTML = nameText.split('').map(char => `<span class='char'>${char}</span>`).join('');
+
+gsap.to('.hero-name .char', {
+  opacity: 1, y: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out',
+  delay: 2.2,
+});
+
+gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.8, delay: 2.0 });
+gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.8, delay: 2.8 });
+gsap.from('.hero-scroll', { opacity: 0, duration: 0.8, delay: 3.0 });
+
+// ======================================
+// TYPEWRITER EFFECT
+// ======================================
+const roles = ['Scientist @ ISRO', 'Quantum Researcher', 'Network Architect', 'Deep Learning Specialist'];
+let roleIndex = 0, charIndex = 0, isDeleting = false;
+const typewriterEl = document.getElementById('typewriter');
+
+function type() {
+  const currentRole = roles[roleIndex];
+  if (isDeleting) {
+    typewriterEl.textContent = currentRole.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    typewriterEl.textContent = currentRole.substring(0, charIndex + 1);
+    charIndex++;
+  }
+  let speed = isDeleting ? 50 : 100;
+  if (!isDeleting && charIndex === currentRole.length) {
+    speed = 2000; isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false; roleIndex = (roleIndex + 1) % roles.length;
+    speed = 500;
+  }
+  setTimeout(type, speed);
+}
+setTimeout(type, 2500);
+
+// ======================================
+// SCROLL ANIMATIONS
+// ======================================
+gsap.utils.toArray('.section-label').forEach(label => {
+  gsap.from(label, {
+    scrollTrigger: { trigger: label, start: 'top 80%' },
+    opacity: 0, x: -30, duration: 0.8, ease: 'power2.out'
+  });
+});
+
+gsap.utils.toArray('.section-title').forEach(title => {
+  gsap.from(title, {
+    scrollTrigger: { trigger: title, start: 'top 80%' },
+    opacity: 0, y: 40, duration: 1, ease: 'power2.out'
+  });
+});
+
+gsap.from('.about-image', {
+  scrollTrigger: { trigger: '.about-grid', start: 'top 70%' },
+  opacity: 0, x: -60, duration: 1, ease: 'power2.out'
+});
+
+gsap.utils.toArray('.about-bio').forEach((bio, i) => {
+  gsap.from(bio, {
+    scrollTrigger: { trigger: bio, start: 'top 80%' },
+    opacity: 0, y: 30, duration: 0.8, delay: i * 0.2, ease: 'power2.out'
+  });
+});
+
+gsap.from('.project-card', {
+  scrollTrigger: { trigger: '.projects-bento', start: 'top 70%' },
+  opacity: 0, y: 60, duration: 0.8, stagger: 0.1, ease: 'power2.out'
+});
+
+gsap.utils.toArray('.skill-category').forEach((cat, i) => {
+  gsap.from(cat, {
+    scrollTrigger: { trigger: cat, start: 'top 80%' },
+    opacity: 0, y: 40, duration: 0.8, delay: i * 0.15, ease: 'power2.out'
+  });
+});
+
+// ======================================
+// PROJECT CARD 3D TILT
+// ======================================
+if (window.matchMedia('(hover: hover)').matches && window.innerWidth > 768) {
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+      const centerX = rect.width / 2; const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 20; const rotateY = (centerX - x) / 20;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'; });
+  });
+}
+
+// ======================================
+// NAV HIGHLIGHT ON SCROLL
+// ======================================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 200;
+    if (scrollY >= sectionTop) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('data-section') === current) link.classList.add('active');
+  });
+});
+
+// ======================================
+// NAV HIDE ON SCROLL DOWN
+// ======================================
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  const currentScroll = window.scrollY;
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    nav.classList.add('hidden');
+  } else {
+    nav.classList.remove('hidden');
+  }
+  lastScroll = currentScroll;
+});
+
+// ======================================
+// CONTACT FORM
+// ======================================
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = 'Sending...';
+  setTimeout(() => {
+    btn.textContent = 'Message Sent!';
+    setTimeout(() => { btn.textContent = 'Send Message'; }, 2000);
+    e.target.reset();
+  }, 1000);
+});
+
+// ======================================
+// KONAMI CODE EASTER EGG
+// ======================================
+const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let konamiIndex = 0;
+document.addEventListener('keydown', (e) => {
+  if (e.key === konamiCode[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === konamiCode.length) {
+      konamiIndex = 0;
+      gsap.to('body', { backgroundColor: '#0f0a1a', duration: 0.5 });
+      gsap.to('.cursor-dot', { backgroundColor: '#ff6b00', duration: 0.3 });
+      gsap.to('.accent-cyan', { color: '#ff6b00', duration: 0.3 });
+      setTimeout(() => {
+        gsap.to('body', { backgroundColor: '#0a0a0f', duration: 0.5 });
+        gsap.to('.cursor-dot', { backgroundColor: '#00f5ff', duration: 0.3 });
+      }, 2000);
+    }
+  } else { konamiIndex = 0; }
+});
+
+// ======================================
+// MAGNETIC EFFECT ON NAV LINKS
+// ======================================
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('mousemove', (e) => {
+    const rect = link.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    link.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+  });
+  link.addEventListener('mouseleave', () => { link.style.transform = 'translate(0, 0)'; });
+});
+</script>
+</body>
+</html>
