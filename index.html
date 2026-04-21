@@ -113,11 +113,11 @@ button { cursor: none; }
 .loader-bar-fill {
   height: 100%; width: 0%;
   background: linear-gradient(90deg, var(--accent-cyan), var(--accent-amber));
-  animation: loadBar 1.8s var(--ease-out-expo) forwards;
+  animation: loadBar 0.8s var(--ease-out-expo) forwards;
 }
 @keyframes loadBar { to { width: 100%; } }
 @keyframes fadeIn { to { opacity: 1; } }
-.loader.fade-out { animation: loaderFade 0.5s var(--ease-out-expo) forwards; }
+.loader.fade-out { animation: loaderFade 0.4s var(--ease-out-expo) forwards; }
 @keyframes loaderFade { to { opacity: 0; pointer-events: none; } }
 
 /* ======================================
@@ -1386,7 +1386,7 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
         <div class='contact-icon'>↯</div>
         <div>
           <div class='contact-label'>Email</div>
-          <div class='contact-value'>anurag.k.sharma@isro.gov.in</div>
+          <div class='contact-value'>anuragadrin@gmail.com</div>
         </div>
       </div>
       <div class='contact-item'>
@@ -1446,8 +1446,8 @@ const loader = document.getElementById('loader');
 window.addEventListener('load', () => {
   setTimeout(() => {
     loader.classList.add('fade-out');
-    setTimeout(() => { loader.style.display = 'none'; }, 500);
-  }, 2000);
+    setTimeout(() => { loader.style.display = 'none'; }, 400);
+  }, 600);
 });
 
 // ======================================
@@ -1876,9 +1876,13 @@ function initGitHubProjects() {
   const repoDescriptions = {
     flower: 'Federated learning experiments built around Flower, focused on distributed model training and security testing workflows.',
     'hole-in-one-': 'A game project exploring interactive physics, scoring, and browser-based play mechanics.',
-    Markdown_parser: 'A custom Markdown parsing project for converting structured writing into rendered web content.',
-    'akrishnash.github.io': 'The source for this personal portfolio, combining research identity, visual systems, and interactive browser experiments.'
+    Markdown_parser: 'A custom Markdown parsing project for converting structured writing into rendered web content.'
   };
+  const excludedRepos = new Set([
+    'akrishnash',
+    'akrishnash.github.io',
+    'akrishnash.github.com'
+  ]);
 
   function formatName(name) {
     return name
@@ -1933,7 +1937,7 @@ function initGitHubProjects() {
     `;
   }
 
-  fetch('https://api.github.com/users/akrishnash/repos?sort=pushed&direction=desc&per_page=12', {
+  fetch('https://api.github.com/users/akrishnash/repos?sort=pushed&direction=desc&per_page=30', {
     headers: { Accept: 'application/vnd.github+json' }
   })
     .then(response => {
@@ -1942,7 +1946,7 @@ function initGitHubProjects() {
     })
     .then(repos => {
       const visibleRepos = repos
-        .filter(repo => !repo.archived && !repo.fork)
+        .filter(repo => !repo.archived && !repo.fork && !excludedRepos.has(repo.name))
         .slice(0, 6);
 
       if (!visibleRepos.length) throw new Error('No public repositories found');
@@ -2160,12 +2164,12 @@ heroName.innerHTML = nameText.split('').map(char => `<span class='char'>${char}<
 
 gsap.to('.hero-name .char', {
   opacity: 1, y: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out',
-  delay: 2.2,
+  delay: 0.8,
 });
 
-gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.8, delay: 2.0 });
-gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.8, delay: 2.8 });
-gsap.from('.hero-scroll', { opacity: 0, duration: 0.8, delay: 3.0 });
+gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.8, delay: 0.6 });
+gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.8, delay: 1.4 });
+gsap.from('.hero-scroll', { opacity: 0, duration: 0.8, delay: 1.6 });
 
 // ======================================
 // SCROLL ANIMATIONS
