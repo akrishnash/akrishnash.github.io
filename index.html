@@ -389,6 +389,8 @@ button { cursor: none; }
   overflow: hidden; padding: 2rem;
   transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
   will-change: transform;
+  display: flex;
+  flex-direction: column;
 }
 .project-card:hover { border-color: var(--accent-cyan); }
 .project-card.large { grid-column: span 8; grid-row: span 2; }
@@ -414,7 +416,7 @@ button { cursor: none; }
   font-size: 0.9rem; color: var(--text-secondary);
   line-height: 1.6; margin-bottom: 1.5rem;
 }
-.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
 .project-tag {
   font-family: var(--font-mono); font-size: 0.65rem;
   padding: 0.25rem 0.75rem;
@@ -422,10 +424,14 @@ button { cursor: none; }
   border-radius: 2px; letter-spacing: 0.05em;
 }
 .project-stats {
-  display: flex; flex-wrap: wrap; gap: 1rem;
+  display: flex; flex-wrap: wrap; gap: 1.25rem;
   font-family: var(--font-mono); font-size: 0.68rem;
-  color: var(--text-muted); margin-top: auto; padding-top: 1rem;
+  color: var(--text-secondary); margin-top: auto; padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-right: 100px;
 }
+.project-stat { display: flex; align-items: center; gap: 0.35rem; }
+.project-stat svg { width: 14px; height: 14px; color: var(--text-muted); }
 .project-link {
   position: absolute; bottom: 2rem; right: 2rem;
   font-family: var(--font-mono); font-size: 0.75rem;
@@ -1925,16 +1931,23 @@ function initGitHubProjects() {
         <p class='project-desc'>${escapeHTML(describeRepo(repo))}</p>
         <div class='project-tags'>${tagMarkup}</div>
         <div class='project-stats'>
-          <span>${repo.stargazers_count || 0} stars</span>
-          <span>${repo.forks_count || 0} forks</span>
-          <span>${repo.open_issues_count || 0} issues</span>
+              <div class='project-stat' title='Stars'>
+                <svg fill='currentColor' viewBox='0 0 16 16'><path d='M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z'/></svg>
+                ${repo.stargazers_count || 0}
+              </div>
+              <div class='project-stat' title='Forks'>
+                <svg fill='currentColor' viewBox='0 0 16 16'><path d='M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z'/></svg>
+                ${repo.forks_count || 0}
+              </div>
         </div>
-        <a href='${escapeHTML(repo.html_url)}' target='_blank' rel='noopener' class='project-link'>View Repo -></a>
+            <a href='${escapeHTML(repo.html_url)}' target='_blank' rel='noopener' class='project-link'>
+              View Repo <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
       </article>
     `;
   }
 
-  fetch('https://api.github.com/users/akrishnash/repos?sort=pushed&direction=desc&per_page=30', {
+      fetch('https://api.github.com/users/akrishnash/repos?per_page=100', {
     headers: { Accept: 'application/vnd.github+json' }
   })
     .then(response => {
@@ -1943,7 +1956,8 @@ function initGitHubProjects() {
     })
     .then(repos => {
       const visibleRepos = repos
-        .filter(repo => !repo.archived && !repo.fork && !excludedRepos.has(repo.name))
+            .filter(repo => !repo.archived && !repo.fork && !excludedRepos.has(repo.name.toLowerCase()))
+            .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at)))
         .slice(0, 6);
 
       if (!visibleRepos.length) throw new Error('No public repositories found');
