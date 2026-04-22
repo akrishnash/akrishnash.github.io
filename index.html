@@ -7,6 +7,11 @@
 <link rel='preconnect' href='https://fonts.googleapis.com'>
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
 <link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap' rel='stylesheet'>
+<!-- Deferred external scripts -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js' defer></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js' defer></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js' defer></script>
+<script src='https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js' defer></script>
 <style>
 /* ======================================
    COSMIC BRUTALIST — CSS CUSTOM PROPERTIES
@@ -1219,16 +1224,16 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
   <h2 class='section-title'>Code signals from the public graph.</h2>
   <div class='github-stats-grid'>
     <a class='github-stat-card' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb&icon_color=ff6b00&rank_icon=github' alt='Anurag K. Sharma GitHub stats'>
-      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e&icon_color=d97706&rank_icon=github' alt='Anurag K. Sharma GitHub stats'>
+      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb&icon_color=ff6b00&rank_icon=github' alt='Anurag K. Sharma GitHub stats' loading='lazy'>
+      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e&icon_color=d97706&rank_icon=github' alt='Anurag K. Sharma GitHub stats' loading='lazy'>
     </a>
     <a class='github-stat-card' href='https://github.com/akrishnash?tab=repositories' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb' alt='Anurag K. Sharma top GitHub languages'>
-      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e' alt='Anurag K. Sharma top GitHub languages'>
+      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb' alt='Anurag K. Sharma top GitHub languages' loading='lazy'>
+      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e' alt='Anurag K. Sharma top GitHub languages' loading='lazy'>
     </a>
     <a class='github-stat-card wide' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=e5e7eb&line=00f5ff&point=ff6b00&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph'>
-      <img class='github-stat-light' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=1a1a2e&line=0891b2&point=d97706&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph'>
+      <img class='github-stat-dark' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=e5e7eb&line=00f5ff&point=ff6b00&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph' loading='lazy'>
+      <img class='github-stat-light' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=1a1a2e&line=0891b2&point=d97706&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph' loading='lazy'>
     </a>
   </div>
   <p class='github-note'>Live cards generated from GitHub profile data for @akrishnash.</p>
@@ -1303,10 +1308,10 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
   <h2 class='section-title'>Moments in frame.</h2>
   <div class='photo-grid'>
     <div class='photo-card'>
-      <img src='assets/photography/DSC01549.JPG' alt='Photography' onerror="this.style.display='none'">
+      <img src='assets/photography/DSC01549.JPG' alt='Photography' onerror="this.style.display='none'" loading='lazy'>
     </div>
     <div class='photo-card'>
-      <img src='assets/photography/DSC01925.JPG' alt='Photography' onerror="this.style.display='none'">
+      <img src='assets/photography/DSC01925.JPG' alt='Photography' onerror="this.style.display='none'" loading='lazy'>
     </div>
   </div>
 </section>
@@ -1424,14 +1429,6 @@ html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
     <a href='#' class='footer-link'>Twitter</a>
   </div>
 </footer>
-
-<!-- Three.js -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js'></script>
-<!-- GSAP + ScrollTrigger -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js'></script>
-<!-- Lenis Smooth Scroll -->
-<script src='https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js'></script>
 
 <script>
 // ======================================
