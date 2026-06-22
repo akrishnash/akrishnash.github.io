@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing | Anurag K. Sharma</title>
+<meta name="description" content="Technical articles on Secure AI, Post-Quantum Cryptography, AI Agents, and Mission-Critical Systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-void: #0a0a0f;
+  --bg-surface: #12121a;
+  --bg-elevated: #1a1a24;
+  --accent-cyan: #00f5ff;
+  --accent-amber: #ff6b00;
+  --accent-cyan-dim: rgba(0,245,255,0.10);
+  --accent-amber-dim: rgba(255,107,0,0.10);
+  --text-primary: #e5e7eb;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --border-subtle: rgba(255,255,255,0.06);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1rem 2rem;
+  display: flex; align-items: center; gap: 2rem;
+}
+nav .logo { font-weight: 700; font-size: 0.95rem; letter-spacing: -0.02em; }
+nav .logo span { color: var(--accent-cyan); }
+nav a.home { font-size: 0.85rem; color: var(--text-secondary); }
+nav a.home:hover { color: var(--accent-cyan); }
+
+.container { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 8rem; }
+
+.page-header { margin-bottom: 3rem; }
+.page-header h1 {
+  font-size: 2rem; font-weight: 700;
+  letter-spacing: -0.03em; margin-bottom: 0.5rem;
+}
+.page-header p { color: var(--text-secondary); font-size: 1rem; }
+
+.articles { display: flex; flex-direction: column; gap: 1px; }
+
+.article-card {
+  display: block;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.15s;
+}
+.article-card:hover .card-title { color: var(--accent-cyan); }
+
+.card-tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: var(--font-mono);
+  margin-bottom: 0.6rem;
+}
+.card-tag.pqc { color: var(--accent-amber); }
+.card-tag.ai { color: var(--accent-cyan); }
+.card-tag.coming { color: var(--text-muted); }
+
+.card-title {
+  font-size: 1.2rem; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  transition: color 0.15s;
+}
+.card-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6; }
+.card-meta { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+.coming-soon { opacity: 0.45; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">Anurag K. <span>Sharma</span></span>
+  <a href="/" class="home">← Home</a>
+</nav>
+
+<div class="container">
+  <header class="page-header">
+    <h1>Writing</h1>
+    <p>Technical articles on Secure AI, Post-Quantum Cryptography, and Mission-Critical Systems.</p>
+  </header>
+
+  <div class="articles">
+
+    <a href="/writing/secure-ai-agents-tool-calling.html" class="article-card">
+      <div class="card-tag ai">AI Agents · Security</div>
+      <div class="card-title">Building Secure AI Agents with Tool Calling</div>
+      <div class="card-desc">How to design AI agents that use tools safely — grounding, bounded loops, trust levels, prompt injection defense, and audit trails for production security agents.</div>
+      <div class="card-meta">June 2026 · 14 min read</div>
+    </a>
+
+    <a href="/writing/pqc-wireguard.html" class="article-card">
+      <div class="card-tag pqc">Post-Quantum Cryptography</div>
+      <div class="card-title">Replacing X25519 with ML-KEM in WireGuard</div>
+      <div class="card-desc">WireGuard's elegant handshake relies on X25519 — vulnerable to quantum attack. A deep dive into integrating NIST's ML-KEM via a hybrid KEM approach, with benchmarks on ARM hardware.</div>
+      <div class="card-meta">June 2026 · 12 min read</div>
+    </a>
+
+    <div class="article-card coming-soon">
+      <div class="card-tag coming">Coming Soon</div>
+      <div class="card-title">How I Built an AI Agent for Network Security</div>
+      <div class="card-desc">End-to-end walkthrough of building SecureAI Agent — ingesting logs, PCAP, and CVEs with OpenAI tool calling to produce analyst-grade threat reports.</div>
+      <div class="card-meta">Coming July 2026 · ~12 min read</div>
+    </div>
+
+    <div class="article-card coming-soon">
+      <div class="card-tag coming">Coming Soon</div>
+      <div class="card-title">Deploying AI in Air-Gapped Networks</div>
+      <div class="card-desc">Lessons from building AirGapGPT — running LLMs, RAG, and RBAC in environments with zero internet access.</div>
+      <div class="card-meta">Coming July 2026 · ~10 min read</div>
+    </div>
+
+    <div class="article-card coming-soon">
+      <div class="card-tag coming">Coming Soon</div>
+      <div class="card-title">Can LLMs Understand PCAP Files?</div>
+      <div class="card-desc">An empirical look at feeding raw packet captures to language models — what they understand, where they fail, and how to structure PCAP data for LLM consumption.</div>
+      <div class="card-meta">Coming August 2026 · ~10 min read</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
