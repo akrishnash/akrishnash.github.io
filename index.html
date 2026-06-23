@@ -1,2390 +1,739 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Anurag K. Sharma | Scientist @ ISRO</title>
-<link rel='preconnect' href='https://fonts.googleapis.com'>
-<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap' rel='stylesheet'>
-<!-- Deferred external scripts -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js' defer></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js' defer></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js' defer></script>
-<script src='https://unpkg.com/@studio-freight/lenis@1.0.29/dist/lenis.min.js' defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anurag K. Sharma | Secure AI Systems</title>
+<meta name="description" content="Anurag K. Sharma is a scientist and systems engineer building secure AI, post-quantum networking, and mission-critical infrastructure.">
+<meta property="og:title" content="Anurag K. Sharma | Secure AI Systems">
+<meta property="og:description" content="Secure AI, AI agents, post-quantum networking, and mission-critical systems.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://akrishnash.github.io">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ======================================
-   COSMIC BRUTALIST — CSS CUSTOM PROPERTIES
-   ====================================== */
 :root {
-  --bg-void: #0a0a0f;
-  --bg-surface: #12121a;
-  --bg-elevated: #1a1a24;
-  --accent-cyan: #00f5ff;
-  --accent-amber: #ff6b00;
-  --accent-cyan-dim: rgba(0,245,255,0.15);
-  --accent-amber-dim: rgba(255,107,0,0.15);
-  --text-primary: #e5e7eb;
-  --text-secondary: #71717a;
-  --text-muted: #3f3f46;
-  --grid-line: rgba(255,255,255,0.03);
-  --border-subtle: rgba(255,255,255,0.06);
-  --glow-cyan: 0 0 30px rgba(0,245,255,0.3);
-  --glow-amber: 0 0 30px rgba(255,107,0,0.3);
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-mono: 'DM Mono', monospace;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --bg: #f7f8fb;
+  --panel: #ffffff;
+  --panel-soft: #eef3f8;
+  --ink: #111827;
+  --muted: #526070;
+  --quiet: #7b8794;
+  --line: #d9e1ea;
+  --blue: #1d4ed8;
+  --teal: #0f766e;
+  --green: #166534;
+  --amber: #b45309;
+  --navy: #0f172a;
+  --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* ======================================
-   RESET & BASE
-   ====================================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; font-size: 16px; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--bg-void);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  width: 100%;
-  overflow-x: hidden;
-  cursor: none;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(238, 243, 248, 0.88), rgba(247, 248, 251, 0.96) 42rem),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-a { color: inherit; text-decoration: none; cursor: none; }
-button { cursor: none; }
-
-/* ======================================
-   GRAIN OVERLAY
-   ====================================== */
-.grain {
-  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  opacity: 0.04;
-  background-image: url('data:image/svg+xml,<svg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22noise%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%22></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%22></svg>');
-  background-repeat: repeat;
-  background-size: 200px 200px;
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid rgba(29, 78, 216, 0.32);
+  outline-offset: 3px;
 }
 
-/* ======================================
-   GRID LINES BACKGROUND
-   ====================================== */
-.grid-bg {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 0%, transparent 100%);
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgba(217, 225, 234, 0.8);
+  background: rgba(247, 248, 251, 0.88);
+  backdrop-filter: blur(16px);
 }
-
-/* ======================================
-   CUSTOM CURSOR
-   ====================================== */
-.cursor-dot {
-  position: fixed; width: 8px; height: 8px;
-  background: var(--accent-cyan);
-  border-radius: 50%; pointer-events: none;
-  z-index: 10000; transform: translate(-50%, -50%);
-  transition: width 0.2s var(--ease-out-expo), height 0.2s var(--ease-out-expo), background 0.2s;
-  mix-blend-mode: difference;
+.nav-inner {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  gap: 2rem;
 }
-.cursor-ring {
-  position: fixed; width: 40px; height: 40px;
-  border: 1px solid rgba(0,245,255,0.4); border-radius: 50%;
-  pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-  transition: width 0.4s var(--ease-out-expo), height 0.4s var(--ease-out-expo), border-color 0.3s, opacity 0.3s;
-}
-.cursor-ring.hover { width: 60px; height: 60px; border-color: var(--accent-cyan); }
-.cursor-ring.click { width: 30px; height: 30px; }
-
-/* ======================================
-   LOADING SCREEN
-   ====================================== */
-.loader {
-  position: fixed; inset: 0; z-index: 10001;
-  background: var(--bg-void);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 2rem;
-}
-.loader-logo {
-  font-family: var(--font-display); font-size: 3rem; font-weight: 700;
-  color: var(--accent-cyan); letter-spacing: -0.02em;
-  opacity: 0; animation: fadeIn 0.6s var(--ease-out-expo) 0.2s forwards;
-}
-.loader-bar {
-  width: 200px; height: 2px; background: var(--border-subtle); border-radius: 2px; overflow: hidden;
-}
-.loader-bar-fill {
-  height: 100%; width: 0%;
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-amber));
-  animation: loadBar 0.8s var(--ease-out-expo) forwards;
-}
-@keyframes loadBar { to { width: 100%; } }
-@keyframes fadeIn { to { opacity: 1; } }
-.loader.fade-out { animation: loaderFade 0.4s var(--ease-out-expo) forwards; }
-@keyframes loaderFade { to { opacity: 0; pointer-events: none; } }
-
-/* ======================================
-   NAVIGATION
-   ====================================== */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex; align-items: center; justify-content: space-between;
-  backdrop: rgba(10,10,15,0.8); border-bottom: 1px solid var(--border-subtle);
-  transition: transform 0.4s var(--ease-out-expo);
-}
-.nav.hidden { transform: translateY(-100%); }
-.nav-logo {
-  font-family: var(--font-display); font-size: 1.2rem; font-weight: 600;
-  color: var(--text-primary); letter-spacing: -0.01em;
-}
-.nav-logo span { color: var(--accent-cyan); }
-.nav-links { display: flex; gap: 2.5rem; align-items: center; }
-.nav-link {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--text-secondary); letter-spacing: 0.05em;
-  text-transform: uppercase; position: relative;
-  transition: color 0.3s;
-}
-.nav-link::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 1px; background: var(--accent-cyan);
-  transition: width 0.3s var(--ease-out-expo);
-}
-.nav-link:hover, .nav-link.active { color: var(--text-primary); }
-.nav-link:hover::after, .nav-link.active::after { width: 100%; }
-.nav-status {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--text-muted); letter-spacing: 0.05em;
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #22c55e; box-shadow: 0 0 8px #22c55e;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-/* ======================================
-   HERO SECTION
-   ====================================== */
-.hero {
-  position: relative;
-  width: 100%; min-width: 100%; min-height: 100vh; min-height: 100svh;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  background: #0a0a0f;
-  isolation: isolate;
-}
-.hero::after {
-  content: ''; position: absolute; inset: 0; z-index: 1;
-  background:
-    radial-gradient(ellipse 45% 35% at 50% 48%, rgba(0,245,255,0.12), transparent 70%),
-    linear-gradient(to bottom, rgba(10,10,15,0.2), rgba(10,10,15,0.58));
-  pointer-events: none;
-}
-#hero-canvas {
-  position: absolute; inset: 0; z-index: 0;
-  opacity: 0.45;
-}
-.satellite-field {
-  position: absolute; inset: -12%; z-index: 1;
-  pointer-events: none;
-}
-.satellite-orbit {
-  position: absolute; left: 50%; top: 50%;
-  border: 1px solid rgba(0,245,255,0.34);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(var(--tilt));
-  animation: orbitSpin var(--duration) linear infinite;
-  box-shadow: 0 0 40px rgba(0,245,255,0.12);
-}
-.satellite-orbit.one { width: 54vw; height: 22vw; --tilt: -12deg; --duration: 18s; }
-.satellite-orbit.two { width: 74vw; height: 30vw; --tilt: 18deg; --duration: 26s; animation-direction: reverse; }
-.satellite-orbit.three { width: 92vw; height: 38vw; --tilt: -28deg; --duration: 34s; }
-.satellite {
-  position: absolute; left: 50%; top: -10px;
-  width: 58px; height: 24px;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 14px rgba(0,245,255,0.55));
-}
-.satellite::before {
-  content: ''; position: absolute; left: 18px; top: 5px;
-  width: 22px; height: 14px; border-radius: 3px;
-  background: #e5e7eb; border: 1px solid rgba(255,255,255,0.55);
-}
-.satellite::after {
-  content: ''; position: absolute; left: 0; top: 8px;
-  width: 58px; height: 8px;
-  background:
-    linear-gradient(90deg, rgba(0,245,255,0.95) 0 16px, transparent 16px 42px, rgba(0,245,255,0.95) 42px 58px);
-  border-radius: 2px;
-}
-.satellite-pulse {
-  position: absolute; left: 50%; top: 50%; width: 8px; height: 8px;
-  border-radius: 50%; background: var(--accent-amber);
-  box-shadow: 0 0 24px var(--accent-amber);
-  animation: pulseSignal 2.4s ease-in-out infinite;
-}
-@keyframes orbitSpin {
-  from { transform: translate(-50%, -50%) rotate(var(--tilt)) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(var(--tilt)) rotate(360deg); }
-}
-@keyframes pulseSignal {
-  0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.8); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.7); }
-}
-.hero-content {
-  position: relative; z-index: 2; text-align: center;
-  padding: 2rem;
-}
-.hero-label {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent-cyan); letter-spacing: 0.3em;
-  text-transform: uppercase; margin-bottom: 2rem;
-  opacity: 0; transform: translateY(20px);
-}
-.hero-name {
-  font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 700; line-height: 1.1;
-  color: var(--text-primary); letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-}
-.hero-name .char {
-  display: inline-block;
-  opacity: 0; transform: translateY(100%);
-}
-.hero-title {
-  font-family: var(--font-mono); font-size: clamp(1rem, 2.5vw, 1.5rem);
-  color: var(--text-primary); margin-bottom: 3rem;
-  min-height: 2em; line-height: 1.5;
-}
-.hero-cta {
-  display: inline-flex; align-items: center; gap: 0.75rem;
-  padding: 1rem 2rem; border: 1px solid var(--border-subtle);
-  font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--text-primary); letter-spacing: 0.1em;
-  text-transform: uppercase; border-radius: 4px;
-  transition: all 0.3s var(--ease-out-expo);
-  background: transparent;
-}
-.hero-cta:hover {
-  background: var(--accent-cyan-dim); border-color: var(--accent-cyan);
-  box-shadow: var(--glow-cyan);
-}
-.hero-actions {
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-  gap: 1rem;
-}
-.hero-game-btn {
-  background: var(--accent-amber-dim);
-  border-color: var(--accent-amber);
-  color: var(--text-primary);
-}
-.hero-game-btn:hover {
-  background: var(--accent-amber-dim);
-  border-color: var(--accent-amber);
-  box-shadow: var(--glow-amber);
-}
-.hero-scroll {
-  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-  z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--text-muted); letter-spacing: 0.1em;
-}
-.scroll-line {
-  width: 1px; height: 60px; background: linear-gradient(to bottom, var(--accent-cyan), transparent);
-  animation: scrollPulse 2s infinite;
-}
-@keyframes scrollPulse { 0% { opacity: 0; transform: scaleY(0); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } 100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; } }
-
-/* ======================================
-   SECTIONS COMMON
-   ====================================== */
-.section {
-  position: relative; z-index: 1;
-  padding: 8rem 3rem;
-  max-width: 1400px; margin: 0 auto;
-}
-.section-label {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent-cyan); letter-spacing: 0.3em;
-  text-transform: uppercase; margin-bottom: 1rem;
-  display: flex; align-items: center; gap: 1rem;
-}
-.section-label::before {
-  content: ''; width: 40px; height: 1px;
-  background: var(--accent-cyan);
-}
-.section-title {
-  font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 600; letter-spacing: -0.02em;
-  color: var(--text-primary); margin-bottom: 3rem;
-  line-height: 1.2;
-}
-
-/* ======================================
-   ABOUT SECTION
-   ====================================== */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;
-  align-items: start;
-}
-.about-image {
-  position: relative; aspect-ratio: 3/4;
-  border-radius: 8px; overflow: hidden;
-  background: var(--bg-surface);
-}
-.about-image-inner {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, var(--accent-cyan-dim), var(--accent-amber-dim));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem; color: var(--accent-cyan);
-  transition: transform 0.6s var(--ease-out-expo);
-}
-.about-image:hover .about-image-inner { transform: scale(1.05); }
-.about-image::after {
-  content: ''; position: absolute; inset: 0;
-  border: 1px solid var(--border-subtle); border-radius: 8px;
-}
-.about-bio {
-  font-size: 1rem; line-height: 1.7;
-  color: var(--text-secondary); margin-bottom: 1.5rem;
-  max-width: 600px;
-}
-.about-bio strong { color: var(--text-primary); }
-.skills-marquee {
-  overflow: hidden; padding: 2rem 0;
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
-  margin-top: 2rem;
-}
-.marquee-track {
-  display: flex; gap: 2rem; width: max-content;
-  animation: marquee 30s linear infinite;
-}
-.marquee-item {
-  font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--text-muted); white-space: nowrap;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.marquee-item::before { content: '◆'; color: var(--accent-cyan); font-size: 0.5rem; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ======================================
-   PROJECTS SECTION
-   ====================================== */
-.projects-bento {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-}
-.project-card {
-  position: relative; background: var(--bg-surface);
-  border: 1px solid var(--border-subtle); border-radius: 12px;
-  overflow: hidden; padding: 2rem;
-  transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
-  will-change: transform;
+.brand {
   display: flex;
   flex-direction: column;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0;
 }
-.project-card:hover { border-color: var(--accent-cyan); }
-.project-card.large { grid-column: span 8; grid-row: span 2; }
-.project-card.medium { grid-column: span 6; }
-.project-card.small { grid-column: span 4; }
-.project-card-inner {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--accent-cyan-dim), transparent);
-  opacity: 0; transition: opacity 0.4s;
+.brand span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin-top: 0.15rem;
 }
-.project-card:hover .project-card-inner { opacity: 1; }
-.project-meta {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--accent-amber); letter-spacing: 0.1em;
-  text-transform: uppercase; margin-bottom: 1rem;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
 }
-.project-title {
-  font-size: 1.5rem; font-weight: 600;
-  color: var(--text-primary); margin-bottom: 0.75rem;
-  letter-spacing: -0.01em;
-}
-.project-desc {
-  font-size: 0.9rem; color: var(--text-secondary);
-  line-height: 1.6; margin-bottom: 1.5rem;
-}
-.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
-.project-tag {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  padding: 0.25rem 0.75rem;
-  background: var(--accent-cyan-dim); color: var(--accent-cyan);
-  border-radius: 2px; letter-spacing: 0.05em;
-}
-.project-stats {
-  display: flex; flex-wrap: wrap; gap: 1.25rem;
-  font-family: var(--font-mono); font-size: 0.68rem;
-  color: var(--text-secondary); margin-top: auto; padding-top: 1.25rem;
-  border-top: 1px solid var(--border-subtle);
-  padding-right: 100px;
-}
-.project-stat { display: flex; align-items: center; gap: 0.35rem; }
-.project-stat svg { width: 14px; height: 14px; color: var(--text-muted); }
-.project-link {
-  position: absolute; bottom: 2rem; right: 2rem;
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--accent-cyan); letter-spacing: 0.05em;
-  display: flex; align-items: center; gap: 0.5rem;
-  transition: gap 0.3s;
-}
-.project-card:hover .project-link { gap: 1rem; }
-.projects-status {
-  grid-column: 1 / -1;
-  font-family: var(--font-mono); font-size: 0.78rem;
-  color: var(--text-muted); letter-spacing: 0.04em;
-  padding: 1rem 0;
-}
+.nav-links a:hover { color: var(--blue); }
 
-/* ======================================
-   SKILLS SECTION
-   ====================================== */
-.skills-radial {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+main { overflow: hidden; }
+.section {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 5.5rem 0;
 }
-.skill-orbit {
-  position: relative; aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
+.hero {
+  min-height: calc(100svh - 72px);
+  display: grid;
+  align-items: center;
+  padding: 4rem 0;
 }
-.skill-orbit-core {
-  width: 80px; height: 80px; border-radius: 50%;
-  background: var(--bg-surface); border: 1px solid var(--accent-cyan);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent-cyan); text-align: center;
-  z-index: 1; position: relative;
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 4rem;
+  align-items: center;
 }
-.skill-orbit-ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid var(--border-subtle);
-  animation: orbit 20s linear infinite;
-}
-.skill-orbit-ring:nth-child(2) { width: 140px; height: 140px; animation-duration: 15s; }
-.skill-orbit-ring:nth-child(3) { width: 200px; height: 200px; animation-duration: 25s; animation-direction: reverse; }
-.skill-orbit-dot {
-  position: absolute; width: 8px; height: 8px;
-  background: var(--accent-cyan); border-radius: 50%;
-  box-shadow: var(--glow-cyan);
-}
-@keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.skill-category-title {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent-amber); letter-spacing: 0.2em;
-  text-transform: uppercase; margin-bottom: 1rem;
-}
-.skill-list { display: flex; flex-direction: column; gap: 0.75rem; }
-.skill-item {
-  display: flex; align-items: center; gap: 1rem;
-  font-size: 0.95rem; color: var(--text-secondary);
-}
-.skill-item::before {
-  content: ''; width: 20px; height: 1px;
-  background: var(--accent-cyan);
-}
-
-/* ======================================
-   CONTACT SECTION
-   ====================================== */
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-}
-.contact-info { display: flex; flex-direction: column; gap: 2rem; }
-.contact-item { display: flex; align-items: center; gap: 1rem; }
-.contact-icon {
-  width: 48px; height: 48px; border-radius: 8px;
-  background: var(--accent-cyan-dim); border: 1px solid var(--accent-cyan);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--accent-cyan); font-size: 1.2rem;
-}
-.contact-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
-.contact-value { font-size: 1rem; color: var(--text-primary); }
-.contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-.form-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
-.form-input, .form-textarea {
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  padding: 1rem; border-radius: 4px;
-  font-family: var(--font-display); font-size: 0.95rem;
-  color: var(--text-primary); outline: none;
-  transition: border-color 0.3s;
-}
-.form-input:focus, .form-textarea:focus { border-color: var(--accent-cyan); }
-.form-textarea { resize: vertical; min-height: 120px; }
-.form-submit {
-  padding: 1rem 2rem; background: var(--accent-cyan);
-  border: none; border-radius: 4px;
-  font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--bg-void); font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  transition: all 0.3s var(--ease-out-expo);
-}
-.form-submit:hover { box-shadow: var(--glow-cyan); transform: translateY(-2px); }
-
-/* ======================================
-   FOOTER
-   ====================================== */
-.footer {
-  position: relative; z-index: 1;
-  padding: 3rem;
-  border-top: 1px solid var(--border-subtle);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
-.footer-links { display: flex; gap: 2rem; }
-.footer-link { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); transition: color 0.3s; }
-.footer-link:hover { color: var(--accent-cyan); }
-
-/* ======================================
-   THEME TOGGLE
-   ====================================== */
-.theme-controls {
-  position: fixed; top: 1.5rem; right: 3rem; z-index: 1000;
-  display: flex; gap: 0.75rem; align-items: center;
-}
-.control-btn {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  color: var(--text-secondary); cursor: none;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s var(--ease-out-expo);
-}
-.control-btn.wide {
-  width: auto; border-radius: 999px; padding: 0 0.85rem; gap: 0.45rem;
-  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
-.control-btn:hover {
-  background: var(--accent-cyan-dim); border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--teal);
 }
-
-/* ======================================
-   SEARCH OVERLAY
-   ====================================== */
-.search-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(10,10,15,0.98); display: none;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(20px);
+h1, h2, h3, p { margin-top: 0; }
+h1 {
+  max-width: 780px;
+  margin-bottom: 1.3rem;
+  font-size: clamp(3rem, 7vw, 5.9rem);
+  line-height: 0.96;
+  letter-spacing: 0;
 }
-.search-overlay.active { display: flex; }
-.search-container { width: 90%; max-width: 600px; }
-.search-input {
-  width: 100%; padding: 1.5rem; font-size: 1.25rem;
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 8px; color: var(--text-primary); outline: none;
-  font-family: var(--font-display);
+.hero-copy {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 1.16rem;
 }
-.search-input:focus { border-color: var(--accent-cyan); }
-.search-close {
-  position: absolute; top: 2rem; right: 2rem;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  color: var(--text-secondary); cursor: none;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
+.hero-copy strong { color: var(--ink); }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 2rem 0 2.25rem;
 }
-
-/* ======================================
-   QUOTE SECTION
-   ====================================== */
-.quote-section {
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 12px; padding: 3rem; position: relative; overflow: hidden;
-}
-.quote-toggle {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--accent-amber); cursor: none;
-  transition: all 0.3s; flex-shrink: 0;
-}
-.quote-toggle:hover { background: var(--accent-cyan); transform: scale(1.2); }
-.quote-sanskrit {
-  font-family: var(--font-display); font-size: 1.5rem;
-  color: var(--text-primary); font-style: italic; line-height: 1.6;
-}
-.quote-translation {
-  margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);
-  display: none;
-}
-.quote-translation.show { display: block; }
-.quote-english { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; }
-.quote-hindi { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
-
-/* ======================================
-   PHOTOGRAPHY SECTION
-   ====================================== */
-.photo-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
-}
-.photo-card {
-  aspect-ratio: 3/4; border-radius: 12px; overflow: hidden;
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  position: relative;
-}
-.photo-card img {
-  width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.6; transition: opacity 0.6s var(--ease-out-expo);
-}
-.photo-card:hover img { opacity: 1; }
-
-/* ======================================
-   BLOG SECTION
-   ====================================== */
-.blog-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
-}
-.blog-card {
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 12px; padding: 2rem;
-  transition: all 0.3s var(--ease-out-expo);
-}
-.blog-card:hover { border-color: var(--accent-cyan); transform: translateY(-4px); }
-.blog-date {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--accent-amber); letter-spacing: 0.1em;
-}
-.blog-title {
-  font-size: 1.25rem; font-weight: 600; color: var(--text-primary);
-  margin: 0.75rem 0; letter-spacing: -0.01em;
-}
-.blog-excerpt {
-  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-.blog-link {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--accent-cyan); letter-spacing: 0.05em;
-}
-
-/* ======================================
-   GITHUB STATS
-   ====================================== */
-.github-stats-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem;
-}
-.github-stat-card {
-  position: relative; overflow: hidden;
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 8px; padding: 1rem;
-  min-height: 220px; display: flex; align-items: center; justify-content: center;
-}
-.github-stat-card.wide { grid-column: 1 / -1; }
-.github-stat-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--accent-cyan-dim), transparent 55%, var(--accent-amber-dim));
-  opacity: 0.7; pointer-events: none;
-}
-.github-stat-card img {
-  position: relative; z-index: 1;
-  width: 100%; max-width: 100%; height: auto;
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border: 1px solid var(--line);
   border-radius: 6px;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--panel);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
 }
-.github-stat-light { display: none; }
-.github-note {
-  margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--text-muted); letter-spacing: 0.04em;
+.button.primary {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: white;
 }
-
-/* ======================================
-   AUXILIARY PROJECTS
-   ====================================== */
-.aux-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
-.aux-card {
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 8px; padding: 1.25rem;
-  display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.3s var(--ease-out-expo);
+.signal-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
 }
-.aux-card:hover { background: var(--bg-elevated); border-color: var(--accent-cyan); }
-.aux-title {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent-cyan); letter-spacing: 0.1em; text-transform: uppercase;
-  margin-bottom: 0.25rem;
+.signal {
+  border-left: 3px solid var(--blue);
+  padding: 0.2rem 0 0.2rem 0.85rem;
 }
-.aux-desc {
-  font-size: 0.75rem; color: var(--text-muted);
+.signal strong {
+  display: block;
+  font-size: 0.9rem;
 }
-.aux-arrow { color: var(--text-muted); font-size: 1rem; opacity: 0; transition: opacity 0.3s; }
-.aux-card:hover .aux-arrow { opacity: 1; }
-
-/* ======================================
-   TIC TAC TOE GAME
-   ====================================== */
-.game-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(10,10,15,0.9); display: none;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(10px);
+.signal span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.84rem;
 }
-.game-overlay.active { display: flex; }
-.game-modal {
-  background: var(--bg-surface); border: 1px solid var(--border-subtle);
-  border-radius: 16px; padding: 2rem; width: 90%; max-width: 360px;
-  text-align: center;
+.systems-panel {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
 }
-.game-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 1.5rem;
+.systems-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.08), transparent 38%, rgba(15, 118, 110, 0.10));
+  pointer-events: none;
 }
-.game-header h3 {
-  font-family: var(--font-display); font-size: 1.5rem;
-  color: var(--text-primary);
+.panel-content { position: relative; }
+.panel-title {
+  color: var(--quiet);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
-.game-close {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
-  color: var(--text-secondary); cursor: none; font-size: 1.25rem;
-  display: flex; align-items: center; justify-content: center;
-}
-.game-status {
-  font-family: var(--font-mono); font-size: 0.9rem;
-  color: var(--accent-cyan); margin-bottom: 1.5rem;
-}
-.game-score {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  color: var(--text-muted); margin: -0.75rem 0 1.5rem;
-  letter-spacing: 0.04em;
-}
-.game-board {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-  margin-bottom: 1.5rem;
-}
-.game-cell {
-  aspect-ratio: 1; background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 2rem; font-weight: 700;
-  cursor: none; transition: all 0.2s var(--ease-out-expo);
-}
-.game-cell:hover { border-color: var(--accent-cyan); }
-.game-cell.x { color: var(--accent-cyan); }
-.game-cell.o { color: var(--accent-amber); }
-.game-cell.winner { background: var(--accent-cyan-dim); border-color: var(--accent-cyan); }
-.game-reset {
-  padding: 0.75rem 1.5rem; background: var(--accent-cyan-dim);
-  border: 1px solid var(--accent-cyan); border-radius: 8px;
-  font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);
-  cursor: none; transition: all 0.3s var(--ease-out-expo);
-}
-.game-reset:hover { background: var(--accent-cyan); color: var(--bg-void); }
-.snake-modal { max-width: 420px; }
-.snake-canvas {
-  width: 100%; max-width: 320px; aspect-ratio: 1;
-  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
-  border-radius: 8px; display: block; margin: 0 auto 1.25rem;
-}
-.snake-controls {
-  display: grid; grid-template-columns: repeat(3, 44px); gap: 0.5rem;
-  justify-content: center; margin-bottom: 1.25rem;
-}
-.snake-control {
-  width: 44px; height: 44px; border-radius: 8px;
-  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
-  color: var(--text-primary); font-family: var(--font-mono); font-size: 1rem;
-  cursor: none; transition: all 0.2s var(--ease-out-expo);
-}
-.snake-control:hover {
-  border-color: var(--accent-cyan); color: var(--accent-cyan);
-}
-.snake-control.empty { visibility: hidden; }
-
-html[data-theme="light"] .game-modal { background: #ffffff !important; }
-html[data-theme="light"] .game-header h3 { color: #1a1a2e !important; }
-html[data-theme="light"] .game-close { background: #f1f3f5 !important; }
-html[data-theme="light"] .game-status { color: #0891b2 !important; }
-html[data-theme="light"] .game-cell { background: #f1f3f5 !important; }
-html[data-theme="light"] .game-cell.x { color: #0891b2 !important; }
-html[data-theme="light"] .game-cell.o { color: #d97706 !important; }
-html[data-theme="light"] .snake-canvas, html[data-theme="light"] .snake-control { background: #f1f3f5 !important; }
-html[data-theme="light"] .game-reset { background: rgba(8,145,178,0.15) !important; color: #0891b2 !important; border-color: #0891b2 !important; }
-html[data-theme="light"] .game-reset:hover { background: #0891b2 !important; color: #ffffff !important; }
-
-/* ======================================
-   LIBRARY & MEDIA
-   ====================================== */
-.info-stack { display: flex; flex-direction: column; gap: 2rem; justify-content: center; }
-.info-block {}
-.info-label {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--accent-amber); letter-spacing: 0.2em; text-transform: uppercase;
+.system-node {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 1rem;
   margin-bottom: 0.75rem;
 }
-.info-value {
-  font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em;
-  line-height: 1.8;
+.system-node strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--navy);
+  font-size: 0.98rem;
+}
+.system-node span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.88rem;
+  margin-top: 0.35rem;
+}
+.status {
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+.section-kicker {
+  color: var(--teal);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+h2 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.section-lede {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 1.35rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+.card:hover { border-color: rgba(29, 78, 216, 0.42); }
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.tag {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+  color: var(--teal);
+  background: rgba(15, 118, 110, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.card h3 {
+  margin-bottom: 0.6rem;
+  color: var(--navy);
+  font-size: 1.18rem;
+  line-height: 1.25;
+}
+.card p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  margin-bottom: 1rem;
+}
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.meta-list li {
+  border-radius: 4px;
+  background: var(--panel-soft);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.45rem;
+}
+.card-link {
+  display: inline-flex;
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.timeline {
+  border-left: 2px solid var(--line);
+  padding-left: 1.25rem;
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 1.35rem;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.67rem;
+  top: 0.35rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 3px solid var(--bg);
+}
+.timeline-item h3 { margin-bottom: 0.25rem; }
+.timeline-item p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+.capability-band {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--navy);
+  color: white;
+  padding: 1.5rem;
+}
+.capability-band h2 { color: white; }
+.capability-band .section-lede { color: #cbd5e1; }
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.capability {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+.capability strong {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+.capability span {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+.writing-card {
+  display: block;
+  border-bottom: 1px solid var(--line);
+  padding: 1.35rem 0;
+}
+.writing-card:first-child { padding-top: 0; }
+.writing-card:hover h3 { color: var(--blue); }
+.writing-card h3 { margin-bottom: 0.35rem; }
+.writing-card p {
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.writing-meta {
+  color: var(--quiet);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.contact-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: var(--shadow);
+}
+.contact-panel p {
+  color: var(--muted);
+  margin-bottom: 0;
+  max-width: 680px;
+}
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  color: var(--quiet);
+  font-size: 0.86rem;
+}
+.footer-inner {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-/* ======================================
-   LIGHT THEME
-   ====================================== */
-html[data-theme="light"] {
-  --bg-void: #f8f9fa !important;
-  --bg-surface: #ffffff !important;
-  --bg-elevated: #f1f3f5 !important;
-  --text-primary: #1a1a2e !important;
-  --text-secondary: #4a4a5a !important;
-  --text-muted: #9ca3af !important;
-  --grid-line: rgba(0,0,0,0.08) !important;
-  --border-subtle: rgba(0,0,0,0.12) !important;
-  --accent-cyan: #0891b2 !important;
-  --accent-cyan-dim: rgba(8,145,178,0.15) !important;
-}
-html[data-theme="light"] body {
-  background: #f8f9fa !important;
-  background-color: #f8f9fa !important;
-}
-html[data-theme="light"] .grid-bg {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px) !important;
-}
-html[data-theme="light"] .cursor-dot { background: #0a0a0f !important; }
-html[data-theme="light"] .cursor-ring { border-color: rgba(0,0,0,0.2) !important; }
-html[data-theme="light"] .cursor-ring.hover { border-color: #0a0a0f !important; }
-html[data-theme="light"] .nav { background: rgba(248,249,250,0.95) !important; border-bottom-color: rgba(0,0,0,0.08) !important; }
-html[data-theme="light"] .grain { opacity: 0.015 !important; }
-html[data-theme="light"] .hero-name { color: #1a1a2e !important; }
-html[data-theme="light"] .hero-title { color: #4a4a5a !important; }
-html[data-theme="light"] .hero {
-  background:
-    radial-gradient(ellipse 70% 45% at 50% 45%, rgba(8,145,178,0.16), transparent 68%),
-    linear-gradient(135deg, #eefaff 0%, #f8f9fa 48%, #fff7ed 100%) !important;
-}
-html[data-theme="light"] .hero::after {
-  background:
-    radial-gradient(ellipse 45% 35% at 50% 48%, rgba(8,145,178,0.14), transparent 70%),
-    linear-gradient(to bottom, rgba(248,249,250,0.08), rgba(248,249,250,0.34)) !important;
-}
-html[data-theme="light"] #hero-canvas { opacity: 0.28 !important; }
-html[data-theme="light"] .satellite-orbit {
-  border-color: rgba(8,145,178,0.5) !important;
-  box-shadow: 0 0 34px rgba(8,145,178,0.16) !important;
-}
-html[data-theme="light"] .satellite {
-  filter: drop-shadow(0 0 12px rgba(8,145,178,0.36)) !important;
-}
-html[data-theme="light"] .satellite::before {
-  background: #ffffff !important;
-  border-color: rgba(15,23,42,0.2) !important;
-  box-shadow: inset 0 0 0 1px rgba(8,145,178,0.18) !important;
-}
-html[data-theme="light"] .satellite::after {
-  background:
-    linear-gradient(90deg, rgba(8,145,178,0.95) 0 16px, transparent 16px 42px, rgba(8,145,178,0.95) 42px 58px) !important;
-}
-html[data-theme="light"] .satellite-pulse {
-  background: #d97706 !important;
-  box-shadow: 0 0 24px rgba(217,119,6,0.55) !important;
-}
-html[data-theme="light"] .section-title { color: #1a1a2e !important; }
-html[data-theme="light"] .about-bio { color: #4a4a5a !important; }
-html[data-theme="light"] .about-bio strong { color: #1a1a2e !important; }
-html[data-theme="light"] .project-card { background: #ffffff !important; }
-html[data-theme="light"] .project-title { color: #1a1a2e !important; }
-html[data-theme="light"] .project-desc { color: #6b7280 !important; }
-html[data-theme="light"] .blog-card { background: #ffffff !important; }
-html[data-theme="light"] .blog-title { color: #1a1a2e !important; }
-html[data-theme="light"] .github-stat-card { background: #ffffff !important; }
-html[data-theme="light"] .github-stat-dark { display: none !important; }
-html[data-theme="light"] .github-stat-light { display: block !important; }
-html[data-theme="light"] .quote-section { background: #ffffff !important; }
-html[data-theme="light"] .quote-sanskrit { color: #1a1a2e !important; }
-html[data-theme="light"] .loader { background: #f8f9fa !important; }
-html[data-theme="light"] .loader-logo { color: #0891b2 !important; }
-html[data-theme="light"] .search-overlay { background: rgba(248,249,250,0.98) !important; }
-html[data-theme="light"] .search-input { background: #ffffff !important; color: #1a1a2e !important; border-color: rgba(0,0,0,0.12) !important; }
-html[data-theme="light"] .form-input, html[data-theme="light"] .form-textarea { background: #ffffff !important; color: #1a1a2e !important; border-color: rgba(0,0,0,0.12) !important; }
-html[data-theme="light"] .control-btn { background: #ffffff !important; border-color: rgba(0,0,0,0.12) !important; color: #4a4a5a !important; }
-html[data-theme="light"] .aux-card { background: #ffffff !important; }
-html[data-theme="light"] .photo-card { background: #ffffff !important; }
-html[data-theme="light"] .footer { border-top-color: rgba(0,0,0,0.08) !important; }
-html[data-theme="light"] .footer-copy { color: #9ca3af !important; }
-html[data-theme="light"] .footer-link { color: #4a4a5a !important; }
-html[data-theme="light"] .contact-item { background: #ffffff !important; }
-html[data-theme="light"] .contact-value { color: #1a1a2e !important; }
-html[data-theme="light"] .skill-category-title { color: #d97706 !important; }
-html[data-theme="light"] .skill-item { color: #4a4a5a !important; }
-html[data-theme="light"] .skill-item::before { background: #0891b2 !important; }
-html[data-theme="light"] .marquee-item { color: #9ca3af !important; }
-html[data-theme="light"] .marquee-item::before { color: #0891b2 !important; }
-
-/* ======================================
-   TYPEWRITER CURSOR
-   ====================================== */
-.typewriter-cursor {
-  display: inline-block; width: 2px; height: 1em;
-  background: var(--accent-cyan); margin-left: 2px;
-  animation: blink 1s step-end infinite;
-  vertical-align: text-bottom;
-}
-@keyframes blink { 50% { opacity: 0; } }
-
-/* ======================================
-   REDUCED MOTION
-   ====================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@media (max-width: 900px) {
+  .hero-grid, .section-head, .contact-panel {
+    grid-template-columns: 1fr;
   }
-  .cursor-dot, .cursor-ring { display: none; }
-  body { cursor: auto; }
-  a, button { cursor: auto; }
+  .grid.three, .grid.two, .capability-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .signal-row { grid-template-columns: 1fr; }
 }
-
-/* ======================================
-   RESPONSIVE
-   ====================================== */
-@media (max-width: 1024px) {
-  .project-card.large { grid-column: span 12; }
-  .project-card.medium { grid-column: span 6; }
-  .project-card.small { grid-column: span 6; }
-  .about-grid { grid-template-columns: 1fr; }
-  .skills-radial { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 768px) {
-  .nav { padding: 1rem 1.5rem; }
+@media (max-width: 640px) {
+  .nav-inner { width: min(100% - 28px, 1120px); }
   .nav-links { display: none; }
-  .section { padding: 5rem 1.5rem; }
-  .project-card.large, .project-card.medium, .project-card.small { grid-column: span 12; }
-  .projects-bento { gap: 1rem; }
-  .github-stats-grid { grid-template-columns: 1fr; }
-  .github-stat-card { min-height: auto; }
-  .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-}
-@media (max-width: 480px) {
-  .hero-name { font-size: 2.5rem; }
+  .section { width: min(100% - 28px, 1120px); padding: 4rem 0; }
+  .hero { padding: 2.5rem 0; }
+  .grid.three, .grid.two, .capability-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-actions, .contact-panel { align-items: stretch; }
+  .button { width: 100%; }
+  .footer-inner { flex-direction: column; width: min(100% - 28px, 1120px); }
 }
 </style>
 </head>
-<body id="pageBody">
-
-<!-- Grain Overlay -->
-<div class='grain'></div>
-
-<!-- Grid Background -->
-<div class='grid-bg'></div>
-
-<!-- Custom Cursor -->
-<div class='cursor-dot' id='cursorDot'></div>
-<div class='cursor-ring' id='cursorRing'></div>
-
-<!-- Loading Screen -->
-<div class='loader' id='loader'>
-  <div class='loader-logo'>AK</div>
-  <div class='loader-bar'><div class='loader-bar-fill'></div></div>
-</div>
-
-<!-- Theme Controls -->
-<div class='theme-controls'>
-  <button class='control-btn' id='themeToggle' aria-label='Toggle theme'>
-    <svg width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z'/></svg>
-  </button>
-  <button class='control-btn' id='langToggle' aria-label='Toggle language'>EN</button>
-  <button class='control-btn' id='searchToggle' aria-label='Search'>
-    <svg width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/></svg>
-  </button>
-  <button class='control-btn wide' id='gameToggle' aria-label='Play Tic Tac Toe'>
-    <svg width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'/></svg>
-    Game
-  </button>
-  <button class='control-btn wide' id='snakeToggle' aria-label='Play Snake'>
-    <svg width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M4 12h4a4 4 0 004-4V6a2 2 0 114 0v6a4 4 0 01-4 4H6a2 2 0 100 4h12'/></svg>
-    Snake
-  </button>
-</div>
-
-<!-- Tic Tac Toe Game Modal -->
-<div class='game-overlay' id='gameOverlay'>
-  <div class='game-modal'>
-    <div class='game-header'>
-      <h3>Tic Tac Toe</h3>
-      <button class='game-close' id='gameClose'>×</button>
+<body>
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="brand" href="#top">Anurag K. Sharma <span>secure AI systems</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#writing">Writing</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class='game-status' id='gameStatus'>Your turn (X)</div>
-    <div class='game-score' id='gameScore'>Device best streak: 0 | Wins: 0</div>
-    <div class='game-board' id='gameBoard'>
-      <div class='game-cell' data-index='0'></div>
-      <div class='game-cell' data-index='1'></div>
-      <div class='game-cell' data-index='2'></div>
-      <div class='game-cell' data-index='3'></div>
-      <div class='game-cell' data-index='4'></div>
-      <div class='game-cell' data-index='5'></div>
-      <div class='game-cell' data-index='6'></div>
-      <div class='game-cell' data-index='7'></div>
-      <div class='game-cell' data-index='8'></div>
-    </div>
-    <button class='game-reset' id='gameReset'>Play Again</button>
-  </div>
-</div>
-
-<!-- Snake Game Modal -->
-<div class='game-overlay' id='snakeOverlay'>
-  <div class='game-modal snake-modal'>
-    <div class='game-header'>
-      <h3>Snake</h3>
-      <button class='game-close' id='snakeClose'>X</button>
-    </div>
-    <div class='game-status' id='snakeStatus'>Score: 0</div>
-    <div class='game-score' id='snakeHighScore'>Device high score: 0</div>
-    <canvas class='snake-canvas' id='snakeCanvas' width='320' height='320'></canvas>
-    <div class='snake-controls' aria-label='Snake controls'>
-      <button class='snake-control empty' type='button' tabindex='-1'></button>
-      <button class='snake-control' type='button' data-direction='up'>^</button>
-      <button class='snake-control empty' type='button' tabindex='-1'></button>
-      <button class='snake-control' type='button' data-direction='left'>&lt;</button>
-      <button class='snake-control' type='button' data-direction='down'>v</button>
-      <button class='snake-control' type='button' data-direction='right'>&gt;</button>
-    </div>
-    <button class='game-reset' id='snakeReset'>Restart Snake</button>
-  </div>
-</div>
-
-<!-- Search Overlay -->
-<div class='search-overlay' id='searchOverlay'>
-  <button class='search-close' id='searchClose'>×</button>
-  <div class='search-container'>
-    <input type='text' class='search-input' id='searchInput' placeholder='Search...'>
-    <div id='searchResults' style='margin-top: 1rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.8rem;'></div>
-  </div>
-</div>
-
-<!-- Navigation -->
-<nav class='nav' id='nav'>
-  <a href='#' class='nav-logo'>Anurag<span>.</span></a>
-  <div class='nav-links'>
-    <a href='#about' class='nav-link' data-section='about'>About</a>
-    <a href='#projects' class='nav-link' data-section='projects'>Projects</a>
-    <a href='#skills' class='nav-link' data-section='skills'>Skills</a>
-    <a href='/writing' class='nav-link'>Writing</a>
-    <a href='#contact' class='nav-link' data-section='contact'>Contact</a>
-  </div>
-  <div class='nav-status'>
-    <span class='status-dot'></span>
-    <span id='clock'>--:--:-- IST</span>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class='hero' id='hero'>
-  <canvas id='hero-canvas'></canvas>
-  <div class='satellite-field' aria-hidden='true'>
-    <div class='satellite-orbit one'><span class='satellite'></span></div>
-    <div class='satellite-orbit two'><span class='satellite'></span></div>
-    <div class='satellite-orbit three'><span class='satellite'></span></div>
-    <span class='satellite-pulse'></span>
-  </div>
-  <div class='hero-content'>
-    <div class='hero-label'>Department of Space, India</div>
-    <h1 class='hero-name' id='heroName'>ANURAG K. SHARMA</h1>
-    <div class='hero-title'>
-      <span id='typewriter'>Computer Scientist</span><span class='typewriter-cursor'></span>
-    </div>
-    <div class='hero-actions'>
-      <a href='#about' class='hero-cta'>
-        Explore Work
-        <svg width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>
-      </a>
-      <button class='hero-cta hero-game-btn game-launch' type='button'>
-        Play Tic Tac Toe
-        <svg width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M4 4l16 16M20 4L4 20'/></svg>
-      </button>
-      <button class='hero-cta hero-game-btn snake-launch' type='button'>
-        Play Snake
-        <svg width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
-      </button>
-    </div>
-  </div>
-  <div class='hero-scroll'>
-    <span>SCROLL</span>
-    <div class='scroll-line'></div>
-  </div>
-</section>
+<main id="top">
+  <section class="section hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Scientist at ISRO | IIT Delhi alumnus</div>
+        <h1>Secure AI for mission-critical systems.</h1>
+        <p class="hero-copy">
+          I build at the intersection of <strong>AI agents</strong>, <strong>network security</strong>,
+          <strong>post-quantum cryptography</strong>, and infrastructure that has to work in constrained,
+          regulated, and high-stakes environments.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#work">View flagship work</a>
+          <a class="button" href="/writing/">Read technical writing</a>
+          <a class="button" href="https://github.com/akrishnash" target="_blank" rel="noopener">GitHub profile</a>
+        </div>
+        <div class="signal-row" aria-label="Professional signals">
+          <div class="signal">
+            <strong>Mission systems</strong>
+            <span>Space, healthcare, and secure networks</span>
+          </div>
+          <div class="signal">
+            <strong>Developer experience</strong>
+            <span>Docs, demos, APIs, and usable tools</span>
+          </div>
+          <div class="signal">
+            <strong>Security depth</strong>
+            <span>VPNs, PQC, 5G, agents, and auditability</span>
+          </div>
+        </div>
+      </div>
 
-<!-- About Section -->
-<section class='section' id='about'>
-  <div class='section-label'>01 — About</div>
-  <h2 class='section-title'>Building the future,<br>one qubit at a time.</h2>
-  <div class='about-grid'>
-    <div class='about-image'>
-      <div class='about-image-inner'>AK</div>
+      <aside class="systems-panel" aria-label="Current technical focus">
+        <div class="panel-content">
+          <div class="panel-title">Current focus</div>
+          <div class="system-node">
+            <strong>VISHWAAS <span class="status">active</span></strong>
+            <span>Secure enterprise VPN control plane with approvals, audit logs, and AI-assisted operations.</span>
+          </div>
+          <div class="system-node">
+            <strong>SecureAI Agent <span class="status">building</span></strong>
+            <span>Threat explanation and mitigation workflows over logs, CVEs, PCAPs, and analyst tools.</span>
+          </div>
+          <div class="system-node">
+            <strong>PQC WireGuard <span class="status">research</span></strong>
+            <span>Hybrid ML-KEM handshake architecture, benchmarks, and post-quantum VPN design notes.</span>
+          </div>
+          <div class="system-node">
+            <strong>AirGapGPT <span class="status">planned</span></strong>
+            <span>Offline enterprise AI with RAG, RBAC, audit trails, and document workflows.</span>
+          </div>
+        </div>
+      </aside>
     </div>
-    <div class='about-content'>
-      <p class='about-bio'>
-        <strong>Scientist at ISRO</strong> — specializing in quantum computing, post-quantum cryptography, and mission-critical network infrastructure.
+  </section>
+
+  <section class="section" id="work">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Selected work</div>
+        <h2>A portfolio around secure AI systems.</h2>
+      </div>
+      <p class="section-lede">
+        The public GitHub story is being shaped around a single north star: systems that make AI useful,
+        inspectable, and safe for serious operational environments.
       </p>
-      <p class='about-bio'>
-        Previously architected healthcare systems at <strong>AIIMS New Delhi</strong>. Completed M.Tech at <strong>IIT Delhi</strong>.
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <div class="card-top"><span class="tag">Flagship</span><span class="tag">VPN</span></div>
+        <h3>VISHWAAS</h3>
+        <p>Secure enterprise VPN with WireGuard control-plane workflows, join approvals, connection approvals, audit logs, and an AI operations assistant.</p>
+        <a class="card-link" href="https://github.com/akrishnash" target="_blank" rel="noopener">View on GitHub</a>
+        <ul class="meta-list">
+          <li>WireGuard</li><li>Network security</li><li>Auditability</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="tag">AI agent</span><span class="tag">Security</span></div>
+        <h3>SecureAI Agent</h3>
+        <p>Cybersecurity agent for logs, PCAPs, and CVEs. Produces threat explanations, attack paths, and mitigation steps with bounded tool use.</p>
+        <a class="card-link" href="/writing/secure-ai-agents-tool-calling.html">Read design article</a>
+        <ul class="meta-list">
+          <li>Tool calling</li><li>RAG</li><li>Threat analysis</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="tag">PQC</span><span class="tag">Research</span></div>
+        <h3>PQC WireGuard</h3>
+        <p>Hybrid post-quantum VPN design exploring ML-KEM integration, performance tradeoffs, and practical migration from classical handshakes.</p>
+        <a class="card-link" href="/writing/pqc-wireguard.html">Read technical article</a>
+        <ul class="meta-list">
+          <li>ML-KEM</li><li>WireGuard</li><li>Benchmarks</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="tag">Offline AI</span><span class="tag">Enterprise</span></div>
+        <h3>AirGapGPT</h3>
+        <p>Offline enterprise AI concept for chat, documents, RAG, RBAC, and audit logging in disconnected or restricted environments.</p>
+        <a class="card-link" href="#roadmap">See roadmap</a>
+        <ul class="meta-list">
+          <li>Air-gapped AI</li><li>RBAC</li><li>Documents</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="tag">5G</span><span class="tag">Analysis</span></div>
+        <h3>5G Sentinel</h3>
+        <p>AI-assisted Free5GC and PCAP analysis for UE registration flows, NGAP explanation, and security insights.</p>
+        <a class="card-link" href="#roadmap">See roadmap</a>
+        <ul class="meta-list">
+          <li>Free5GC</li><li>PCAP</li><li>NGAP</li>
+        </ul>
+      </article>
+      <article class="card">
+        <div class="card-top"><span class="tag">Infrastructure</span><span class="tag">Ops</span></div>
+        <h3>Mission-Critical Networks</h3>
+        <p>Experience across secure network architecture, healthcare infrastructure, satellite-adjacent systems, and operational engineering.</p>
+        <a class="card-link" href="#contact">Discuss systems work</a>
+        <ul class="meta-list">
+          <li>5G core</li><li>SDN/NFV</li><li>Secure ops</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Roadmap</div>
+        <h2>From strong experience to visible proof.</h2>
+      </div>
+      <p class="section-lede">
+        The next stage is packaging: better READMEs, architecture diagrams, screenshots, demo videos,
+        and concise writeups that help developers understand and trust the work quickly.
       </p>
-      <div class='skills-marquee'>
-        <div class='marquee-track'>
-          <span class='marquee-item'>Quantum Computing</span>
-          <span class='marquee-item'>Post-Quantum Cryptography</span>
-          <span class='marquee-item'>5G Core Networks</span>
-          <span class='marquee-item'>Deep Learning</span>
-          <span class='marquee-item'>VPN Security</span>
-          <span class='marquee-item'>Federated Learning</span>
-          <span class='marquee-item'>Qiskit</span>
-          <span class='marquee-item'>PyTorch</span>
-          <span class='marquee-item'>Wireguard</span>
-          <span class='marquee-item'>Quantum Computing</span>
-          <span class='marquee-item'>Post-Quantum Cryptography</span>
-          <span class='marquee-item'>5G Core Networks</span>
-          <span class='marquee-item'>Deep Learning</span>
-          <span class='marquee-item'>VPN Security</span>
-          <span class='marquee-item'>Federated Learning</span>
-          <span class='marquee-item'>Qiskit</span>
-          <span class='marquee-item'>PyTorch</span>
-          <span class='marquee-item'>Wireguard</span>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>1. Polish VISHWAAS</h3>
+            <p>Rewrite README, add screenshots, architecture diagram, deployment guide, and AI assistant narrative.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>2. Ship SecureAI Agent MVP</h3>
+            <p>Create a focused public demo around logs, PCAPs, CVEs, tool calling, and analyst-grade reports.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>3. Publish deep technical artifacts</h3>
+            <p>Turn PQC WireGuard, air-gapped AI, and 5G security work into articles, demos, and repo docs.</p>
+          </div>
         </div>
       </div>
+      <div class="card">
+        <h3>Desired public signal</h3>
+        <p>
+          A recruiter, engineering manager, or DevX team should land here and immediately understand:
+          Anurag builds secure AI systems, can explain complex infrastructure clearly, and can translate
+          research-grade ideas into usable developer-facing artifacts.
+        </p>
+        <ul class="meta-list">
+          <li>Secure AI</li><li>Developer experience</li><li>AI agents</li><li>Network security</li><li>PQC</li><li>Enterprise AI</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Projects Section -->
-<section class='section' id='projects'>
-  <div class='section-label'>02 — Selected Work</div>
-  <h2 class='section-title'>Live projects from GitHub.</h2>
-  <div class='projects-bento' id='githubProjects' aria-live='polite'>
-    <div class='projects-status'>Fetching public repositories from GitHub...</div>
-    <div class='project-card large' data-tilt>
-      <div class='project-card-inner'></div>
-      <div class='project-meta'>Quantum Security / 2024</div>
-      <h3 class='project-title'>Post-Quantum VPN Architecture</h3>
-      <p class='project-desc'>Designed and implemented a quantum-resistant VPN infrastructure using CRYSTALS-Kyber and CRYSTALS-Dilithium algorithms, integrated with Wireguard for India's space communication channels.</p>
-      <div class='project-tags'>
-        <span class='project-tag'>PQC</span>
-        <span class='project-tag'>Wireguard</span>
-        <span class='project-tag'>Kyber</span>
-        <span class='project-tag'>Dilithium</span>
-      </div>
-      <a href='#' class='project-link'>View Details →</a>
-    </div>
-    <div class='project-card medium' data-tilt>
-      <div class='project-card-inner'></div>
-      <div class='project-meta'>Deep Learning / 2024</div>
-      <h3 class='project-title'>Federated Learning for Satellite Imagery</h3>
-      <p class='project-desc'>Developed a federated learning framework for distributed satellite data analysis, enabling collaborative model training without centralized data collection.</p>
-      <div class='project-tags'>
-        <span class='project-tag'>PyTorch</span>
-        <span class='project-tag'>Federated Learning</span>
-        <span class='project-tag'>Computer Vision</span>
-      </div>
-      <a href='#' class='project-link'>View Details →</a>
-    </div>
-    <div class='project-card medium' data-tilt>
-      <div class='project-card-inner'></div>
-      <div class='project-meta'>5G Networks / 2023</div>
-      <h3 class='project-title'>5G Core Network Optimization</h3>
-      <p class='project-desc'>Research on latency optimization and network slicing for next-generation satellite-ground integrated communication systems.</p>
-      <div class='project-tags'>
-        <span class='project-tag'>5G Core</span>
-        <span class='project-tag'>Network Slicing</span>
-        <span class='project-tag'>SDN</span>
-      </div>
-      <a href='#' class='project-link'>View Details →</a>
-    </div>
-    <div class='project-card small' data-tilt>
-      <div class='project-card-inner'></div>
-      <div class='project-meta'>Quantum / 2023</div>
-      <h3 class='project-title'>Quantum Key Distribution</h3>
-      <p class='project-desc'>Exploring QKD protocols for ultra-secure satellite communication channels.</p>
-      <div class='project-tags'>
-        <span class='project-tag'>QKD</span>
-        <span class='project-tag'>Quantum</span>
-      </div>
-      <a href='#' class='project-link'>View →</a>
-    </div>
-    <div class='project-card small' data-tilt>
-      <div class='project-card-inner'></div>
-      <div class='project-meta'>Healthcare / 2022</div>
-      <h3 class='project-title'>AIIMS Infrastructure</h3>
-      <p class='project-desc'>Architected mission-critical network systems for India's premier medical institute.</p>
-      <div class='project-tags'>
-        <span class='project-tag'>Networking</span>
-        <span class='project-tag'>Security</span>
-      </div>
-      <a href='#' class='project-link'>View →</a>
-    </div>
-  </div>
-</section>
-
-<!-- GitHub Stats Section -->
-<section class='section' id='github'>
-  <div class='section-label'>Open Source — GitHub</div>
-  <h2 class='section-title'>Code signals from the public graph.</h2>
-  <div class='github-stats-grid'>
-    <a class='github-stat-card' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb&icon_color=ff6b00&rank_icon=github' alt='Anurag K. Sharma GitHub stats' loading='lazy'>
-      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api?username=akrishnash&show_icons=true&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e&icon_color=d97706&rank_icon=github' alt='Anurag K. Sharma GitHub stats' loading='lazy'>
-    </a>
-    <a class='github-stat-card' href='https://github.com/akrishnash?tab=repositories' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=00f5ff&text_color=e5e7eb' alt='Anurag K. Sharma top GitHub languages' loading='lazy'>
-      <img class='github-stat-light' src='https://github-readme-stats.vercel.app/api/top-langs/?username=akrishnash&layout=compact&hide_border=true&bg_color=00000000&title_color=0891b2&text_color=1a1a2e' alt='Anurag K. Sharma top GitHub languages' loading='lazy'>
-    </a>
-    <a class='github-stat-card wide' href='https://github.com/akrishnash' target='_blank' rel='noopener'>
-      <img class='github-stat-dark' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=e5e7eb&line=00f5ff&point=ff6b00&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph' loading='lazy'>
-      <img class='github-stat-light' src='https://github-readme-activity-graph.vercel.app/graph?username=akrishnash&bg_color=00000000&color=1a1a2e&line=0891b2&point=d97706&area=true&hide_border=true' alt='Anurag K. Sharma GitHub activity graph' loading='lazy'>
-    </a>
-  </div>
-  <p class='github-note'>Live cards generated from GitHub profile data for @akrishnash.</p>
-</section>
-
-<!-- Auxiliary Projects Section -->
-<section class='section' id='auxiliary'>
-  <div class='section-label'>Auxiliary — Subsystems</div>
-  <h2 class='section-title'>Additional projects & experiments.</h2>
-  <div class='aux-grid'>
-    <a href='https://github.com/momus-s/flower' target='_blank' class='aux-card'>
+  <section class="section" id="writing">
+    <div class="section-head">
       <div>
-        <div class='aux-title'>Flower FL</div>
-        <div class='aux-desc'>Federated Learning security testing on MNIST</div>
+        <div class="section-kicker">Writing</div>
+        <h2>Technical writing that supports the portfolio.</h2>
       </div>
-      <span class='aux-arrow'>→</span>
-    </a>
-    <a href='https://github.com/akrishnash/hole-in-one-' target='_blank' class='aux-card'>
-      <div>
-        <div class='aux-title'>GrocTrack</div>
-        <div class='aux-desc'>Grocery tracking and expiry notification system</div>
+      <p class="section-lede">
+        The writing section should act like proof of judgment: security constraints, operational tradeoffs,
+        implementation details, and clear explanations for developers.
+      </p>
+    </div>
+    <div class="grid two">
+      <div class="card">
+        <a class="writing-card" href="/writing/secure-ai-agents-tool-calling.html">
+          <h3>Building Secure AI Agents with Tool Calling</h3>
+          <p>Grounding, bounded loops, trust levels, prompt injection defense, and audit trails.</p>
+          <span class="writing-meta">June 2026 | AI agents, security</span>
+        </a>
+        <a class="writing-card" href="/writing/pqc-wireguard.html">
+          <h3>Replacing X25519 with ML-KEM in WireGuard</h3>
+          <p>A practical look at hybrid post-quantum VPN handshakes and benchmarking.</p>
+          <span class="writing-meta">June 2026 | PQC, WireGuard</span>
+        </a>
       </div>
-      <span class='aux-arrow'>→</span>
-    </a>
-    <a href='https://github.com/akrishnash/hole-in-one-' target='_blank' class='aux-card'>
-      <div>
-        <div class='aux-title'>Hole In One</div>
-        <div class='aux-desc'>Multiplayer physics-based competitive game</div>
+      <div class="card">
+        <h3>Next articles to publish</h3>
+        <p>These directly match the GitHub roadmap and make the portfolio look intentional instead of scattered.</p>
+        <ul class="meta-list">
+          <li>AI agent for network security</li>
+          <li>Deploying AI in air-gapped networks</li>
+          <li>LLMs and PCAP analysis</li>
+          <li>VISHWAAS architecture notes</li>
+        </ul>
       </div>
-      <span class='aux-arrow'>→</span>
-    </a>
-    <a href='https://github.com/momus-s/Markdown_parser' target='_blank' class='aux-card'>
-      <div>
-        <div class='aux-title'>MD Parser</div>
-        <div class='aux-desc'>Custom markdown rendering engine</div>
-      </div>
-      <span class='aux-arrow'>→</span>
-    </a>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- Quote Section -->
-<section class='section' id='quote'>
-  <div class='section-label'>Philosophy</div>
-  <div class='quote-section'>
-    <div style='display: flex; align-items: flex-start; gap: 1rem;'>
-      <button class='quote-toggle' id='quoteToggle' aria-label='Toggle translation'></button>
-      <div style='flex: 1;'>
-        <p class='quote-sanskrit' id='quoteSanskrit'>तत्त्वमसि — "Thou art that"</p>
-        <div class='quote-translation' id='quoteTranslation'>
-          <p class='quote-english' id='quoteEnglish'>The fundamental teaching that the individual self (Atman) is identical with the ultimate reality (Brahman).</p>
-          <p class='quote-hindi' id='quoteHindi'>मूल शिक्षा कि व्यक्तिगत आत्म (आत्मन) अंतिम वास्तविकता (ब्रह्मन) के समान है।</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='info-stack' style='margin-top: 3rem;'>
-    <div class='info-block'>
-      <div class='info-label'>Library</div>
-      <div class='info-value'>Hegel • Chomsky • Foucault • Schopenhauer • Huxley • Socrates</div>
-    </div>
-    <div class='info-block'>
-      <div class='info-label'>Media Archives</div>
-      <div class='info-value'>Interstellar • Stalker • Dark • Mindhunter</div>
-    </div>
-  </div>
-</section>
-
-<!-- Photography Section -->
-<section class='section' id='photography'>
-  <div class='section-label'>Captures</div>
-  <h2 class='section-title'>Moments in frame.</h2>
-  <div class='photo-grid'>
-    <div class='photo-card'>
-      <img src='assets/photography/DSC01549.JPG' alt='Photography' onerror="this.style.display='none'" loading='lazy'>
-    </div>
-    <div class='photo-card'>
-      <img src='assets/photography/DSC01925.JPG' alt='Photography' onerror="this.style.display='none'" loading='lazy'>
-    </div>
-  </div>
-</section>
-
-<!-- Blog Section -->
-<section class='section' id='blog'>
-  <div class='section-label'>Thoughts</div>
-  <h2 class='section-title'>Writing & insights.</h2>
-  <div class='blog-grid'>
-    <div class='blog-card'>
-      <div class='blog-date'>June 2026 · 14 min read</div>
-      <h3 class='blog-title'>Building Secure AI Agents with Tool Calling</h3>
-      <p class='blog-excerpt'>How to design AI agents that use tools safely — grounding, bounded loops, trust levels, prompt injection defense, and audit trails for production security agents.</p>
-      <a href='/writing/secure-ai-agents-tool-calling.html' class='blog-link'>Read More →</a>
-    </div>
-    <div class='blog-card'>
-      <div class='blog-date'>June 2026 · 12 min read</div>
-      <h3 class='blog-title'>Replacing X25519 with ML-KEM in WireGuard</h3>
-      <p class='blog-excerpt'>WireGuard's handshake relies on X25519 — vulnerable to quantum attack. A deep dive into integrating NIST's ML-KEM via a hybrid KEM approach, with benchmarks on ARM hardware.</p>
-      <a href='/writing/pqc-wireguard.html' class='blog-link'>Read More →</a>
-    </div>
-  </div>
-  <div style='margin-top:2rem;'>
-    <a href='/writing' class='hero-cta' style='font-size:0.75rem;padding:0.75rem 1.5rem;'>View All Writing →</a>
-  </div>
-</section>
-
-<!-- Skills Section -->
-<section class='section' id='skills'>
-  <div class='section-label'>03 — Capabilities</div>
-  <h2 class='section-title'>Tools of the trade.</h2>
-  <div class='skills-radial'>
-    <div class='skill-category'>
-      <div class='skill-category-title'>Quantum Computing</div>
-      <div class='skill-list'>
-        <div class='skill-item'>Qiskit</div>
-        <div class='skill-item'>Cirq</div>
-        <div class='skill-item'>QASM</div>
-        <div class='skill-item'>Quantum Algorithms</div>
-        <div class='skill-item'>Quantum Error Correction</div>
-      </div>
-    </div>
-    <div class='skill-category'>
-      <div class='skill-category-title'>Deep Learning</div>
-      <div class='skill-list'>
-        <div class='skill-item'>PyTorch</div>
-        <div class='skill-item'>TensorFlow</div>
-        <div class='skill-item'>YOLOv8</div>
-        <div class='skill-item'>Transformers</div>
-        <div class='skill-item'>Federated Learning</div>
-      </div>
-    </div>
-    <div class='skill-category'>
-      <div class='skill-category-title'>Networks & Security</div>
-      <div class='skill-list'>
-        <div class='skill-item'>5G Core Architecture</div>
-        <div class='skill-item'>Wireguard VPN</div>
-        <div class='skill-item'>Post-Quantum Crypto</div>
-        <div class='skill-item'>Network Security</div>
-        <div class='skill-item'>SDN / NFV</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact Section -->
-<section class='section' id='contact'>
-  <div class='section-label'>04 — Connect</div>
-  <h2 class='section-title'>Let's build something<br>extraordinary.</h2>
-  <div class='contact-grid'>
-    <div class='contact-info'>
-      <div class='contact-item'>
-        <div class='contact-icon'>⊕</div>
+  <section class="section" id="capabilities">
+    <div class="capability-band">
+      <div class="section-head">
         <div>
-          <div class='contact-label'>Location</div>
-          <div class='contact-value'>India</div>
+          <div class="section-kicker">Capabilities</div>
+          <h2>Security-minded systems work with developer empathy.</h2>
         </div>
+        <p class="section-lede">
+          Strong DevX is not only UI polish. It is the ability to make hard systems understandable,
+          testable, demoable, and safe for other engineers to build on.
+        </p>
       </div>
-      <div class='contact-item'>
-        <div class='contact-icon'>↯</div>
-        <div>
-          <div class='contact-label'>Email</div>
-          <div class='contact-value'>anuragadrin@gmail.com</div>
+      <div class="capability-grid">
+        <div class="capability">
+          <strong>Secure AI</strong>
+          <span>Agents, tool calling, RAG, prompt-injection defenses, audit trails.</span>
         </div>
-      </div>
-      <div class='contact-item'>
-        <div class='contact-icon'>⬡</div>
-        <div>
-          <div class='contact-label'>Organization</div>
-          <div class='contact-value'>Indian Space Research Organisation</div>
+        <div class="capability">
+          <strong>Networks</strong>
+          <span>WireGuard, VPN control planes, 5G core concepts, SDN/NFV.</span>
+        </div>
+        <div class="capability">
+          <strong>Cryptography</strong>
+          <span>Post-quantum migration, ML-KEM, hybrid security architecture.</span>
+        </div>
+        <div class="capability">
+          <strong>DevX</strong>
+          <span>Technical writing, examples, diagrams, deployment guides, demos.</span>
         </div>
       </div>
     </div>
-    <form class='contact-form' id='contactForm'>
-      <div class='form-group'>
-        <label class='form-label'>Name</label>
-        <input type='text' class='form-input' placeholder='Your name' required>
-      </div>
-      <div class='form-group'>
-        <label class='form-label'>Email</label>
-        <input type='email' class='form-input' placeholder='your@email.com' required>
-      </div>
-      <div class='form-group'>
-        <label class='form-label'>Message</label>
-        <textarea class='form-textarea' placeholder='Your message...' required></textarea>
-      </div>
-      <button type='submit' class='form-submit'>Send Message</button>
-    </form>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer class='footer'>
-  <div class='footer-copy'>© <span id='footerYear'></span> Anurag K. Sharma — Built with precision</div>
-  <div class='footer-links'>
-    <a href='#' class='footer-link'>GitHub</a>
-    <a href='#' class='footer-link'>LinkedIn</a>
-    <a href='#' class='footer-link'>Twitter</a>
+  <section class="section" id="contact">
+    <div class="contact-panel">
+      <div>
+        <div class="section-kicker">Contact</div>
+        <h2>Open to serious AI systems and developer experience conversations.</h2>
+        <p>
+          Best topics: secure AI systems, AI agents for security operations, network infrastructure,
+          post-quantum VPNs, and developer-facing demos or documentation.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="mailto:anuragadrin@gmail.com">Email</a>
+        <a class="button" href="https://github.com/akrishnash" target="_blank" rel="noopener">GitHub</a>
+        <a class="button" href="https://www.linkedin.com/in/anurag-sharma-krishna" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> Anurag K. Sharma</span>
+    <span>Secure AI | Network security | Post-quantum systems</span>
   </div>
 </footer>
 
 <script>
-// ======================================
-// INITIALIZATION
-// ======================================
-document.getElementById('footerYear').textContent = new Date().getFullYear();
-
-// ======================================
-// LOADING SCREEN
-// ======================================
-const loader = document.getElementById('loader');
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    loader.classList.add('fade-out');
-    setTimeout(() => { loader.style.display = 'none'; }, 400);
-  }, 600);
-});
-
-// ======================================
-// CLOCK
-// ======================================
-function updateClock() {
-  const now = new Date();
-  const ist = now.toLocaleTimeString('en-IN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  document.getElementById('clock').textContent = `${ist} IST`;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ======================================
-// CORE CONTROLS (NO EXTERNAL LIBRARIES)
-// ======================================
-const themeIcons = {
-  dark: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>',
-  light: '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>'
-};
-
-function setTheme(theme) {
-  const isLightTheme = theme === 'light';
-
-  if (isLightTheme) {
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
-  localStorage.setItem('theme', isLightTheme ? 'light' : 'dark');
-
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    themeToggle.innerHTML = isLightTheme ? themeIcons.light : themeIcons.dark;
-    themeToggle.setAttribute('aria-label', isLightTheme ? 'Switch to dark mode' : 'Switch to light mode');
-  }
-
-  if (window.particlesMaterial) {
-    window.particlesMaterial.color.setHex(isLightTheme ? 0x0891b2 : 0x00f5ff);
-  }
-}
-
-function initThemeToggle() {
-  const savedTheme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
-  setTheme(savedTheme);
-
-  const themeToggle = document.getElementById('themeToggle');
-  if (!themeToggle) return;
-
-  themeToggle.addEventListener('click', () => {
-    const nextTheme = document.documentElement.hasAttribute('data-theme') ? 'dark' : 'light';
-    setTheme(nextTheme);
-  });
-}
-
-function initTypewriter() {
-  const roles = [
-    'Computer Scientist',
-    'Network Engineer',
-    'Photographer',
-    'Traveller',
-    'Science Enthusiast'
-  ];
-  const typewriterEl = document.getElementById('typewriter');
-
-  if (!typewriterEl) return;
-
-  let roleIndex = 0;
-  let charIndex = roles[0].length;
-  let isDeleting = true;
-
-  typewriterEl.textContent = roles[0];
-
-  function type() {
-    const currentRole = roles[roleIndex];
-
-    if (isDeleting) {
-      charIndex = Math.max(0, charIndex - 1);
-      typewriterEl.textContent = currentRole.substring(0, charIndex);
-    } else {
-      charIndex = Math.min(currentRole.length, charIndex + 1);
-      typewriterEl.textContent = currentRole.substring(0, charIndex);
-    }
-
-    let speed = isDeleting ? 45 : 95;
-    if (!isDeleting && charIndex >= currentRole.length) {
-      speed = 1500;
-      isDeleting = true;
-    } else if (isDeleting && charIndex <= 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      speed = 350;
-    }
-
-    window.setTimeout(type, speed);
-  }
-
-  window.setTimeout(type, 900);
-}
-
-function initTicTacToe() {
-  const gameToggle = document.getElementById('gameToggle');
-  const gameOverlay = document.getElementById('gameOverlay');
-  const gameClose = document.getElementById('gameClose');
-  const gameReset = document.getElementById('gameReset');
-  const gameStatus = document.getElementById('gameStatus');
-  const gameScore = document.getElementById('gameScore');
-  const cells = Array.from(document.querySelectorAll('.game-cell'));
-  const gameLaunchers = Array.from(document.querySelectorAll('.game-launch'));
-
-  if (!gameToggle || !gameOverlay || !gameClose || !gameReset || !gameStatus || !gameScore || cells.length !== 9) return;
-
-  let board = Array(9).fill('');
-  let currentPlayer = 'X';
-  let gameOver = false;
-  let aiThinking = false;
-  let ticTacToeStats = JSON.parse(localStorage.getItem('ticTacToeStats') || '{"wins":0,"losses":0,"draws":0,"currentStreak":0,"bestStreak":0}');
-
-  const winPatterns = [
-    [0,1,2], [3,4,5], [6,7,8],
-    [0,3,6], [1,4,7], [2,5,8],
-    [0,4,8], [2,4,6]
-  ];
-
-  function checkWinner() {
-    for (const pattern of winPatterns) {
-      const [a, b, c] = pattern;
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return { winner: board[a], pattern };
-      }
-    }
-
-    return board.includes('') ? null : { winner: 'draw', pattern: [] };
-  }
-
-  function renderResult(result) {
-    gameOver = true;
-    aiThinking = false;
-
-    if (result.winner === 'draw') {
-      gameStatus.textContent = "It's a draw!";
-      ticTacToeStats.draws += 1;
-      ticTacToeStats.currentStreak = 0;
-      saveTicTacToeStats();
-      return;
-    }
-
-    gameStatus.textContent = result.winner === 'X' ? 'You win!' : 'AI wins!';
-    if (result.winner === 'X') {
-      ticTacToeStats.wins += 1;
-      ticTacToeStats.currentStreak += 1;
-      ticTacToeStats.bestStreak = Math.max(ticTacToeStats.bestStreak, ticTacToeStats.currentStreak);
-    } else {
-      ticTacToeStats.losses += 1;
-      ticTacToeStats.currentStreak = 0;
-    }
-    saveTicTacToeStats();
-    result.pattern.forEach(index => cells[index].classList.add('winner'));
-  }
-
-  function saveTicTacToeStats() {
-    localStorage.setItem('ticTacToeStats', JSON.stringify(ticTacToeStats));
-    gameScore.textContent = `Device best streak: ${ticTacToeStats.bestStreak} | Wins: ${ticTacToeStats.wins} | Draws: ${ticTacToeStats.draws}`;
-  }
-
-  function makeMove(index, mark) {
-    if (board[index] || gameOver) return false;
-
-    board[index] = mark;
-    cells[index].textContent = mark;
-    cells[index].classList.add(mark.toLowerCase());
-
-    const result = checkWinner();
-    if (result) {
-      renderResult(result);
-      return true;
-    }
-
-    currentPlayer = mark === 'X' ? 'O' : 'X';
-    gameStatus.textContent = currentPlayer === 'X' ? 'Your turn (X)' : 'AI thinking...';
-    return true;
-  }
-
-  function findBestMove(mark) {
-    for (const pattern of winPatterns) {
-      const values = pattern.map(index => board[index]);
-      if (values.filter(value => value === mark).length === 2 && values.includes('')) {
-        return pattern[values.indexOf('')];
-      }
-    }
-
-    return -1;
-  }
-
-  function aiMove() {
-    if (gameOver) return;
-
-    let move = findBestMove('O');
-    if (move === -1) move = findBestMove('X');
-    if (move === -1 && !board[4]) move = 4;
-    if (move === -1) {
-      const empty = board.map((value, index) => value === '' ? index : -1).filter(index => index !== -1);
-      move = empty[Math.floor(Math.random() * empty.length)];
-    }
-
-    makeMove(move, 'O');
-    aiThinking = false;
-  }
-
-  function resetGame() {
-    board = Array(9).fill('');
-    currentPlayer = 'X';
-    gameOver = false;
-    aiThinking = false;
-    gameStatus.textContent = 'Your turn (X)';
-    saveTicTacToeStats();
-    cells.forEach(cell => {
-      cell.textContent = '';
-      cell.className = 'game-cell';
-    });
-  }
-
-  cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-      if (currentPlayer !== 'X' || aiThinking) return;
-      const moved = makeMove(Number(cell.dataset.index), 'X');
-      if (moved && !gameOver) {
-        aiThinking = true;
-        window.setTimeout(aiMove, 450);
-      }
-    });
-  });
-
-  function openGame() {
-    resetGame();
-    gameOverlay.classList.add('active');
-  }
-
-  gameToggle.addEventListener('click', openGame);
-  gameLaunchers.forEach(button => button.addEventListener('click', openGame));
-  gameClose.addEventListener('click', () => gameOverlay.classList.remove('active'));
-  gameOverlay.addEventListener('click', (event) => {
-    if (event.target === gameOverlay) gameOverlay.classList.remove('active');
-  });
-  gameReset.addEventListener('click', resetGame);
-  saveTicTacToeStats();
-}
-
-function initSnake() {
-  const snakeToggle = document.getElementById('snakeToggle');
-  const snakeOverlay = document.getElementById('snakeOverlay');
-  const snakeClose = document.getElementById('snakeClose');
-  const snakeReset = document.getElementById('snakeReset');
-  const snakeStatus = document.getElementById('snakeStatus');
-  const snakeHighScore = document.getElementById('snakeHighScore');
-  const snakeCanvas = document.getElementById('snakeCanvas');
-  const snakeLaunchers = Array.from(document.querySelectorAll('.snake-launch'));
-  const snakeControls = Array.from(document.querySelectorAll('.snake-control[data-direction]'));
-
-  if (!snakeToggle || !snakeOverlay || !snakeClose || !snakeReset || !snakeStatus || !snakeHighScore || !snakeCanvas) return;
-
-  const context = snakeCanvas.getContext('2d');
-  const tileCount = 16;
-  const tileSize = snakeCanvas.width / tileCount;
-  let snake = [];
-  let food = { x: 10, y: 10 };
-  let direction = { x: 1, y: 0 };
-  let nextDirection = { x: 1, y: 0 };
-  let score = 0;
-  let highScore = Number(localStorage.getItem('snakeHighScore') || 0);
-  let timer = null;
-  let snakeOver = false;
-
-  function randomFood() {
-    let nextFood;
-    do {
-      nextFood = {
-        x: Math.floor(Math.random() * tileCount),
-        y: Math.floor(Math.random() * tileCount)
-      };
-    } while (snake.some(segment => segment.x === nextFood.x && segment.y === nextFood.y));
-    food = nextFood;
-  }
-
-  function drawCell(x, y, color) {
-    context.fillStyle = color;
-    context.fillRect(x * tileSize + 2, y * tileSize + 2, tileSize - 4, tileSize - 4);
-  }
-
-  function drawSnake() {
-    const styles = getComputedStyle(document.documentElement);
-    const boardColor = styles.getPropertyValue('--bg-elevated').trim() || '#1a1a24';
-    const snakeColor = styles.getPropertyValue('--accent-cyan').trim() || '#00f5ff';
-    const foodColor = styles.getPropertyValue('--accent-amber').trim() || '#ff6b00';
-
-    context.fillStyle = boardColor;
-    context.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
-    drawCell(food.x, food.y, foodColor);
-    snake.forEach(segment => drawCell(segment.x, segment.y, snakeColor));
-  }
-
-  function updateStatus() {
-    if (score > highScore) {
-      highScore = score;
-      localStorage.setItem('snakeHighScore', String(highScore));
-    }
-    snakeStatus.textContent = snakeOver ? `Game over - Score: ${score}` : `Score: ${score}`;
-    snakeHighScore.textContent = `Device high score: ${highScore}`;
-  }
-
-  function resetSnake() {
-    snake = [
-      { x: 7, y: 8 },
-      { x: 6, y: 8 },
-      { x: 5, y: 8 }
-    ];
-    direction = { x: 1, y: 0 };
-    nextDirection = { x: 1, y: 0 };
-    score = 0;
-    snakeOver = false;
-    randomFood();
-    updateStatus();
-    drawSnake();
-  }
-
-  function setDirection(name) {
-    const directions = {
-      up: { x: 0, y: -1 },
-      down: { x: 0, y: 1 },
-      left: { x: -1, y: 0 },
-      right: { x: 1, y: 0 }
-    };
-    const requested = directions[name];
-    if (!requested) return;
-    if (requested.x === -direction.x && requested.y === -direction.y) return;
-    nextDirection = requested;
-  }
-
-  function stepSnake() {
-    if (snakeOver) return;
-
-    direction = nextDirection;
-    const head = {
-      x: snake[0].x + direction.x,
-      y: snake[0].y + direction.y
-    };
-
-    const hitWall = head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount;
-    const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
-
-    if (hitWall || hitSelf) {
-      snakeOver = true;
-      updateStatus();
-      clearInterval(timer);
-      timer = null;
-      drawSnake();
-      return;
-    }
-
-    snake.unshift(head);
-
-    if (head.x === food.x && head.y === food.y) {
-      score += 1;
-      randomFood();
-    } else {
-      snake.pop();
-    }
-
-    updateStatus();
-    drawSnake();
-  }
-
-  function startSnake() {
-    clearInterval(timer);
-    resetSnake();
-    timer = window.setInterval(stepSnake, 130);
-  }
-
-  function openSnake() {
-    snakeOverlay.classList.add('active');
-    startSnake();
-  }
-
-  function closeSnake() {
-    snakeOverlay.classList.remove('active');
-    clearInterval(timer);
-    timer = null;
-  }
-
-  snakeToggle.addEventListener('click', openSnake);
-  snakeLaunchers.forEach(button => button.addEventListener('click', openSnake));
-  snakeClose.addEventListener('click', closeSnake);
-  snakeReset.addEventListener('click', startSnake);
-  snakeOverlay.addEventListener('click', (event) => {
-    if (event.target === snakeOverlay) closeSnake();
-  });
-  snakeControls.forEach(button => {
-    button.addEventListener('click', () => setDirection(button.dataset.direction));
-  });
-  document.addEventListener('keydown', (event) => {
-    if (!snakeOverlay.classList.contains('active')) return;
-    const keyDirections = {
-      ArrowUp: 'up',
-      ArrowDown: 'down',
-      ArrowLeft: 'left',
-      ArrowRight: 'right',
-      w: 'up',
-      s: 'down',
-      a: 'left',
-      d: 'right'
-    };
-    const selectedDirection = keyDirections[event.key];
-    if (!selectedDirection) return;
-    event.preventDefault();
-    setDirection(selectedDirection);
-  });
-
-  resetSnake();
-}
-
-function initGitHubProjects() {
-  const projectsEl = document.getElementById('githubProjects');
-  if (!projectsEl) return;
-
-  const fallbackMarkup = projectsEl.innerHTML;
-  const repoDescriptions = {
-    flower: 'Federated learning experiments built around Flower, focused on distributed model training and security testing workflows.',
-    'hole-in-one-': 'A game project exploring interactive physics, scoring, and browser-based play mechanics.',
-    Markdown_parser: 'A custom Markdown parsing project for converting structured writing into rendered web content.'
-  };
-  const excludedRepos = new Set([
-    'akrishnash',
-    'akrishnash.github.io',
-    'akrishnash.github.com'
-  ]);
-
-  function formatName(name) {
-    return name
-      .replace(/[-_]+/g, ' ')
-      .replace(/\b\w/g, char => char.toUpperCase())
-      .trim();
-  }
-
-  function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    }[char]));
-  }
-
-  function describeRepo(repo) {
-    if (repo.description) return repo.description;
-    if (repoDescriptions[repo.name]) return repoDescriptions[repo.name];
-
-    const readableName = formatName(repo.name);
-    const language = repo.language || 'software';
-    return `${readableName} is a ${language} repository from my GitHub workspace, shared as part of my ongoing experiments in engineering, tooling, and applied computer science.`;
-  }
-
-  function renderRepo(repo, index) {
-    const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 3) : [];
-    const tags = [repo.language, ...topics].filter(Boolean).slice(0, 4);
-    const cardSize = index === 0 ? 'large' : index < 3 ? 'medium' : 'small';
-    const updated = new Date(repo.pushed_at || repo.updated_at).getFullYear();
-    const meta = `${repo.language || 'Repository'} / ${updated}`;
-    const tagMarkup = tags.length
-      ? tags.map(tag => `<span class='project-tag'>${escapeHTML(tag)}</span>`).join('')
-      : `<span class='project-tag'>GitHub</span>`;
-
-    return `
-      <article class='project-card ${cardSize}' data-tilt>
-        <div class='project-card-inner'></div>
-        <div class='project-meta'>${escapeHTML(meta)}</div>
-        <h3 class='project-title'>${escapeHTML(formatName(repo.name))}</h3>
-        <p class='project-desc'>${escapeHTML(describeRepo(repo))}</p>
-        <div class='project-tags'>${tagMarkup}</div>
-        <div class='project-stats'>
-              <div class='project-stat' title='Stars'>
-                <svg fill='currentColor' viewBox='0 0 16 16'><path d='M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z'/></svg>
-                ${repo.stargazers_count || 0}
-              </div>
-              <div class='project-stat' title='Forks'>
-                <svg fill='currentColor' viewBox='0 0 16 16'><path d='M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z'/></svg>
-                ${repo.forks_count || 0}
-              </div>
-        </div>
-            <a href='${escapeHTML(repo.html_url)}' target='_blank' rel='noopener' class='project-link'>
-              View Repo <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-      </article>
-    `;
-  }
-
-      fetch('https://api.github.com/users/akrishnash/repos?per_page=100', {
-    headers: { Accept: 'application/vnd.github+json' }
-  })
-    .then(response => {
-      if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-      return response.json();
-    })
-    .then(repos => {
-      const visibleRepos = repos
-            .filter(repo => !repo.archived && !repo.fork && !excludedRepos.has(repo.name.toLowerCase()))
-            .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at)))
-        .slice(0, 6);
-
-      if (!visibleRepos.length) throw new Error('No public repositories found');
-
-      projectsEl.innerHTML = visibleRepos.map(renderRepo).join('');
-      if (typeof applyProjectTilt === 'function') applyProjectTilt();
-    })
-    .catch(error => {
-      console.warn('Could not load GitHub repositories:', error);
-      projectsEl.innerHTML = fallbackMarkup;
-      const status = projectsEl.querySelector('.projects-status');
-      if (status) {
-        status.textContent = 'Live GitHub projects could not be loaded right now, showing curated highlights instead.';
-      }
-    });
-}
-
-initThemeToggle();
-initTypewriter();
-initTicTacToe();
-initSnake();
-initGitHubProjects();
-
-// ======================================
-// CUSTOM CURSOR
-// ======================================
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
-});
-
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.1;
-  ringY += (mouseY - ringY) * 0.1;
-  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
-document.querySelectorAll('a, button, .project-card, .nav-link').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-});
-
-document.addEventListener('mousedown', () => ring.classList.add('click'));
-document.addEventListener('mouseup', () => ring.classList.remove('click'));
-
-// ======================================
-// LENIS SMOOTH SCROLL
-// ======================================
-const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-gsap.registerPlugin(ScrollTrigger);
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-gsap.ticker.lagSmoothing(0);
-
-// ======================================
-// THREE.JS HERO SATELLITES
-// ======================================
-const canvas = document.getElementById('hero-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 30;
-
-const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 450;
-const posArray = new Float32Array(particlesCount * 3);
-for (let i = 0; i < particlesCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 100; }
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-const particleColor = isLight ? 0x0891b2 : 0x00f5ff;
-
-const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.12, color: particleColor, transparent: true, opacity: 0.45,
-  blending: THREE.AdditiveBlending,
-});
-window.particlesMaterial = particlesMaterial;
-
-const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particlesMesh);
-
-const satelliteGroup = new THREE.Group();
-scene.add(satelliteGroup);
-
-const orbitMaterial = new THREE.LineBasicMaterial({
-  color: particleColor,
-  transparent: true,
-  opacity: 0.24
-});
-
-const signalMaterial = new THREE.LineBasicMaterial({
-  color: 0xff6b00,
-  transparent: true,
-  opacity: 0.36
-});
-
-function createOrbit(radius, tilt, rotation) {
-  const points = [];
-  for (let i = 0; i <= 160; i++) {
-    const angle = (i / 160) * Math.PI * 2;
-    points.push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.42, 0));
-  }
-  const orbit = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), orbitMaterial);
-  orbit.rotation.x = tilt;
-  orbit.rotation.z = rotation;
-  satelliteGroup.add(orbit);
-  return orbit;
-}
-
-function createSatellite() {
-  const satellite = new THREE.Group();
-  const body = new THREE.Mesh(
-    new THREE.BoxGeometry(0.7, 0.42, 0.42),
-    new THREE.MeshBasicMaterial({ color: 0xe5e7eb })
-  );
-  const panelMaterial = new THREE.MeshBasicMaterial({ color: particleColor, transparent: true, opacity: 0.82 });
-  const leftPanel = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.28, 0.04), panelMaterial);
-  const rightPanel = leftPanel.clone();
-  const antenna = new THREE.Mesh(
-    new THREE.ConeGeometry(0.12, 0.5, 12),
-    new THREE.MeshBasicMaterial({ color: 0xff6b00 })
-  );
-
-  leftPanel.position.x = -0.85;
-  rightPanel.position.x = 0.85;
-  antenna.position.y = -0.48;
-  antenna.rotation.z = Math.PI;
-  satellite.add(body, leftPanel, rightPanel, antenna);
-  return satellite;
-}
-
-function createSignalArc(radius, startAngle) {
-  const points = [];
-  for (let i = 0; i <= 24; i++) {
-    const angle = startAngle + (i / 24) * Math.PI * 0.35;
-    points.push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.42, 0.08));
-  }
-  return new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), signalMaterial);
-}
-
-const satellites = [
-  { mesh: createSatellite(), radius: 12, speed: 0.006, tilt: 0.25, rotation: -0.35, phase: 0 },
-  { mesh: createSatellite(), radius: 17, speed: -0.0045, tilt: -0.2, rotation: 0.55, phase: 1.8 },
-  { mesh: createSatellite(), radius: 22, speed: 0.0035, tilt: 0.38, rotation: 1.1, phase: 3.2 }
-];
-
-satellites.forEach(satellite => {
-  createOrbit(satellite.radius, satellite.tilt, satellite.rotation);
-  satellite.mesh.scale.setScalar(0.9);
-  satelliteGroup.add(satellite.mesh);
-});
-
-const signalArcs = [
-  createSignalArc(12, 0.3),
-  createSignalArc(17, 2.1),
-  createSignalArc(22, 4.2)
-];
-signalArcs.forEach(arc => satelliteGroup.add(arc));
-
-let time = 0;
-function animateSatellites() {
-  time += 0.01;
-  particlesMesh.rotation.y += 0.0003;
-  particlesMesh.rotation.x += 0.0001;
-
-  satellites.forEach(satellite => {
-    const angle = satellite.phase + time * satellite.speed * 60;
-    const x = Math.cos(angle) * satellite.radius;
-    const y = Math.sin(angle) * satellite.radius * 0.42;
-    const z = Math.sin(angle + satellite.tilt) * 3;
-    satellite.mesh.position.set(x, y, z);
-    satellite.mesh.rotation.z = angle + Math.PI / 2;
-    satellite.mesh.rotation.y += 0.01;
-  });
-
-  signalArcs.forEach((arc, index) => {
-    arc.rotation.z += 0.002 + index * 0.001;
-    arc.material.opacity = 0.18 + Math.sin(time * 2 + index) * 0.12;
-  });
-
-  const positions = particlesGeometry.attributes.position.array;
-  for (let i = 0; i < particlesCount; i++) {
-    const i3 = i * 3;
-    positions[i3 + 1] += Math.sin(time * 0.2 + i * 0.1) * 0.0015;
-  }
-  particlesGeometry.attributes.position.needsUpdate = true;
-  renderer.render(scene, camera);
-  requestAnimationFrame(animateSatellites);
-}
-animateSatellites();
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// ======================================
-// HERO TEXT ANIMATION (Split Text)
-// ======================================
-const heroName = document.getElementById('heroName');
-const nameText = heroName.textContent;
-heroName.innerHTML = nameText.split('').map(char => `<span class='char'>${char}</span>`).join('');
-
-gsap.to('.hero-name .char', {
-  opacity: 1, y: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out',
-  delay: 0.8,
-});
-
-gsap.from('.hero-label', { opacity: 0, y: 20, duration: 0.8, delay: 0.6 });
-gsap.from('.hero-cta', { opacity: 0, y: 20, duration: 0.8, delay: 1.4 });
-gsap.from('.hero-scroll', { opacity: 0, duration: 0.8, delay: 1.6 });
-
-// ======================================
-// SCROLL ANIMATIONS
-// ======================================
-gsap.utils.toArray('.section-label').forEach(label => {
-  gsap.from(label, {
-    scrollTrigger: { trigger: label, start: 'top 80%' },
-    opacity: 0, x: -30, duration: 0.8, ease: 'power2.out'
-  });
-});
-
-gsap.utils.toArray('.section-title').forEach(title => {
-  gsap.from(title, {
-    scrollTrigger: { trigger: title, start: 'top 80%' },
-    opacity: 0, y: 40, duration: 1, ease: 'power2.out'
-  });
-});
-
-gsap.from('.about-image', {
-  scrollTrigger: { trigger: '.about-grid', start: 'top 70%' },
-  opacity: 0, x: -60, duration: 1, ease: 'power2.out'
-});
-
-gsap.utils.toArray('.about-bio').forEach((bio, i) => {
-  gsap.from(bio, {
-    scrollTrigger: { trigger: bio, start: 'top 80%' },
-    opacity: 0, y: 30, duration: 0.8, delay: i * 0.2, ease: 'power2.out'
-  });
-});
-
-gsap.from('.project-card', {
-  scrollTrigger: { trigger: '.projects-bento', start: 'top 70%' },
-  opacity: 0, y: 60, duration: 0.8, stagger: 0.1, ease: 'power2.out'
-});
-
-gsap.utils.toArray('.skill-category').forEach((cat, i) => {
-  gsap.from(cat, {
-    scrollTrigger: { trigger: cat, start: 'top 80%' },
-    opacity: 0, y: 40, duration: 0.8, delay: i * 0.15, ease: 'power2.out'
-  });
-});
-
-// ======================================
-// PROJECT CARD 3D TILT
-// ======================================
-function applyProjectTilt() {
-  if (!window.matchMedia('(hover: hover)').matches || window.innerWidth <= 768) return;
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    if (card.dataset.tiltReady === 'true') return;
-    card.dataset.tiltReady = 'true';
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-      const centerX = rect.width / 2; const centerY = rect.height / 2;
-      const rotateX = (y - centerY) / 20; const rotateY = (centerX - x) / 20;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'; });
-  });
-}
-applyProjectTilt();
-
-// ======================================
-// NAV HIGHLIGHT ON SCROLL
-// ======================================
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 200;
-    if (scrollY >= sectionTop) current = section.getAttribute('id');
-  });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('data-section') === current) link.classList.add('active');
-  });
-});
-
-// ======================================
-// NAV HIDE ON SCROLL DOWN
-// ======================================
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('nav');
-  const currentScroll = window.scrollY;
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    nav.classList.add('hidden');
-  } else {
-    nav.classList.remove('hidden');
-  }
-  lastScroll = currentScroll;
-});
-
-// ======================================
-// LANGUAGE TOGGLE
-// ======================================
-const langToggle = document.getElementById('langToggle');
-let isHindi = false;
-const contentEN = {
-  quote: 'तत्त्वमसि — "Thou art that"',
-  quoteEN: 'The fundamental teaching that the individual self (Atman) is identical with the ultimate reality (Brahman).',
-  quoteHI: 'मूल शिक्षा कि व्यक्तिगत आत्म (आत्मन) अंतिम वास्तविकता (ब्रह्मन) के समान है।'
-};
-const contentHI = {
-  quote: 'तत्त्वमसि — "तुम वही हो"',
-  quoteEN: 'मूल शिक्षा कि व्यक्तिगत आत्म (आत्मन) अंतिम वास्तविकता (ब्रह्मन) के समान है।',
-  quoteHI: 'The fundamental teaching that the individual self (Atman) is identical with the ultimate reality (Brahman).'
-};
-
-langToggle.addEventListener('click', () => {
-  isHindi = !isHindi;
-  langToggle.textContent = isHindi ? 'HI' : 'EN';
-  const c = isHindi ? contentHI : contentEN;
-  document.getElementById('quoteSanskrit').textContent = c.quote;
-  document.getElementById('quoteEnglish').textContent = c.quoteEN;
-  document.getElementById('quoteHindi').textContent = c.quoteHI;
-});
-
-// ======================================
-// SEARCH OVERLAY
-// ======================================
-const searchToggle = document.getElementById('searchToggle');
-const searchOverlay = document.getElementById('searchOverlay');
-const searchClose = document.getElementById('searchClose');
-const searchInput = document.getElementById('searchInput');
-
-searchToggle.addEventListener('click', () => searchOverlay.classList.add('active'));
-searchClose.addEventListener('click', () => searchOverlay.classList.remove('active'));
-searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) searchOverlay.classList.remove('active'); });
-
-searchInput.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase();
-  const results = document.getElementById('searchResults');
-  if (query.length < 2) { results.innerHTML = ''; return; }
-  const sections = [
-    { title: 'About', desc: 'Scientist at ISRO, quantum computing, PQC' },
-    { title: 'Projects', desc: 'Post-Quantum VPN, Federated Learning, 5G' },
-    { title: 'Skills', desc: 'Qiskit, PyTorch, Wireguard, 5G Core' },
-    { title: 'Contact', desc: 'Email, Location, Organization' },
-    { title: 'Blog', desc: 'Quantum Computing, 5G Networks' }
-  ];
-  const matches = sections.filter(s => s.title.toLowerCase().includes(query) || s.desc.toLowerCase().includes(query));
-  results.innerHTML = matches.length ? matches.map(m => `<div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);"><strong style="color: var(--accent-cyan);">${m.title}</strong><br><span style="color: var(--text-muted);">${m.desc}</span></div>`).join('') : 'No results found';
-});
-
-// ======================================
-// QUOTE TOGGLE
-// ======================================
-document.getElementById('quoteToggle').addEventListener('click', () => {
-  document.getElementById('quoteTranslation').classList.toggle('show');
-});
-
-// ======================================
-// CONTACT FORM
-// ======================================
-document.getElementById('contactForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Sending...';
-  setTimeout(() => {
-    btn.textContent = 'Message Sent!';
-    setTimeout(() => { btn.textContent = 'Send Message'; }, 2000);
-    e.target.reset();
-  }, 1000);
-});
-
-// ======================================
-// KONAMI CODE EASTER EGG
-// ======================================
-const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-let konamiIndex = 0;
-document.addEventListener('keydown', (e) => {
-  if (e.key === konamiCode[konamiIndex]) {
-    konamiIndex++;
-    if (konamiIndex === konamiCode.length) {
-      konamiIndex = 0;
-      gsap.to('body', { backgroundColor: '#0f0a1a', duration: 0.5 });
-      gsap.to('.cursor-dot', { backgroundColor: '#ff6b00', duration: 0.3 });
-      gsap.to('.accent-cyan', { color: '#ff6b00', duration: 0.3 });
-      setTimeout(() => {
-        gsap.to('body', { backgroundColor: '#0a0a0f', duration: 0.5 });
-        gsap.to('.cursor-dot', { backgroundColor: '#00f5ff', duration: 0.3 });
-      }, 2000);
-    }
-  } else { konamiIndex = 0; }
-});
-
-// ======================================
-// MAGNETIC EFFECT ON NAV LINKS
-// ======================================
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('mousemove', (e) => {
-    const rect = link.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    link.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-  });
-  link.addEventListener('mouseleave', () => { link.style.transform = 'translate(0, 0)'; });
-});
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
