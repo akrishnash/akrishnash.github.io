@@ -1,6 +1,3 @@
-
-
-Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,32 +9,32 @@ Index · HTML
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 :root {
   --accent: #c0392b;
   --accent-light: #e74c3c;
-  --bg-hero: #c0392b;
-  --text-dark: #2c1a17;
+  --bg-hero: #e8645a;
+  --text-dark: #1a0e0c;
   --text-body: #3a2a27;
   --white: #fff;
   --section-bg: #fafafa;
   --border: #e8e0df;
   --font: 'Josefin Sans', sans-serif;
 }
- 
+
 html { scroll-behavior: smooth; }
- 
+
 body {
   font-family: var(--font);
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   color: var(--text-body);
 }
- 
+
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
- 
-/* ─── NAV ─── */
+
+/* NAV */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -50,7 +47,7 @@ nav {
   padding: 0 2.5rem;
   box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
- 
+
 .nav-name {
   font-family: var(--font);
   font-weight: 400;
@@ -58,13 +55,13 @@ nav {
   color: var(--text-dark);
   letter-spacing: 0.04em;
 }
- 
+
 .nav-links {
   display: flex;
   gap: 2.5rem;
   list-style: none;
 }
- 
+
 .nav-links a {
   font-family: var(--font);
   font-weight: 400;
@@ -74,10 +71,10 @@ nav {
   color: var(--text-dark);
   transition: color 0.2s;
 }
- 
+
 .nav-links a:hover { color: var(--accent); text-decoration: none; }
- 
-/* ─── HERO ─── */
+
+/* HERO */
 #hero {
   position: relative;
   width: 100%;
@@ -89,27 +86,34 @@ nav {
   overflow: hidden;
   background: var(--bg-hero);
 }
- 
+
 #hero-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.18;
+  opacity: 0.08;
 }
- 
+
+/* white fade overlay so bg washes lighter */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.38);
+  pointer-events: none;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: var(--text-dark);
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
 }
- 
+
 .hero-name {
   font-family: var(--font);
   font-weight: 300;
@@ -119,7 +123,7 @@ nav {
   line-height: 1;
   margin-bottom: 1.2rem;
 }
- 
+
 .hero-divider {
   width: 48px;
   height: 2px;
@@ -127,32 +131,32 @@ nav {
   opacity: 0.5;
   margin: 0 auto 1.4rem;
 }
- 
+
 .hero-tagline {
   font-family: var(--font);
   font-weight: 300;
   font-size: clamp(0.85rem, 2vw, 1.05rem);
   letter-spacing: 0.08em;
   color: var(--text-dark);
-  opacity: 0.75;
+  opacity: 0.8;
   margin-bottom: 2.2rem;
 }
- 
+
 .hero-icons {
   display: flex;
   gap: 2rem;
   align-items: center;
 }
- 
+
 .hero-icon-link {
   color: var(--text-dark);
-  opacity: 0.65;
+  opacity: 0.7;
   transition: opacity 0.2s;
   display: flex;
 }
- 
+
 .hero-icon-link:hover { opacity: 1; text-decoration: none; }
- 
+
 .hero-icon-link svg {
   width: 26px;
   height: 26px;
@@ -162,21 +166,21 @@ nav {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
- 
-/* ─── SECTIONS ─── */
+
+/* SECTIONS */
 section.content-section {
   padding: 80px 0;
   border-bottom: 1px solid var(--border);
 }
- 
+
 section.content-section:nth-child(even) { background: var(--section-bg); }
- 
+
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 2.5rem;
 }
- 
+
 .section-heading {
   font-family: var(--font);
   font-weight: 600;
@@ -189,15 +193,15 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   align-items: center;
   gap: 1rem;
 }
- 
+
 .section-heading::after {
   content: '';
   flex: 1;
   height: 1px;
   background: var(--border);
 }
- 
-/* ─── EXPERIENCE ─── */
+
+/* EXPERIENCE */
 .subsection-label {
   font-family: var(--font);
   font-weight: 600;
@@ -206,11 +210,8 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   text-transform: uppercase;
   color: #999;
   margin-bottom: 1.5rem;
-  margin-top: 2.5rem;
 }
- 
-.subsection-label:first-child { margin-top: 0; }
- 
+
 .exp-item {
   display: grid;
   grid-template-columns: 180px 1fr;
@@ -218,11 +219,11 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   padding: 1.75rem 0;
   border-bottom: 1px solid var(--border);
 }
- 
+
 .exp-item:last-child { border-bottom: none; }
- 
+
 .exp-left { padding-top: 2px; }
- 
+
 .exp-company {
   font-family: var(--font);
   font-weight: 600;
@@ -231,10 +232,10 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   color: var(--text-dark);
   margin-bottom: 2px;
 }
- 
+
 .exp-company a { color: var(--accent); }
 .exp-company a:hover { text-decoration: underline; }
- 
+
 .exp-period {
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -242,13 +243,13 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   font-weight: 300;
   margin-bottom: 2px;
 }
- 
+
 .exp-location {
   font-size: 11px;
   color: #bbb;
   letter-spacing: 0.04em;
 }
- 
+
 .exp-role {
   font-family: var(--font);
   font-weight: 600;
@@ -257,15 +258,15 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   color: var(--text-dark);
   margin-bottom: 0.6rem;
 }
- 
+
 .exp-desc {
   font-size: 14px;
   color: #666;
   line-height: 1.85;
   font-weight: 300;
 }
- 
-/* ─── PROJECTS ─── */
+
+/* PROJECTS */
 .project-title {
   font-family: var(--font);
   font-weight: 600;
@@ -274,14 +275,14 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   color: var(--text-dark);
   margin-bottom: 0.5rem;
 }
- 
+
 .project-block {
   padding: 2rem 0;
   border-bottom: 1px solid var(--border);
 }
- 
+
 .project-block:last-child { border-bottom: none; }
- 
+
 .project-desc {
   font-size: 14px;
   color: #666;
@@ -290,34 +291,31 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   margin-bottom: 1rem;
   max-width: 600px;
 }
- 
+
 .project-links {
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
 }
- 
+
 .project-links a {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
   font-weight: 400;
-  display: flex;
-  align-items: center;
-  gap: 5px;
   transition: opacity 0.2s;
 }
- 
+
 .project-links a:hover { opacity: 0.7; text-decoration: none; }
- 
+
 .project-tags {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
   margin-top: 0.75rem;
 }
- 
+
 .tag {
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -327,8 +325,8 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   border-radius: 3px;
   font-weight: 400;
 }
- 
-/* ─── CONTACT ─── */
+
+/* CONTACT */
 .contact-text {
   font-size: 15px;
   color: #666;
@@ -337,11 +335,10 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   max-width: 540px;
   margin-bottom: 2rem;
 }
- 
+
 .contact-cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   background: var(--accent);
   color: var(--white);
   font-family: var(--font);
@@ -353,26 +350,26 @@ section.content-section:nth-child(even) { background: var(--section-bg); }
   border-radius: 3px;
   transition: background 0.2s;
 }
- 
+
 .contact-cta:hover { background: var(--accent-light); text-decoration: none; }
- 
-/* ─── FOOTER ─── */
+
+/* FOOTER */
 footer {
   padding: 2rem 0;
   text-align: center;
   background: var(--white);
 }
- 
+
 footer p {
   font-size: 12px;
   color: #bbb;
   letter-spacing: 0.08em;
 }
- 
+
 footer a { color: #bbb; }
 footer a:hover { color: var(--accent); }
- 
-/* ─── RESPONSIVE ─── */
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
   nav { padding: 0 1.25rem; }
   .nav-name { font-size: 13px; }
@@ -384,7 +381,7 @@ footer a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <span class="nav-name">Anurag K. Sharma</span>
@@ -395,118 +392,144 @@ footer a:hover { color: var(--accent); }
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
- 
+
 <!-- HERO -->
 <section id="hero">
-  <!-- Low-poly SVG background, same vibe as cjhtsang's triangle texture -->
   <svg id="hero-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,0 240,180 0,360" fill="#7b1a10"/>
-    <polygon points="0,0 480,0 240,180" fill="#8b2015"/>
-    <polygon points="240,180 480,0 520,220" fill="#6e1508"/>
-    <polygon points="480,0 720,0 520,220" fill="#9b2c20"/>
-    <polygon points="720,0 960,0 780,200" fill="#7b1a10"/>
-    <polygon points="520,220 780,200 600,400" fill="#5e1005"/>
-    <polygon points="780,200 960,0 1000,220" fill="#8b2015"/>
-    <polygon points="960,0 1200,0 1000,220" fill="#6e1508"/>
-    <polygon points="1200,0 1440,0 1440,200 1200,220" fill="#9b2c20"/>
-    <polygon points="1000,220 1200,220 1100,400" fill="#7b1a10"/>
-    <polygon points="0,360 240,180 300,400" fill="#9b2c20"/>
-    <polygon points="240,180 520,220 300,400" fill="#6e1508"/>
-    <polygon points="300,400 520,220 600,400" fill="#8b2015"/>
-    <polygon points="600,400 780,200 900,380" fill="#5e1005"/>
-    <polygon points="780,200 1000,220 900,380" fill="#9b2c20"/>
-    <polygon points="900,380 1000,220 1100,400" fill="#7b1a10"/>
-    <polygon points="1100,400 1200,220 1440,200 1440,420" fill="#6e1508"/>
-    <polygon points="0,360 300,400 0,580" fill="#6e1508"/>
-    <polygon points="0,580 300,400 340,580" fill="#8b2015"/>
-    <polygon points="300,400 600,400 340,580" fill="#5e1005"/>
-    <polygon points="600,400 900,380 700,580" fill="#9b2c20"/>
-    <polygon points="900,380 1100,400 1000,580" fill="#7b1a10"/>
-    <polygon points="1100,400 1440,420 1440,600 1100,600" fill="#8b2015"/>
-    <polygon points="0,580 340,580 200,760" fill="#9b2c20"/>
-    <polygon points="340,580 700,580 500,760" fill="#6e1508"/>
-    <polygon points="700,580 1000,580 800,760" fill="#5e1005"/>
-    <polygon points="1000,580 1100,600 1440,600 1440,760 1100,760" fill="#8b2015"/>
-    <polygon points="0,760 200,760 0,900" fill="#7b1a10"/>
-    <polygon points="200,760 500,760 300,900" fill="#6e1508"/>
-    <polygon points="500,760 800,760 600,900" fill="#9b2c20"/>
-    <polygon points="800,760 1100,760 900,900" fill="#5e1005"/>
-    <polygon points="1100,760 1440,760 1440,900 1100,900" fill="#7b1a10"/>
-    <polygon points="0,900 300,900 200,760" fill="#8b2015"/>
-    <polygon points="300,900 600,900 500,760" fill="#6e1508"/>
-    <polygon points="600,900 900,900 800,760" fill="#9b2c20"/>
-    <polygon points="900,900 1100,900 1440,900" fill="#5e1005"/>
+    <polygon points="0,0 240,180 0,360" fill="#a83228"/>
+    <polygon points="0,0 480,0 240,180" fill="#b83c30"/>
+    <polygon points="240,180 480,0 520,220" fill="#962d22"/>
+    <polygon points="480,0 720,0 520,220" fill="#c44438"/>
+    <polygon points="720,0 960,0 780,200" fill="#a83228"/>
+    <polygon points="520,220 780,200 600,400" fill="#85251b"/>
+    <polygon points="780,200 960,0 1000,220" fill="#b83c30"/>
+    <polygon points="960,0 1200,0 1000,220" fill="#962d22"/>
+    <polygon points="1200,0 1440,0 1440,200 1200,220" fill="#c44438"/>
+    <polygon points="1000,220 1200,220 1100,400" fill="#a83228"/>
+    <polygon points="0,360 240,180 300,400" fill="#c44438"/>
+    <polygon points="240,180 520,220 300,400" fill="#962d22"/>
+    <polygon points="300,400 520,220 600,400" fill="#b83c30"/>
+    <polygon points="600,400 780,200 900,380" fill="#85251b"/>
+    <polygon points="780,200 1000,220 900,380" fill="#c44438"/>
+    <polygon points="900,380 1000,220 1100,400" fill="#a83228"/>
+    <polygon points="1100,400 1200,220 1440,200 1440,420" fill="#962d22"/>
+    <polygon points="0,360 300,400 0,580" fill="#962d22"/>
+    <polygon points="0,580 300,400 340,580" fill="#b83c30"/>
+    <polygon points="300,400 600,400 340,580" fill="#85251b"/>
+    <polygon points="600,400 900,380 700,580" fill="#c44438"/>
+    <polygon points="900,380 1100,400 1000,580" fill="#a83228"/>
+    <polygon points="1100,400 1440,420 1440,600 1100,600" fill="#b83c30"/>
+    <polygon points="0,580 340,580 200,760" fill="#c44438"/>
+    <polygon points="340,580 700,580 500,760" fill="#962d22"/>
+    <polygon points="700,580 1000,580 800,760" fill="#85251b"/>
+    <polygon points="1000,580 1100,600 1440,600 1440,760 1100,760" fill="#b83c30"/>
+    <polygon points="0,760 200,760 0,900" fill="#a83228"/>
+    <polygon points="200,760 500,760 300,900" fill="#962d22"/>
+    <polygon points="500,760 800,760 600,900" fill="#c44438"/>
+    <polygon points="800,760 1100,760 900,900" fill="#85251b"/>
+    <polygon points="1100,760 1440,760 1440,900 1100,900" fill="#a83228"/>
+    <polygon points="0,900 300,900 200,760" fill="#b83c30"/>
+    <polygon points="300,900 600,900 500,760" fill="#962d22"/>
+    <polygon points="600,900 900,900 800,760" fill="#c44438"/>
+    <polygon points="900,900 1100,900 1440,900" fill="#85251b"/>
   </svg>
- 
+
   <div class="hero-content">
     <h1 class="hero-name">Anurag K. Sharma</h1>
     <div class="hero-divider"></div>
     <p class="hero-tagline">A scientist building AI systems that have to work.</p>
- 
     <div class="hero-icons">
-      <!-- Resume / CV -->
       <a href="mailto:anuragadrin@gmail.com" class="hero-icon-link" title="Email">
         <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 8.5 6a2.5 2.5 0 0 0 3 0L22 7"/></svg>
       </a>
-      <!-- GitHub -->
       <a href="https://github.com/akrishnash" class="hero-icon-link" title="GitHub" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
       </a>
-      <!-- LinkedIn -->
       <a href="https://www.linkedin.com/in/anurag-sharma-krishna" class="hero-icon-link" title="LinkedIn" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
     </div>
   </div>
 </section>
- 
+
 <!-- EXPERIENCE -->
 <section id="experience" class="content-section">
   <div class="container">
     <h2 class="section-heading">Experience</h2>
- 
+
     <p class="subsection-label">Work</p>
- 
+
     <div class="exp-item">
       <div class="exp-left">
-        <div class="exp-company"><a href="https://www.adrin.res.in" target="_blank" rel="noopener">ADRIN, Dept. of Space</a></div>
-        <div class="exp-period">2022 — Present</div>
-        <div class="exp-location">Secunderabad, India</div>
+        <div class="exp-company">Department of Space<br>Govt. of India</div>
+        <div class="exp-period">Dec 2023 — Present</div>
+        <div class="exp-location">Hyderabad, India · On-site</div>
       </div>
       <div>
-        <div class="exp-role">Scientist / Engineer</div>
+        <div class="exp-role">Scientist C</div>
         <p class="exp-desc">
-          Building secure AI systems and quantum-safe network infrastructure for satellite and mission-critical operations.
-          Research spans federated learning on distributed ground-station edge nodes, post-quantum cryptography (ML-KEM migration),
-          Keycloak-based IAM deployment in air-gapped environments, and 5G core security analysis.
+          Building secure AI systems and quantum-safe network infrastructure for satellite and
+          mission-critical operations. Work spans federated learning on distributed ground-station
+          edge nodes, post-quantum cryptography (ML-KEM migration), Keycloak-based IAM in
+          air-gapped environments, and 5G core security analysis.
         </p>
       </div>
     </div>
- 
-    <p class="subsection-label" style="margin-top: 2.5rem;">Education</p>
- 
+
     <div class="exp-item">
       <div class="exp-left">
-        <div class="exp-company"><a href="https://home.iitd.ac.in" target="_blank" rel="noopener">IIT Delhi</a></div>
-        <div class="exp-period">2017 — 2022</div>
+        <div class="exp-company">AIIMS New Delhi</div>
+        <div class="exp-period">May 2021 — Dec 2023</div>
+        <div class="exp-location">Delhi, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Programmer</div>
+        <p class="exp-desc">
+          Full-time programmer at the All India Institute of Medical Sciences, New Delhi,
+          working on software systems supporting clinical and research operations.
+        </p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">IIT Hyderabad<br><span style="font-weight:300; font-size:12px;">Dept. of CSE</span></div>
+        <div class="exp-period">Aug 2020 — May 2021</div>
+        <div class="exp-location">Hyderabad, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Research Associate</div>
+        <p class="exp-desc">
+          Research associate in the Department of Computer Science and Engineering at
+          IIT Hyderabad, contributing to academic research projects.
+        </p>
+      </div>
+    </div>
+
+    <p class="subsection-label" style="margin-top: 2.5rem;">Education</p>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">IIT Delhi</div>
+        <div class="exp-period">Aug 2022 — Jun 2024</div>
         <div class="exp-location">New Delhi, India</div>
       </div>
       <div>
-        <div class="exp-role">B.Tech / M.Tech</div>
+        <div class="exp-role">M.Tech, Computer Science</div>
         <p class="exp-desc">
-          Studied at the Indian Institute of Technology Delhi.
+          Master's degree in Computer Science at the Indian Institute of Technology Delhi.
         </p>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
+
 <!-- PROJECTS -->
 <section id="projects" class="content-section">
   <div class="container">
     <h2 class="section-heading">Projects</h2>
- 
+
     <div class="project-block">
       <h3 class="project-title">VISHWAAS</h3>
       <p class="project-desc">
@@ -523,7 +546,7 @@ footer a:hover { color: var(--accent); }
         <a href="https://github.com/akrishnash/vishwaas" target="_blank" rel="noopener">↗ GitHub</a>
       </div>
     </div>
- 
+
     <div class="project-block">
       <h3 class="project-title">SecureAI Agent</h3>
       <p class="project-desc">
@@ -542,7 +565,7 @@ footer a:hover { color: var(--accent); }
         <a href="https://akrishnash.github.io/writing/secure-ai-agents-tool-calling.html">↗ Design article</a>
       </div>
     </div>
- 
+
     <div class="project-block">
       <h3 class="project-title">PQC WireGuard</h3>
       <p class="project-desc">
@@ -560,7 +583,7 @@ footer a:hover { color: var(--accent); }
         <a href="https://akrishnash.github.io/writing/pqc-wireguard.html">↗ Article</a>
       </div>
     </div>
- 
+
     <div class="project-block">
       <h3 class="project-title">Federated Learning — Satellite Edge</h3>
       <p class="project-desc">
@@ -575,9 +598,9 @@ footer a:hover { color: var(--accent); }
         <span class="tag">CICIDS-2017</span>
       </div>
     </div>
- 
+
     <div class="project-block">
-      <h3 class="project-title">AirGapGPT <span style="font-size:0.65em; color:#bbb; letter-spacing:0.1em; font-weight:400;">— planned</span></h3>
+      <h3 class="project-title">AirGapGPT <span style="font-size:0.65em; color:#bbb; letter-spacing:0.1em; font-weight:300;">— planned</span></h3>
       <p class="project-desc">
         Offline enterprise AI for air-gapped and restricted networks: document RAG, RBAC,
         audit logging, and local model inference with zero internet dependency.
@@ -589,15 +612,15 @@ footer a:hover { color: var(--accent); }
         <span class="tag">Air-gapped AI</span>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
+
 <!-- WRITING -->
 <section id="writing" class="content-section">
   <div class="container">
     <h2 class="section-heading">Writing</h2>
- 
+
     <div class="project-block">
       <h3 class="project-title">Building Secure AI Agents with Tool Calling</h3>
       <p class="project-desc">
@@ -608,7 +631,7 @@ footer a:hover { color: var(--accent); }
         <a href="https://akrishnash.github.io/writing/secure-ai-agents-tool-calling.html">↗ Read</a>
       </div>
     </div>
- 
+
     <div class="project-block">
       <h3 class="project-title">Replacing X25519 with ML-KEM in WireGuard</h3>
       <p class="project-desc">
@@ -619,10 +642,10 @@ footer a:hover { color: var(--accent); }
         <a href="https://akrishnash.github.io/writing/pqc-wireguard.html">↗ Read</a>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
+
 <!-- CONTACT -->
 <section id="contact" class="content-section">
   <div class="container">
@@ -635,12 +658,11 @@ footer a:hover { color: var(--accent); }
     <a href="mailto:anuragadrin@gmail.com" class="contact-cta">Say hello</a>
   </div>
 </section>
- 
+
 <!-- FOOTER -->
 <footer>
   <p><a href="https://github.com/akrishnash/akrishnash.github.io">Designed and built by Anurag K. Sharma</a></p>
 </footer>
- 
+
 </body>
 </html>
- 
