@@ -1,739 +1,646 @@
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anurag K. Sharma | Secure AI Systems</title>
-<meta name="description" content="Anurag K. Sharma is a scientist and systems engineer building secure AI, post-quantum networking, and mission-critical infrastructure.">
-<meta property="og:title" content="Anurag K. Sharma | Secure AI Systems">
-<meta property="og:description" content="Secure AI, AI agents, post-quantum networking, and mission-critical systems.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://akrishnash.github.io">
-<meta name="theme-color" content="#0f172a">
+<meta name="description" content="Anurag K. Sharma — Scientist & AI Engineer building secure AI systems, post-quantum cryptography, and mission-critical infrastructure.">
+<title>Anurag K. Sharma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
 :root {
-  --bg: #f7f8fb;
-  --panel: #ffffff;
-  --panel-soft: #eef3f8;
-  --ink: #111827;
-  --muted: #526070;
-  --quiet: #7b8794;
-  --line: #d9e1ea;
-  --blue: #1d4ed8;
-  --teal: #0f766e;
-  --green: #166534;
-  --amber: #b45309;
-  --navy: #0f172a;
-  --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --accent: #c0392b;
+  --accent-light: #e74c3c;
+  --bg-hero: #c0392b;
+  --text-dark: #2c1a17;
+  --text-body: #3a2a27;
+  --white: #fff;
+  --section-bg: #fafafa;
+  --border: #e8e0df;
+  --font: 'Josefin Sans', sans-serif;
 }
-
-* { box-sizing: border-box; }
+ 
 html { scroll-behavior: smooth; }
+ 
 body {
-  margin: 0;
-  background:
-    linear-gradient(180deg, rgba(238, 243, 248, 0.88), rgba(247, 248, 251, 0.96) 42rem),
-    var(--bg);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  line-height: 1.6;
+  font-family: var(--font);
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  color: var(--text-body);
 }
-a { color: inherit; text-decoration: none; }
-a:focus-visible, button:focus-visible {
-  outline: 3px solid rgba(29, 78, 216, 0.32);
-  outline-offset: 3px;
-}
-
-.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid rgba(217, 225, 234, 0.8);
-  background: rgba(247, 248, 251, 0.88);
-  backdrop-filter: blur(16px);
-}
-.nav-inner {
-  width: min(1120px, calc(100% - 40px));
-  margin: 0 auto;
+ 
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+ 
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: var(--white);
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 72px;
-  gap: 2rem;
+  padding: 0 2.5rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
-.brand {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-  font-weight: 800;
-  letter-spacing: 0;
+ 
+.nav-name {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--text-dark);
+  letter-spacing: 0.04em;
 }
-.brand span {
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  margin-top: 0.15rem;
-}
+ 
 .nav-links {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-.nav-links a:hover { color: var(--blue); }
-
-main { overflow: hidden; }
-.section {
-  width: min(1120px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 5.5rem 0;
-}
-.hero {
-  min-height: calc(100svh - 72px);
-  display: grid;
-  align-items: center;
-  padding: 4rem 0;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-  gap: 4rem;
-  align-items: center;
-}
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--teal);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 2px;
-  background: var(--teal);
-}
-h1, h2, h3, p { margin-top: 0; }
-h1 {
-  max-width: 780px;
-  margin-bottom: 1.3rem;
-  font-size: clamp(3rem, 7vw, 5.9rem);
-  line-height: 0.96;
-  letter-spacing: 0;
-}
-.hero-copy {
-  max-width: 720px;
-  color: var(--muted);
-  font-size: 1.16rem;
-}
-.hero-copy strong { color: var(--ink); }
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin: 2rem 0 2.25rem;
-}
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 0.7rem 1rem;
-  font-weight: 700;
-  color: var(--navy);
-  background: var(--panel);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-}
-.button.primary {
-  border-color: var(--navy);
-  background: var(--navy);
-  color: white;
-}
-.button:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow);
-}
-.signal-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-.signal {
-  border-left: 3px solid var(--blue);
-  padding: 0.2rem 0 0.2rem 0.85rem;
-}
-.signal strong {
-  display: block;
-  font-size: 0.9rem;
-}
-.signal span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.84rem;
-}
-.systems-panel {
-  position: relative;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  padding: 1.25rem;
-}
-.systems-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(29, 78, 216, 0.08), transparent 38%, rgba(15, 118, 110, 0.10));
-  pointer-events: none;
-}
-.panel-content { position: relative; }
-.panel-title {
-  color: var(--quiet);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-.system-node {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.76);
-  padding: 1rem;
-  margin-bottom: 0.75rem;
-}
-.system-node strong {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: var(--navy);
-  font-size: 0.98rem;
-}
-.system-node span {
-  color: var(--muted);
-  display: block;
-  font-size: 0.88rem;
-  margin-top: 0.35rem;
-}
-.status {
-  color: var(--teal);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.section-head {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-  gap: 3rem;
-  align-items: end;
-  margin-bottom: 2rem;
-}
-.section-kicker {
-  color: var(--teal);
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-}
-h2 {
-  margin-bottom: 0;
-  font-size: clamp(2rem, 4vw, 3.1rem);
-  line-height: 1.05;
-  letter-spacing: 0;
-}
-.section-lede {
-  color: var(--muted);
-  font-size: 1rem;
-  margin-bottom: 0;
-}
-.grid {
-  display: grid;
-  gap: 1rem;
-}
-.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.card {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 1.35rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-}
-.card:hover { border-color: rgba(29, 78, 216, 0.42); }
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-.tag {
-  display: inline-flex;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.28rem 0.55rem;
-  color: var(--teal);
-  background: rgba(15, 118, 110, 0.08);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-.card h3 {
-  margin-bottom: 0.6rem;
-  color: var(--navy);
-  font-size: 1.18rem;
-  line-height: 1.25;
-}
-.card p {
-  color: var(--muted);
-  font-size: 0.94rem;
-  margin-bottom: 1rem;
-}
-.meta-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin: 1rem 0 0;
-  padding: 0;
+  gap: 2.5rem;
   list-style: none;
 }
-.meta-list li {
-  border-radius: 4px;
-  background: var(--panel-soft);
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.25rem 0.45rem;
+ 
+.nav-links a {
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  transition: color 0.2s;
 }
-.card-link {
-  display: inline-flex;
-  color: var(--blue);
-  font-weight: 700;
-  font-size: 0.92rem;
-}
-.timeline {
-  border-left: 2px solid var(--line);
-  padding-left: 1.25rem;
-}
-.timeline-item {
+ 
+.nav-links a:hover { color: var(--accent); text-decoration: none; }
+ 
+/* ─── HERO ─── */
+#hero {
   position: relative;
-  padding: 0 0 1.35rem;
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-hero);
 }
-.timeline-item:last-child { padding-bottom: 0; }
-.timeline-item::before {
-  content: "";
+ 
+#hero-svg {
   position: absolute;
-  left: -1.67rem;
-  top: 0.35rem;
-  width: 0.72rem;
-  height: 0.72rem;
-  border-radius: 50%;
-  background: var(--blue);
-  border: 3px solid var(--bg);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.18;
 }
-.timeline-item h3 { margin-bottom: 0.25rem; }
-.timeline-item p {
-  color: var(--muted);
-  margin-bottom: 0;
+ 
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--text-dark);
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
-.capability-band {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--navy);
-  color: white;
-  padding: 1.5rem;
+ 
+.hero-name {
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: clamp(3rem, 9vw, 7rem);
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+  line-height: 1;
+  margin-bottom: 1.2rem;
 }
-.capability-band h2 { color: white; }
-.capability-band .section-lede { color: #cbd5e1; }
-.capability-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+ 
+.hero-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--text-dark);
+  opacity: 0.5;
+  margin: 0 auto 1.4rem;
+}
+ 
+.hero-tagline {
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  letter-spacing: 0.08em;
+  color: var(--text-dark);
+  opacity: 0.75;
+  margin-bottom: 2.2rem;
+}
+ 
+.hero-icons {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+ 
+.hero-icon-link {
+  color: var(--text-dark);
+  opacity: 0.65;
+  transition: opacity 0.2s;
+  display: flex;
+}
+ 
+.hero-icon-link:hover { opacity: 1; text-decoration: none; }
+ 
+.hero-icon-link svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+ 
+/* ─── SECTIONS ─── */
+section.content-section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+ 
+section.content-section:nth-child(even) { background: var(--section-bg); }
+ 
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+ 
+.section-heading {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
 }
-.capability {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 6px;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+ 
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
-.capability strong {
-  display: block;
-  margin-bottom: 0.45rem;
+ 
+/* ─── EXPERIENCE ─── */
+.subsection-label {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 1.5rem;
+  margin-top: 2.5rem;
 }
-.capability span {
-  color: #cbd5e1;
-  font-size: 0.9rem;
+ 
+.subsection-label:first-child { margin-top: 0; }
+ 
+.exp-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0 2rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
 }
-.writing-card {
-  display: block;
-  border-bottom: 1px solid var(--line);
-  padding: 1.35rem 0;
+ 
+.exp-item:last-child { border-bottom: none; }
+ 
+.exp-left { padding-top: 2px; }
+ 
+.exp-company {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--text-dark);
+  margin-bottom: 2px;
 }
-.writing-card:first-child { padding-top: 0; }
-.writing-card:hover h3 { color: var(--blue); }
-.writing-card h3 { margin-bottom: 0.35rem; }
-.writing-card p {
-  color: var(--muted);
+ 
+.exp-company a { color: var(--accent); }
+.exp-company a:hover { text-decoration: underline; }
+ 
+.exp-period {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #999;
+  font-weight: 300;
+  margin-bottom: 2px;
+}
+ 
+.exp-location {
+  font-size: 11px;
+  color: #bbb;
+  letter-spacing: 0.04em;
+}
+ 
+.exp-role {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  color: var(--text-dark);
+  margin-bottom: 0.6rem;
+}
+ 
+.exp-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.85;
+  font-weight: 300;
+}
+ 
+/* ─── PROJECTS ─── */
+.project-title {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
   margin-bottom: 0.5rem;
 }
-.writing-meta {
-  color: var(--quiet);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-}
-.contact-panel {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 2rem;
-  box-shadow: var(--shadow);
-}
-.contact-panel p {
-  color: var(--muted);
-  margin-bottom: 0;
-  max-width: 680px;
-}
-.footer {
-  border-top: 1px solid var(--line);
+ 
+.project-block {
   padding: 2rem 0;
-  color: var(--quiet);
-  font-size: 0.86rem;
+  border-bottom: 1px solid var(--border);
 }
-.footer-inner {
-  width: min(1120px, calc(100% - 40px));
-  margin: 0 auto;
+ 
+.project-block:last-child { border-bottom: none; }
+ 
+.project-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+ 
+.project-links {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
-
-@media (max-width: 900px) {
-  .hero-grid, .section-head, .contact-panel {
-    grid-template-columns: 1fr;
-  }
-  .grid.three, .grid.two, .capability-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .signal-row { grid-template-columns: 1fr; }
+ 
+.project-links a {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.2s;
 }
-@media (max-width: 640px) {
-  .nav-inner { width: min(100% - 28px, 1120px); }
-  .nav-links { display: none; }
-  .section { width: min(100% - 28px, 1120px); padding: 4rem 0; }
-  .hero { padding: 2.5rem 0; }
-  .grid.three, .grid.two, .capability-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero-actions, .contact-panel { align-items: stretch; }
-  .button { width: 100%; }
-  .footer-inner { flex-direction: column; width: min(100% - 28px, 1120px); }
+ 
+.project-links a:hover { opacity: 0.7; text-decoration: none; }
+ 
+.project-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+ 
+.tag {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #999;
+  background: #f0eeee;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 400;
+}
+ 
+/* ─── CONTACT ─── */
+.contact-text {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.9;
+  font-weight: 300;
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+ 
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: var(--white);
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+ 
+.contact-cta:hover { background: var(--accent-light); text-decoration: none; }
+ 
+/* ─── FOOTER ─── */
+footer {
+  padding: 2rem 0;
+  text-align: center;
+  background: var(--white);
+}
+ 
+footer p {
+  font-size: 12px;
+  color: #bbb;
+  letter-spacing: 0.08em;
+}
+ 
+footer a { color: #bbb; }
+footer a:hover { color: var(--accent); }
+ 
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  nav { padding: 0 1.25rem; }
+  .nav-name { font-size: 13px; }
+  .nav-links { gap: 1.5rem; }
+  .container { padding: 0 1.25rem; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+  .exp-left { margin-bottom: 0.5rem; }
 }
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Primary navigation">
-  <div class="nav-inner">
-    <a class="brand" href="#top">Anurag K. Sharma <span>secure AI systems</span></a>
-    <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#writing">Writing</a>
-      <a href="#capabilities">Capabilities</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
+ 
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Anurag K. Sharma</span>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
-
-<main id="top">
-  <section class="section hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow">Scientist at ISRO | IIT Delhi alumnus</div>
-        <h1>Secure AI for mission-critical systems.</h1>
-        <p class="hero-copy">
-          I build at the intersection of <strong>AI agents</strong>, <strong>network security</strong>,
-          <strong>post-quantum cryptography</strong>, and infrastructure that has to work in constrained,
-          regulated, and high-stakes environments.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#work">View flagship work</a>
-          <a class="button" href="/writing/">Read technical writing</a>
-          <a class="button" href="https://github.com/akrishnash" target="_blank" rel="noopener">GitHub profile</a>
-        </div>
-        <div class="signal-row" aria-label="Professional signals">
-          <div class="signal">
-            <strong>Mission systems</strong>
-            <span>Space, healthcare, and secure networks</span>
-          </div>
-          <div class="signal">
-            <strong>Developer experience</strong>
-            <span>Docs, demos, APIs, and usable tools</span>
-          </div>
-          <div class="signal">
-            <strong>Security depth</strong>
-            <span>VPNs, PQC, 5G, agents, and auditability</span>
-          </div>
-        </div>
-      </div>
-
-      <aside class="systems-panel" aria-label="Current technical focus">
-        <div class="panel-content">
-          <div class="panel-title">Current focus</div>
-          <div class="system-node">
-            <strong>VISHWAAS <span class="status">active</span></strong>
-            <span>Secure enterprise VPN control plane with approvals, audit logs, and AI-assisted operations.</span>
-          </div>
-          <div class="system-node">
-            <strong>SecureAI Agent <span class="status">building</span></strong>
-            <span>Threat explanation and mitigation workflows over logs, CVEs, PCAPs, and analyst tools.</span>
-          </div>
-          <div class="system-node">
-            <strong>PQC WireGuard <span class="status">research</span></strong>
-            <span>Hybrid ML-KEM handshake architecture, benchmarks, and post-quantum VPN design notes.</span>
-          </div>
-          <div class="system-node">
-            <strong>AirGapGPT <span class="status">planned</span></strong>
-            <span>Offline enterprise AI with RAG, RBAC, audit trails, and document workflows.</span>
-          </div>
-        </div>
-      </aside>
+ 
+<!-- HERO -->
+<section id="hero">
+  <!-- Low-poly SVG background, same vibe as cjhtsang's triangle texture -->
+  <svg id="hero-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,0 240,180 0,360" fill="#7b1a10"/>
+    <polygon points="0,0 480,0 240,180" fill="#8b2015"/>
+    <polygon points="240,180 480,0 520,220" fill="#6e1508"/>
+    <polygon points="480,0 720,0 520,220" fill="#9b2c20"/>
+    <polygon points="720,0 960,0 780,200" fill="#7b1a10"/>
+    <polygon points="520,220 780,200 600,400" fill="#5e1005"/>
+    <polygon points="780,200 960,0 1000,220" fill="#8b2015"/>
+    <polygon points="960,0 1200,0 1000,220" fill="#6e1508"/>
+    <polygon points="1200,0 1440,0 1440,200 1200,220" fill="#9b2c20"/>
+    <polygon points="1000,220 1200,220 1100,400" fill="#7b1a10"/>
+    <polygon points="0,360 240,180 300,400" fill="#9b2c20"/>
+    <polygon points="240,180 520,220 300,400" fill="#6e1508"/>
+    <polygon points="300,400 520,220 600,400" fill="#8b2015"/>
+    <polygon points="600,400 780,200 900,380" fill="#5e1005"/>
+    <polygon points="780,200 1000,220 900,380" fill="#9b2c20"/>
+    <polygon points="900,380 1000,220 1100,400" fill="#7b1a10"/>
+    <polygon points="1100,400 1200,220 1440,200 1440,420" fill="#6e1508"/>
+    <polygon points="0,360 300,400 0,580" fill="#6e1508"/>
+    <polygon points="0,580 300,400 340,580" fill="#8b2015"/>
+    <polygon points="300,400 600,400 340,580" fill="#5e1005"/>
+    <polygon points="600,400 900,380 700,580" fill="#9b2c20"/>
+    <polygon points="900,380 1100,400 1000,580" fill="#7b1a10"/>
+    <polygon points="1100,400 1440,420 1440,600 1100,600" fill="#8b2015"/>
+    <polygon points="0,580 340,580 200,760" fill="#9b2c20"/>
+    <polygon points="340,580 700,580 500,760" fill="#6e1508"/>
+    <polygon points="700,580 1000,580 800,760" fill="#5e1005"/>
+    <polygon points="1000,580 1100,600 1440,600 1440,760 1100,760" fill="#8b2015"/>
+    <polygon points="0,760 200,760 0,900" fill="#7b1a10"/>
+    <polygon points="200,760 500,760 300,900" fill="#6e1508"/>
+    <polygon points="500,760 800,760 600,900" fill="#9b2c20"/>
+    <polygon points="800,760 1100,760 900,900" fill="#5e1005"/>
+    <polygon points="1100,760 1440,760 1440,900 1100,900" fill="#7b1a10"/>
+    <polygon points="0,900 300,900 200,760" fill="#8b2015"/>
+    <polygon points="300,900 600,900 500,760" fill="#6e1508"/>
+    <polygon points="600,900 900,900 800,760" fill="#9b2c20"/>
+    <polygon points="900,900 1100,900 1440,900" fill="#5e1005"/>
+  </svg>
+ 
+  <div class="hero-content">
+    <h1 class="hero-name">Anurag K. Sharma</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">A scientist building AI systems that have to work.</p>
+ 
+    <div class="hero-icons">
+      <!-- Resume / CV -->
+      <a href="mailto:anuragadrin@gmail.com" class="hero-icon-link" title="Email">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 8.5 6a2.5 2.5 0 0 0 3 0L22 7"/></svg>
+      </a>
+      <!-- GitHub -->
+      <a href="https://github.com/akrishnash" class="hero-icon-link" title="GitHub" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/anurag-sharma-krishna" class="hero-icon-link" title="LinkedIn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
     </div>
-  </section>
-
-  <section class="section" id="work">
-    <div class="section-head">
-      <div>
-        <div class="section-kicker">Selected work</div>
-        <h2>A portfolio around secure AI systems.</h2>
-      </div>
-      <p class="section-lede">
-        The public GitHub story is being shaped around a single north star: systems that make AI useful,
-        inspectable, and safe for serious operational environments.
-      </p>
-    </div>
-    <div class="grid three">
-      <article class="card">
-        <div class="card-top"><span class="tag">Flagship</span><span class="tag">VPN</span></div>
-        <h3>VISHWAAS</h3>
-        <p>Secure enterprise VPN with WireGuard control-plane workflows, join approvals, connection approvals, audit logs, and an AI operations assistant.</p>
-        <a class="card-link" href="https://github.com/akrishnash" target="_blank" rel="noopener">View on GitHub</a>
-        <ul class="meta-list">
-          <li>WireGuard</li><li>Network security</li><li>Auditability</li>
-        </ul>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag">AI agent</span><span class="tag">Security</span></div>
-        <h3>SecureAI Agent</h3>
-        <p>Cybersecurity agent for logs, PCAPs, and CVEs. Produces threat explanations, attack paths, and mitigation steps with bounded tool use.</p>
-        <a class="card-link" href="/writing/secure-ai-agents-tool-calling.html">Read design article</a>
-        <ul class="meta-list">
-          <li>Tool calling</li><li>RAG</li><li>Threat analysis</li>
-        </ul>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag">PQC</span><span class="tag">Research</span></div>
-        <h3>PQC WireGuard</h3>
-        <p>Hybrid post-quantum VPN design exploring ML-KEM integration, performance tradeoffs, and practical migration from classical handshakes.</p>
-        <a class="card-link" href="/writing/pqc-wireguard.html">Read technical article</a>
-        <ul class="meta-list">
-          <li>ML-KEM</li><li>WireGuard</li><li>Benchmarks</li>
-        </ul>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag">Offline AI</span><span class="tag">Enterprise</span></div>
-        <h3>AirGapGPT</h3>
-        <p>Offline enterprise AI concept for chat, documents, RAG, RBAC, and audit logging in disconnected or restricted environments.</p>
-        <a class="card-link" href="#roadmap">See roadmap</a>
-        <ul class="meta-list">
-          <li>Air-gapped AI</li><li>RBAC</li><li>Documents</li>
-        </ul>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag">5G</span><span class="tag">Analysis</span></div>
-        <h3>5G Sentinel</h3>
-        <p>AI-assisted Free5GC and PCAP analysis for UE registration flows, NGAP explanation, and security insights.</p>
-        <a class="card-link" href="#roadmap">See roadmap</a>
-        <ul class="meta-list">
-          <li>Free5GC</li><li>PCAP</li><li>NGAP</li>
-        </ul>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag">Infrastructure</span><span class="tag">Ops</span></div>
-        <h3>Mission-Critical Networks</h3>
-        <p>Experience across secure network architecture, healthcare infrastructure, satellite-adjacent systems, and operational engineering.</p>
-        <a class="card-link" href="#contact">Discuss systems work</a>
-        <ul class="meta-list">
-          <li>5G core</li><li>SDN/NFV</li><li>Secure ops</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <section class="section" id="roadmap">
-    <div class="section-head">
-      <div>
-        <div class="section-kicker">Roadmap</div>
-        <h2>From strong experience to visible proof.</h2>
-      </div>
-      <p class="section-lede">
-        The next stage is packaging: better READMEs, architecture diagrams, screenshots, demo videos,
-        and concise writeups that help developers understand and trust the work quickly.
-      </p>
-    </div>
-    <div class="grid two">
-      <div class="card">
-        <div class="timeline">
-          <div class="timeline-item">
-            <h3>1. Polish VISHWAAS</h3>
-            <p>Rewrite README, add screenshots, architecture diagram, deployment guide, and AI assistant narrative.</p>
-          </div>
-          <div class="timeline-item">
-            <h3>2. Ship SecureAI Agent MVP</h3>
-            <p>Create a focused public demo around logs, PCAPs, CVEs, tool calling, and analyst-grade reports.</p>
-          </div>
-          <div class="timeline-item">
-            <h3>3. Publish deep technical artifacts</h3>
-            <p>Turn PQC WireGuard, air-gapped AI, and 5G security work into articles, demos, and repo docs.</p>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Desired public signal</h3>
-        <p>
-          A recruiter, engineering manager, or DevX team should land here and immediately understand:
-          Anurag builds secure AI systems, can explain complex infrastructure clearly, and can translate
-          research-grade ideas into usable developer-facing artifacts.
-        </p>
-        <ul class="meta-list">
-          <li>Secure AI</li><li>Developer experience</li><li>AI agents</li><li>Network security</li><li>PQC</li><li>Enterprise AI</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="writing">
-    <div class="section-head">
-      <div>
-        <div class="section-kicker">Writing</div>
-        <h2>Technical writing that supports the portfolio.</h2>
-      </div>
-      <p class="section-lede">
-        The writing section should act like proof of judgment: security constraints, operational tradeoffs,
-        implementation details, and clear explanations for developers.
-      </p>
-    </div>
-    <div class="grid two">
-      <div class="card">
-        <a class="writing-card" href="/writing/secure-ai-agents-tool-calling.html">
-          <h3>Building Secure AI Agents with Tool Calling</h3>
-          <p>Grounding, bounded loops, trust levels, prompt injection defense, and audit trails.</p>
-          <span class="writing-meta">June 2026 | AI agents, security</span>
-        </a>
-        <a class="writing-card" href="/writing/pqc-wireguard.html">
-          <h3>Replacing X25519 with ML-KEM in WireGuard</h3>
-          <p>A practical look at hybrid post-quantum VPN handshakes and benchmarking.</p>
-          <span class="writing-meta">June 2026 | PQC, WireGuard</span>
-        </a>
-      </div>
-      <div class="card">
-        <h3>Next articles to publish</h3>
-        <p>These directly match the GitHub roadmap and make the portfolio look intentional instead of scattered.</p>
-        <ul class="meta-list">
-          <li>AI agent for network security</li>
-          <li>Deploying AI in air-gapped networks</li>
-          <li>LLMs and PCAP analysis</li>
-          <li>VISHWAAS architecture notes</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="capabilities">
-    <div class="capability-band">
-      <div class="section-head">
-        <div>
-          <div class="section-kicker">Capabilities</div>
-          <h2>Security-minded systems work with developer empathy.</h2>
-        </div>
-        <p class="section-lede">
-          Strong DevX is not only UI polish. It is the ability to make hard systems understandable,
-          testable, demoable, and safe for other engineers to build on.
-        </p>
-      </div>
-      <div class="capability-grid">
-        <div class="capability">
-          <strong>Secure AI</strong>
-          <span>Agents, tool calling, RAG, prompt-injection defenses, audit trails.</span>
-        </div>
-        <div class="capability">
-          <strong>Networks</strong>
-          <span>WireGuard, VPN control planes, 5G core concepts, SDN/NFV.</span>
-        </div>
-        <div class="capability">
-          <strong>Cryptography</strong>
-          <span>Post-quantum migration, ML-KEM, hybrid security architecture.</span>
-        </div>
-        <div class="capability">
-          <strong>DevX</strong>
-          <span>Technical writing, examples, diagrams, deployment guides, demos.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="contact-panel">
-      <div>
-        <div class="section-kicker">Contact</div>
-        <h2>Open to serious AI systems and developer experience conversations.</h2>
-        <p>
-          Best topics: secure AI systems, AI agents for security operations, network infrastructure,
-          post-quantum VPNs, and developer-facing demos or documentation.
-        </p>
-      </div>
-      <div class="hero-actions">
-        <a class="button primary" href="mailto:anuragadrin@gmail.com">Email</a>
-        <a class="button" href="https://github.com/akrishnash" target="_blank" rel="noopener">GitHub</a>
-        <a class="button" href="https://www.linkedin.com/in/anurag-sharma-krishna" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <span>© <span id="year"></span> Anurag K. Sharma</span>
-    <span>Secure AI | Network security | Post-quantum systems</span>
   </div>
+</section>
+ 
+<!-- EXPERIENCE -->
+<section id="experience" class="content-section">
+  <div class="container">
+    <h2 class="section-heading">Experience</h2>
+ 
+    <p class="subsection-label">Work</p>
+ 
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company"><a href="https://www.adrin.res.in" target="_blank" rel="noopener">ADRIN, Dept. of Space</a></div>
+        <div class="exp-period">2022 — Present</div>
+        <div class="exp-location">Secunderabad, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Scientist / Engineer</div>
+        <p class="exp-desc">
+          Building secure AI systems and quantum-safe network infrastructure for satellite and mission-critical operations.
+          Research spans federated learning on distributed ground-station edge nodes, post-quantum cryptography (ML-KEM migration),
+          Keycloak-based IAM deployment in air-gapped environments, and 5G core security analysis.
+        </p>
+      </div>
+    </div>
+ 
+    <p class="subsection-label" style="margin-top: 2.5rem;">Education</p>
+ 
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company"><a href="https://home.iitd.ac.in" target="_blank" rel="noopener">IIT Delhi</a></div>
+        <div class="exp-period">2017 — 2022</div>
+        <div class="exp-location">New Delhi, India</div>
+      </div>
+      <div>
+        <div class="exp-role">B.Tech / M.Tech</div>
+        <p class="exp-desc">
+          Studied at the Indian Institute of Technology Delhi.
+        </p>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- PROJECTS -->
+<section id="projects" class="content-section">
+  <div class="container">
+    <h2 class="section-heading">Projects</h2>
+ 
+    <div class="project-block">
+      <h3 class="project-title">VISHWAAS</h3>
+      <p class="project-desc">
+        Secure enterprise VPN with a WireGuard control plane, approval-gated joins and connections,
+        full audit logs, and an AI-assisted operations assistant. Built for regulated, high-trust environments.
+      </p>
+      <div class="project-tags">
+        <span class="tag">WireGuard</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">React</span>
+        <span class="tag">AI Agents</span>
+      </div>
+      <div class="project-links" style="margin-top: 1rem;">
+        <a href="https://github.com/akrishnash/vishwaas" target="_blank" rel="noopener">↗ GitHub</a>
+      </div>
+    </div>
+ 
+    <div class="project-block">
+      <h3 class="project-title">SecureAI Agent</h3>
+      <p class="project-desc">
+        Cybersecurity agent that ingests logs, PCAP captures, and CVE IDs — returning grounded threat explanations,
+        attack path reconstructions, and analyst-grade mitigation reports. Bounded tool-calling loop with full audit trail.
+        No action without a human in the loop.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Tool Calling</span>
+        <span class="tag">RAG</span>
+        <span class="tag">Python</span>
+        <span class="tag">OpenAI</span>
+      </div>
+      <div class="project-links" style="margin-top: 1rem;">
+        <a href="https://github.com/akrishnash/secureai-agent" target="_blank" rel="noopener">↗ GitHub</a>
+        <a href="https://akrishnash.github.io/writing/secure-ai-agents-tool-calling.html">↗ Design article</a>
+      </div>
+    </div>
+ 
+    <div class="project-block">
+      <h3 class="project-title">PQC WireGuard</h3>
+      <p class="project-desc">
+        Post-quantum VPN research: replacing X25519 with ML-KEM in WireGuard's handshake.
+        Hybrid KEM architecture, performance benchmarks, and practical migration notes from classical key agreement.
+      </p>
+      <div class="project-tags">
+        <span class="tag">ML-KEM</span>
+        <span class="tag">WireGuard</span>
+        <span class="tag">Post-Quantum</span>
+        <span class="tag">Benchmarks</span>
+      </div>
+      <div class="project-links" style="margin-top: 1rem;">
+        <a href="https://github.com/akrishnash/wg-vishwaas" target="_blank" rel="noopener">↗ GitHub</a>
+        <a href="https://akrishnash.github.io/writing/pqc-wireguard.html">↗ Article</a>
+      </div>
+    </div>
+ 
+    <div class="project-block">
+      <h3 class="project-title">Federated Learning — Satellite Edge</h3>
+      <p class="project-desc">
+        Proof-of-concept federated learning system simulating three distributed ground stations
+        as separate Python processes using the Flower framework on CICIDS-2017 / KDDCup99 intrusion
+        detection data. Designed for satellite edge environments where centralised training is not an option.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Flower</span>
+        <span class="tag">Federated Learning</span>
+        <span class="tag">Python</span>
+        <span class="tag">CICIDS-2017</span>
+      </div>
+    </div>
+ 
+    <div class="project-block">
+      <h3 class="project-title">AirGapGPT <span style="font-size:0.65em; color:#bbb; letter-spacing:0.1em; font-weight:400;">— planned</span></h3>
+      <p class="project-desc">
+        Offline enterprise AI for air-gapped and restricted networks: document RAG, RBAC,
+        audit logging, and local model inference with zero internet dependency.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Ollama</span>
+        <span class="tag">ChromaDB</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Air-gapped AI</span>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- WRITING -->
+<section id="writing" class="content-section">
+  <div class="container">
+    <h2 class="section-heading">Writing</h2>
+ 
+    <div class="project-block">
+      <h3 class="project-title">Building Secure AI Agents with Tool Calling</h3>
+      <p class="project-desc">
+        Grounding, bounded loops, trust levels, prompt injection defences, and audit trails for production
+        security agents. The scaffolding most tutorials skip. June 2026 · 14 min read.
+      </p>
+      <div class="project-links">
+        <a href="https://akrishnash.github.io/writing/secure-ai-agents-tool-calling.html">↗ Read</a>
+      </div>
+    </div>
+ 
+    <div class="project-block">
+      <h3 class="project-title">Replacing X25519 with ML-KEM in WireGuard</h3>
+      <p class="project-desc">
+        A practical look at hybrid post-quantum VPN handshakes — architecture, performance tradeoffs,
+        and what a real migration from classical key agreement looks like. June 2026 · 12 min read.
+      </p>
+      <div class="project-links">
+        <a href="https://akrishnash.github.io/writing/pqc-wireguard.html">↗ Read</a>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section id="contact" class="content-section">
+  <div class="container">
+    <h2 class="section-heading">Contact</h2>
+    <p class="contact-text">
+      Need to get in touch? Reach out at
+      <a href="mailto:anuragadrin@gmail.com">anuragadrin@gmail.com</a>
+      and I'll get back to you as fast as I can.
+    </p>
+    <a href="mailto:anuragadrin@gmail.com" class="contact-cta">Say hello</a>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <p><a href="https://github.com/akrishnash/akrishnash.github.io">Designed and built by Anurag K. Sharma</a></p>
 </footer>
-
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+ 
 </body>
 </html>
+ 
