@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent-cost — why is my agent expensive?</title>
+<meta name="description" content="An interactive calculator that shows why multi-turn tool-calling agents get expensive: the conversation history is replayed every turn, so cost grows quadratically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1117; --card:#171a23; --card2:#1d212c; --line:#2a2f3c;
+  --text:#e7e9ee; --muted:#9aa3b2; --faint:#6b7280;
+  --base:#3b82f6; --hist:#f59e0b; --res:#14b8a6; --out:#6b7280; --good:#22c55e; --accent:#8b5cf6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1{font-size:2rem;font-weight:600;letter-spacing:-0.02em}
+.sub{color:var(--muted);margin-top:.5rem;max-width:640px}
+.tag{display:inline-block;font-size:.72rem;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:2px 10px;margin-bottom:1rem;letter-spacing:.04em}
+.grid{display:grid;gap:.75rem}
+.controls{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:1.75rem 0}
+.ctl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem}
+.ctl label{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.35rem}
+.ctl b{color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select,input[type=number]{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-family:inherit;font-size:.85rem}
+.toggle{display:flex;gap:1rem;align-items:center}
+.toggle label{display:flex;gap:.4rem;align-items:center;cursor:pointer;color:var(--text);font-size:.85rem}
+.metrics{grid-template-columns:repeat(3,1fr);margin:1.25rem 0}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem}
+.metric .k{font-size:.78rem;color:var(--muted)}
+.metric .v{font-size:1.7rem;font-weight:600;margin-top:.15rem}
+.metric.warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.35)}
+.metric.warn .v,.metric.warn .k{color:var(--hist)}
+.chartcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.1rem;margin-top:.5rem}
+.note{color:var(--muted);font-size:.9rem;margin-top:1rem;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.85rem 1rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1.25rem}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.explain{margin-top:2.5rem;color:var(--muted);font-size:.92rem}
+.explain h2{color:var(--text);font-size:1.05rem;font-weight:600;margin:1.5rem 0 .5rem}
+.explain code{background:var(--card2);padding:1px 6px;border-radius:5px;font-size:.85em;color:var(--text)}
+footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);color:var(--faint);font-size:.85rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:space-between}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--accent)}
+.priceedit{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem}
+.priceedit span{font-size:.7rem;color:var(--faint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">agent-cost</span>
+  <h1>Why is my agent expensive?</h1>
+  <p class="sub">A tool-calling agent replays the whole conversation every turn. So input tokens compound, and cost grows <b>quadratically</b> with the number of turns — not linearly. Drag the sliders and watch where the money actually goes.</p>
+
+  <div class="grid controls">
+    <div class="ctl">
+      <label>model</label>
+      <select id="model"></select>
+      <div class="priceedit">
+        <div><span>$ in /1M</span><input id="pin" type="number" step="0.01" value="2.50"></div>
+        <div><span>$ out /1M</span><input id="pout" type="number" step="0.01" value="10.00"></div>
+      </div>
+    </div>
+    <div class="ctl"><label>turns: <b id="lt">8</b></label><input id="turns" type="range" min="1" max="20" value="8"></div>
+    <div class="ctl"><label>tool result tokens/turn: <b id="lr">3,000</b></label><input id="res" type="range" min="0" max="15000" step="250" value="3000"></div>
+    <div class="ctl"><label>output tokens/turn: <b id="lo">600</b></label><input id="out" type="range" min="100" max="4000" step="100" value="600"></div>
+    <div class="ctl"><label>system prompt tokens: <b id="ls">800</b></label><input id="sys" type="range" min="0" max="6000" step="100" value="800"></div>
+    <div class="ctl toggle">
+      <label><input id="cache" type="checkbox"> prompt caching</label>
+    </div>
+  </div>
+
+  <div class="grid metrics">
+    <div class="metric"><div class="k">total cost (agent loop)</div><div class="v" id="cost">$0.00</div></div>
+    <div class="metric"><div class="k">total tokens</div><div class="v" id="tok">0</div></div>
+    <div class="metric warn"><div class="k">paid for replayed history</div><div class="v" id="hist">0%</div></div>
+  </div>
+
+  <div class="chartcard"><canvas id="chart" height="120"></canvas></div>
+  <div class="note" id="note"></div>
+
+  <div class="row">
+    <button class="btn" id="copy">copy shareable link</button>
+    <button class="btn ghost" id="reset">reset</button>
+  </div>
+
+  <div class="explain">
+    <h2>The math</h2>
+    <p>At turn <code>t</code>, the model is sent the system prompt plus everything that came before: <code>input(t) = base + (t−1)·(output + tool_result) + tool_result</code>. Summed over <code>N</code> turns, the replayed history term grows like <code>N²</code>. Output is billed once per turn.</p>
+    <h2>Why it matters</h2>
+    <p>Two levers dominate your bill: <b>turns</b> (history compounds) and <b>tool result size</b> (it's replayed every turn after). Truncating tool payloads and enabling prompt caching — which bills the repeated prefix at ~10% — are the highest-leverage fixes. Most "why is my agent so expensive" surprises are one of these two.</p>
+    <p style="margin-top:.75rem;color:var(--faint)">Prices are editable and illustrative — set them to match current provider pricing. This is a client-side estimate, not a billing guarantee.</p>
+  </div>
+
+  <footer>
+    <span>Built by Anurag K. Sharma</span>
+    <span>
+      <a href="https://github.com/akrishnash/akrishnash.github.io/tree/main/agent-cost">source</a> ·
+      <a href="https://akrishnash.github.io">site</a> ·
+      <a href="https://github.com/akrishnash">github</a>
+    </span>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const MODELS=[
+  {n:"GPT-4o",in:2.50,out:10.00},
+  {n:"GPT-4o mini",in:0.15,out:0.60},
+  {n:"o-series (reasoning)",in:15.00,out:60.00},
+  {n:"Claude Sonnet",in:3.00,out:15.00},
+  {n:"Claude Haiku",in:0.80,out:4.00},
+  {n:"Gemini Flash",in:0.075,out:0.30},
+  {n:"custom",in:2.00,out:8.00},
+];
+const $=id=>document.getElementById(id);
+const C={base:'#3b82f6',hist:'#f59e0b',res:'#14b8a6',out:'#6b7280'};
+const USER=300;
+
+const sel=$('model');
+MODELS.forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${m.n} ($${m.in} / $${m.out})`;sel.appendChild(o);});
+
+let chart=new Chart($('chart'),{type:'bar',
+  data:{labels:[],datasets:[
+    {label:'base context',backgroundColor:C.base,data:[]},
+    {label:'replayed history',backgroundColor:C.hist,data:[]},
+    {label:'tool result',backgroundColor:C.res,data:[]},
+    {label:'output',backgroundColor:C.out,data:[]}]},
+  options:{responsive:true,animation:false,
+    scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#9aa3b2'},title:{display:true,text:'turn',color:'#9aa3b2'}},
+            y:{stacked:true,grid:{color:'#2a2f3c'},ticks:{color:'#9aa3b2'},title:{display:true,text:'tokens',color:'#9aa3b2'}}},
+    plugins:{legend:{labels:{color:'#9aa3b2',boxWidth:12,font:{size:11}}}}}});
+
+const fmt=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(n>=1e4?0:1)+'k':String(Math.round(n));
+
+function calc(){
+  const pin=+$('pin').value/1e6, pout=+$('pout').value/1e6;
+  const N=+$('turns').value, r=+$('res').value, o=+$('out').value, sys=+$('sys').value;
+  const base=sys+USER, cached=$('cache').checked;
+  $('lt').textContent=N; $('lr').textContent=r.toLocaleString();
+  $('lo').textContent=o; $('ls').textContent=sys;
+  const L=[],dB=[],dH=[],dR=[],dO=[];
+  let cost=0,tok=0,histTok=0;
+  for(let t=1;t<=N;t++){
+    const replay=(t-1)*(o+r), input=base+replay+r;
+    L.push(t);dB.push(base);dH.push(replay);dR.push(r);dO.push(o);
+    let inCost;
+    if(cached){const fresh=base+r; inCost=(input-fresh)*pin*0.1 + fresh*pin;}
+    else inCost=input*pin;
+    cost+=inCost+o*pout; tok+=input+o; histTok+=replay;
+  }
+  chart.data.labels=L;
+  chart.data.datasets[0].data=dB;chart.data.datasets[1].data=dH;
+  chart.data.datasets[2].data=dR;chart.data.datasets[3].data=dO;
+  chart.update();
+  $('cost').textContent='$'+cost.toFixed(cost<10?3:2);
+  $('tok').textContent=fmt(tok);
+  $('hist').textContent=Math.round(100*histTok/tok)+'%';
+  $('note').innerHTML=`At <b>${N} turns</b>, replayed history (orange) is <b>${Math.round(100*histTok/tok)}%</b> of your tokens — and it's pure repetition. `+
+    (cached?`Caching bills that repeated prefix at ~10%, which is why your cost dropped. `:`Turn on <b>prompt caching</b> to bill the repeated prefix at ~10%. `)+
+    (r>500?`Truncating tool results from ${r.toLocaleString()} to 500 tokens would erase most of the orange.`:`Tool results are lean — nice.`);
+  syncURL();
+}
+
+function syncURL(){
+  const p=new URLSearchParams({m:sel.value,pi:$('pin').value,po:$('pout').value,t:$('turns').value,r:$('res').value,o:$('out').value,s:$('sys').value,c:$('cache').checked?1:0});
+  history.replaceState(null,'','?'+p.toString());
+}
+function loadURL(){
+  const p=new URLSearchParams(location.search); if(![...p].length)return;
+  if(p.has('m'))sel.value=p.get('m'); if(p.has('pi'))$('pin').value=p.get('pi'); if(p.has('po'))$('pout').value=p.get('po');
+  if(p.has('t'))$('turns').value=p.get('t'); if(p.has('r'))$('res').value=p.get('r');
+  if(p.has('o'))$('out').value=p.get('o'); if(p.has('s'))$('sys').value=p.get('s'); if(p.has('c'))$('cache').checked=p.get('c')==='1';
+}
+sel.addEventListener('change',()=>{const m=MODELS[sel.value];$('pin').value=m.in;$('pout').value=m.out;calc();});
+['turns','res','out','sys','pin','pout','cache'].forEach(id=>{$(id).addEventListener('input',calc);$(id).addEventListener('change',calc);});
+$('copy').addEventListener('click',()=>{navigator.clipboard.writeText(location.href);$('copy').textContent='copied ✓';setTimeout(()=>$('copy').textContent='copy shareable link',1500);});
+$('reset').addEventListener('click',()=>{location.href=location.pathname;});
+
+loadURL();
+if(!new URLSearchParams(location.search).has('pi')){const m=MODELS[sel.value];$('pin').value=m.in;$('pout').value=m.out;}
+calc();
+</script>
+</body>
+</html>
